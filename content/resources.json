@@ -3,18 +3,18 @@
     "title": "Ghid de pregătire",
     "description": "Pregătirea unei fișe de lucru pentru grupul tău mic poate fi provocatoare, mai ales dacă este primul tău atelier de expunere biblică. Vrem să depui efort și să faci tot posibilul. Însă, nu dorim să te simți copleșit sau îngrijorat în legătură cu ceea ce se va întâmpla atunci când vei prezenta în fața grupului tău mic.",
     "buttonText": "Citește ghidul",
-    "buttonLink": "/res/ghid.html"
+    "buttonLink": "res/ghid.html"
   },
   {
     "title": "Resurse suplimentare",
     "description": "Resurse suplimentare recomandate și materiale care te pot ajuta în predicarea ta.",
     "buttonText": "Descoperă",
-    "buttonLink": "/res/resurse.html"
+    "buttonLink": "res/resurse.html"
   },
   {
     "title": "Fisă de lucru",
     "description": "Aceasta este o fișă de lucru pentru grupul tău mic. Te va ajuta să te pregătești pentru întâlnirea ta de expunere biblică.",
     "buttonText": "Descarcă fișa",
-    "buttonLink": "/assets/FisaRo.docx"
+    "buttonLink": "assets/FisaRo.docx"
   }
 ]
