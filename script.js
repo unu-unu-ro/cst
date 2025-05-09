@@ -94,4 +94,31 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   });
+
+  // Back to Content Start button functionality
+  const backToContentStartBtn = document.getElementById("backToContentStartBtn");
+  const mainContentStartElement = document.getElementById("cuprins");
+
+  if (backToContentStartBtn && mainContentStartElement) {
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 300) {
+        // Show button after scrolling 300px
+        backToContentStartBtn.style.display = "block";
+      } else {
+        backToContentStartBtn.style.display = "none";
+      }
+    });
+
+    backToContentStartBtn.addEventListener("click", e => {
+      e.preventDefault(); // Prevent any default action
+      mainContentStartElement.scrollIntoView({ behavior: "smooth" });
+    });
+  } else {
+    if (!backToContentStartBtn) {
+      console.warn("Back to Content Start button not found.");
+    }
+    if (!mainContentStartElement) {
+      console.warn("Target element for Back to Content Start button (structura-pasajului) not found.");
+    }
+  }
 });

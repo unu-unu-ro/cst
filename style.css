@@ -433,3 +433,31 @@ footer {
   text-align: left; /* Override justify for footnotes if needed */
   text-indent: 0; /* Remove text-indent for footnotes */
 }
+
+/* Back to content start button styles */
+.back-to-content-start {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: var(--primary-accent, #005a5b);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+  display: none; /* Initially hidden */
+  font-size: 1em;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+.back-to-content-start:hover {
+  background-color: #004445; /* Darker shade of --primary-accent */
+}
+
+/* Ensure the button is visible when it should be */
+.back-to-content-start[style*="display: block"] {
+  visibility: visible;
+  opacity: 1;
+}
