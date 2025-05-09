@@ -8,7 +8,6 @@
   --border-color: #e0e0e0;
   --tan-legacy: #a39680; /* Keeping for reference if needed, but phasing out */
 
-  /* Typography from simeontrust.org (or similar clean fonts) */
   --font-heading: "League Spartan", sans-serif; /* Existing, but we'll style it differently */
   --font-body: "Work Sans", sans-serif; /* Existing, good clean choice */
 }
@@ -28,17 +27,15 @@ body {
 }
 
 header {
-  padding: 2.5rem 1rem; /* Increased padding */
+  padding: 2rem 1rem; /* Adjusted from 2.5rem 1rem */
   text-align: center;
   border-bottom: 1px solid var(--border-color);
-  background-color: var(
-    --background-off-white
-  ); /* Subtle background for header */
+  background-color: var(--background-off-white); /* Subtle background for header */
 }
 
 header h1 {
   font-family: var(--font-heading);
-  font-size: 2.5rem; /* Slightly larger */
+  font-size: 2.2rem; /* Adjusted from 2.5rem */
   text-transform: uppercase;
   letter-spacing: 1.5px; /* Adjusted spacing */
   color: var(--primary-dark);
@@ -54,19 +51,19 @@ header p {
 
 main {
   max-width: 1100px; /* Wider for a more modern feel */
-  margin: 3rem auto; /* Increased top/bottom margin */
-  padding: 0 1.5rem; /* Increased side padding */
+  margin: 2rem auto; /* Adjusted from 3rem auto */
+  padding: 0 1rem; /* Adjusted from 0 1.5rem */
 }
 
 section {
-  margin-bottom: 4rem; /* Increased spacing between sections */
+  margin-bottom: 2.5rem; /* Adjusted from 4rem */
 }
 
 h2.section-title {
   font-family: var(--font-heading);
   font-size: 1.5rem; /* Larger section titles */
   text-transform: uppercase;
-  margin-bottom: 2rem; /* Increased margin below title */
+  margin-bottom: 1.5rem; /* Adjusted from 2rem */
   padding-bottom: 0.75rem; /* Add padding below for the border */
   border-bottom: 2px solid var(--primary-accent); /* Changed border to bottom, using accent */
   color: var(--primary-dark);
@@ -77,10 +74,7 @@ h2.section-title {
 
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(
-    auto-fit,
-    minmax(300px, 1fr)
-  ); /* Larger minmax for cards */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Larger minmax for cards */
   gap: 2rem; /* Increased gap */
 }
 
@@ -91,6 +85,10 @@ h2.section-title {
   padding: 1.75rem 1.5rem; /* Increased padding */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* Softer, more modern shadow */
   transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smoother transition */
+  height: 240px; /* Fixed height for the card - adjust as needed */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Distribute space */
 }
 
 .card:hover {
@@ -105,6 +103,7 @@ h2.section-title {
   margin-bottom: 0.75rem;
   text-transform: uppercase;
   font-weight: 700; /* Bolder card titles */
+  flex-shrink: 0; /* Prevent title from shrinking */
 }
 
 .card p {
@@ -112,6 +111,22 @@ h2.section-title {
   color: var(--text-secondary);
   margin-bottom: 1.25rem; /* Increased margin */
   line-height: 1.6;
+  flex-grow: 1; /* Allow paragraph to take available space */
+  overflow: hidden; /* Required for text truncation */
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Adjust number of lines to show */
+  line-clamp: 3; /* Standard property */
+  -webkit-box-orient: vertical;
+  position: relative; /* Needed for the ellipsis pseudo-element */
+}
+
+.card p.truncated::after {
+  content: "...";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: var(--background-light); /* Match card background */
+  padding-left: 0.25em; /* Space before ellipsis */
 }
 
 .btn {
@@ -127,6 +142,8 @@ h2.section-title {
   letter-spacing: 0.5px;
   transition: background-color 0.3s ease, transform 0.2s ease;
   border: 1px solid transparent; /* For potential outline style on hover/focus */
+  margin-top: auto; /* Ensures button aligns to bottom if content is short */
+  flex-shrink: 0; /* Prevent button from shrinking */
 }
 
 .btn:hover,
@@ -158,4 +175,243 @@ footer {
   background-color: var(--background-off-white); /* Consistent with header */
   border-top: 1px solid var(--border-color);
   margin-top: 4rem; /* More space before footer */
+}
+
+/* Tab Navigation */
+.tab-nav {
+  background-color: var(--background-off-white);
+  border-bottom: 1px solid var(--border-color);
+  padding: 0 1rem; /* Align with main content padding - Adjusted from 1.5rem */
+  margin-bottom: 1.5rem; /* Space between nav and content - Adjusted from 2rem */
+}
+
+.tab-nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center; /* Center tabs */
+  max-width: 1100px; /* Match main content width */
+  margin: 0 auto;
+}
+
+.tab-nav li {
+  margin-right: 0; /* Remove individual margin, handled by padding/border */
+}
+
+.tab-link {
+  display: inline-block;
+  padding: 1rem 1.5rem;
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 600;
+  border-bottom: 3px solid transparent;
+  transition: color 0.3s ease, border-color 0.3s ease;
+  margin-bottom: -1px; /* Align with bottom border of nav */
+}
+
+.tab-link:hover {
+  color: var(--primary-dark);
+}
+
+.tab-link.active {
+  color: var(--primary-dark);
+  border-bottom-color: var(--primary-accent);
+}
+
+/* Tab Content */
+.tab-content {
+  display: none; /* Hide inactive tabs */
+}
+
+.tab-content.active {
+  display: block; /* Show active tab content */
+}
+
+/* Visually Hidden Class */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+/* Styles for res/resurse.html page */
+/* The header h1 and p on resurse.html will inherit the global header styles, including the reduced font size for h1 and adjusted padding for the header element. */
+/* The main and section margins on resurse.html will also inherit the global main and section styles. */
+
+.resource-list {
+  margin-bottom: 1.5rem; /* Adjusted from 2rem */
+}
+
+.resource-entry {
+  background-color: var(--background-off-white);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1rem; /* Adjusted from 1.5rem */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.resource-entry h3 {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  color: var(--primary-dark);
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.resource-entry h3 a {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.3s ease;
+}
+
+.resource-entry h3 a:hover {
+  color: var(--primary-accent);
+}
+
+.resource-entry p {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 0; /* Remove bottom margin if it's the last element */
+}
+
+.navigation-links {
+  text-align: center;
+  margin-top: 2rem;
+  margin-bottom: 1rem; /* Adjusted from 2rem to be slightly less before footer */
+}
+
+/* Styles for res/ghid.html page */
+/* Global styles for header (h1, p, padding), main (margins, padding), and section (margins) */
+/* are inherited by ghid.html. Specific overrides for ghid.html elements are defined below. */
+.ghid-toc-main {
+  background-color: var(--background-off-white);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 2.5rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.ghid-toc-main h2.section-title {
+  /* Specificity for TOC title */
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  font-size: 1.3rem; /* Slightly smaller for TOC */
+}
+
+.ghid-toc-main ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.ghid-toc-main ul li {
+  margin-bottom: 0.75rem;
+}
+
+.ghid-toc-main ul li a {
+  text-decoration: none;
+  color: var(--primary-dark);
+  font-weight: 600; /* Bolder links in TOC */
+  transition: color 0.3s ease;
+}
+
+.ghid-toc-main ul li a:hover {
+  color: var(--primary-accent);
+}
+
+.ghid-toc-main ul ul {
+  padding-left: 1.5rem; /* Indent sub-items */
+  margin-top: 0.5rem;
+}
+
+.ghid-toc-main ul ul li a {
+  font-weight: 400; /* Normal weight for sub-items */
+  font-size: 0.95rem;
+}
+
+.ghid-content-section {
+  margin-bottom: 2.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.ghid-content-section:last-of-type {
+  border-bottom: none;
+  margin-bottom: 1.5rem;
+}
+
+.ghid-content-section h2.section-title {
+  margin-bottom: 1.5rem; /* Adjusted from 2rem */
+}
+
+.ghid-content-section p,
+.ghid-content-section ul,
+.ghid-content-section ol {
+  margin-bottom: 1.2em;
+  text-align: justify;
+  font-size: 1rem; /* Ensure consistent font size with main page */
+  line-height: 1.7; /* Ensure consistent line height */
+}
+
+.ghid-content-section p {
+  text-indent: 1.5em; /* First line indentation for paragraphs in ghid content */
+}
+
+.ghid-content-section ul,
+.ghid-content-section ol {
+  padding-left: 2rem; /* Slightly more padding for lists in content */
+}
+
+.ghid-content-section li {
+  margin-bottom: 0.6em;
+}
+
+.ghid-subsection-main {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  padding-left: 1.5rem;
+  border-left: 3px solid var(--primary-accent);
+}
+
+.ghid-subsection-main h3 {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  color: var(--primary-dark);
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.faq-item-main {
+  background-color: var(--background-off-white);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.faq-item-main h3 {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  color: var(--primary-dark);
+  margin-bottom: 0.75rem;
+  font-weight: 700;
+}
+
+.footnote-main {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-top: 1rem;
+  line-height: 1.5;
+  text-align: left; /* Override justify for footnotes if needed */
+  text-indent: 0; /* Remove text-indent for footnotes */
 }
