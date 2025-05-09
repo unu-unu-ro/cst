@@ -1,6 +1,6 @@
 :root {
   --primary-dark: #2a3f54; /* Deep desaturated blue */
-  --primary-accent: #1abb9c; /* Teal/Green accent */
+  --primary-accent: #005a5b; /* Deep Muted Teal/Petrol Blue - Professional Accent */
   --text-primary: #333333;
   --text-secondary: #555555;
   --background-light: #ffffff;
@@ -27,26 +27,29 @@ body {
 }
 
 header {
-  padding: 2rem 1rem; /* Adjusted from 2.5rem 1rem */
+  padding: 4rem 1rem; /* Increased padding for better visual with background */
   text-align: center;
   border-bottom: 1px solid var(--border-color);
-  background-color: var(--background-off-white); /* Subtle background for header */
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("assets/hero.jpg") no-repeat center/cover;
+  color: var(--background-light); /* Set default text color for header to light */
 }
 
 header h1 {
   font-family: var(--font-heading);
-  font-size: 2.2rem; /* Adjusted from 2.5rem */
+  font-size: 2.5rem; /* Slightly increased for hero effect */
   text-transform: uppercase;
-  letter-spacing: 1.5px; /* Adjusted spacing */
-  color: var(--primary-dark);
-  font-weight: 700; /* Bolder for main heading */
+  letter-spacing: 1.5px;
+  color: var(--background-light); /* Changed from primary-dark */
+  font-weight: 700;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Add shadow for readability */
 }
 
 header p {
-  font-size: 1.1rem; /* Slightly larger */
-  color: var(--text-secondary);
+  font-size: 1.2rem; /* Slightly increased for hero effect */
+  color: var(--background-light); /* Changed from text-secondary */
   margin-top: 0.75rem;
-  font-weight: 300; /* Lighter weight for subtitle */
+  font-weight: 300;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Add shadow for readability */
 }
 
 main {
@@ -148,7 +151,7 @@ h2.section-title {
 
 .btn:hover,
 .btn:focus {
-  background-color: #17a78f; /* Slightly darker accent on hover */
+  background-color: #004b4c; /* Slightly darker version of the new accent */
   transform: translateY(-2px);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
