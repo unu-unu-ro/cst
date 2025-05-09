@@ -1,0 +1,161 @@
+:root {
+  --primary-dark: #2a3f54; /* Deep desaturated blue */
+  --primary-accent: #1abb9c; /* Teal/Green accent */
+  --text-primary: #333333;
+  --text-secondary: #555555;
+  --background-light: #ffffff;
+  --background-off-white: #f9f9f9; /* Slightly off-white for depth */
+  --border-color: #e0e0e0;
+  --tan-legacy: #a39680; /* Keeping for reference if needed, but phasing out */
+
+  /* Typography from simeontrust.org (or similar clean fonts) */
+  --font-heading: "League Spartan", sans-serif; /* Existing, but we'll style it differently */
+  --font-body: "Work Sans", sans-serif; /* Existing, good clean choice */
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--background-light);
+  color: var(--text-primary);
+  line-height: 1.7; /* Increased for readability */
+  font-weight: 400; /* Default body weight */
+}
+
+header {
+  padding: 2.5rem 1rem; /* Increased padding */
+  text-align: center;
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(
+    --background-off-white
+  ); /* Subtle background for header */
+}
+
+header h1 {
+  font-family: var(--font-heading);
+  font-size: 2.5rem; /* Slightly larger */
+  text-transform: uppercase;
+  letter-spacing: 1.5px; /* Adjusted spacing */
+  color: var(--primary-dark);
+  font-weight: 700; /* Bolder for main heading */
+}
+
+header p {
+  font-size: 1.1rem; /* Slightly larger */
+  color: var(--text-secondary);
+  margin-top: 0.75rem;
+  font-weight: 300; /* Lighter weight for subtitle */
+}
+
+main {
+  max-width: 1100px; /* Wider for a more modern feel */
+  margin: 3rem auto; /* Increased top/bottom margin */
+  padding: 0 1.5rem; /* Increased side padding */
+}
+
+section {
+  margin-bottom: 4rem; /* Increased spacing between sections */
+}
+
+h2.section-title {
+  font-family: var(--font-heading);
+  font-size: 1.5rem; /* Larger section titles */
+  text-transform: uppercase;
+  margin-bottom: 2rem; /* Increased margin below title */
+  padding-bottom: 0.75rem; /* Add padding below for the border */
+  border-bottom: 2px solid var(--primary-accent); /* Changed border to bottom, using accent */
+  color: var(--primary-dark);
+  font-weight: 700;
+  letter-spacing: 1px;
+  /* Removed left border for a cleaner look */
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(300px, 1fr)
+  ); /* Larger minmax for cards */
+  gap: 2rem; /* Increased gap */
+}
+
+.card {
+  background: var(--background-light);
+  border: 1px solid var(--border-color);
+  border-radius: 8px; /* Slightly more rounded corners */
+  padding: 1.75rem 1.5rem; /* Increased padding */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* Softer, more modern shadow */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smoother transition */
+}
+
+.card:hover {
+  transform: translateY(-5px); /* Subtle lift effect */
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+.card h3 {
+  font-family: var(--font-heading);
+  font-size: 1.2rem; /* Adjusted size */
+  color: var(--primary-dark);
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+  font-weight: 700; /* Bolder card titles */
+}
+
+.card p {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.25rem; /* Increased margin */
+  line-height: 1.6;
+}
+
+.btn {
+  display: inline-block;
+  background-color: var(--primary-accent);
+  color: var(--background-light);
+  padding: 0.75rem 1.5rem; /* Larger padding for buttons */
+  font-size: 0.9rem;
+  text-decoration: none;
+  border-radius: 5px; /* Consistent with card rounding */
+  font-weight: 600; /* Bolder button text */
+  text-transform: uppercase; /* Uppercase for buttons */
+  letter-spacing: 0.5px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  border: 1px solid transparent; /* For potential outline style on hover/focus */
+}
+
+.btn:hover,
+.btn:focus {
+  background-color: #17a78f; /* Slightly darker accent on hover */
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Optional: Secondary button style */
+.btn-secondary {
+  background-color: transparent;
+  color: var(--primary-accent);
+  border: 1px solid var(--primary-accent);
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus {
+  background-color: var(--primary-accent);
+  color: var(--background-light);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+footer {
+  text-align: center;
+  padding: 3rem 1rem; /* Increased padding */
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  background-color: var(--background-off-white); /* Consistent with header */
+  border-top: 1px solid var(--border-color);
+  margin-top: 4rem; /* More space before footer */
+}
