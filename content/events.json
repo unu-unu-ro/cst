@@ -3,12 +3,12 @@
     "title": "CST Cluj 2026",
     "description": "Alăturați-vă nouă în perioada 4-6 martie 2026 pentru atelierul de predicare expozitivă. Contact mitras@dudas.ro",
     "buttonText": "Înregistrează-te",
-    "buttonLink": "#"
+    "buttonLink": "mailto:mitras@dudas.ro?subject=Inscriere%20seminar%20CST%20Cluj%202026"
   },
   {
     "title": "CST Brăila 2026",
-    "description": "Alăturați-vă nouă în perioada 10-12 martie 2026 pentru atelierul de predicare expozitivă. Contact fauriosua@gmail.com",
+    "description": "Alăturați-vă nouă în perioada 10-12 martie 2026 pentru atelierul de predicare expozitivă. Contact ",
     "buttonText": "Înregistrează-te",
-    "buttonLink": "#"
+    "buttonLink": "mailto:fauriosua@gmail.com?subject=Inscriere%20seminar%20CST%20Braila%202026"
   }
 ]
