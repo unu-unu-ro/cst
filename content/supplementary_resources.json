@@ -1,0 +1,40 @@
+[
+  {
+    "sectionTitle": "Cărți Recomandate",
+    "sectionId": "carti-recomandate-items",
+    "items": [
+      {
+        "title": "Predicarea Expozitivă - David Helm",
+        "link": "https://www.magnagratia.org/carti/096-expository-preaching-helm/",
+        "description": "Principii și practică în predicarea expozitivă. O resursă esențială."
+      },
+      {
+        "title": "Seria „9Marks: Zidind Biserici Sănătoase”",
+        "link": "https://www.magnagratia.org/serii/seria-9marks-zidind-biserici-sanatoase/",
+        "description": "Această serie de cărți oferă resurse biblice și practice pentru consolidarea bisericilor prin învățături esențiale despre sănătatea spirituală a comunităților creștine."
+      }
+    ]
+  },
+  {
+    "sectionTitle": "Podcasturi Utile",
+    "sectionId": "podcasturi-utile-items",
+    "items": [
+      {
+        "title": "Preacher's Talk Podcast",
+        "link": "https://simeontrust.org/playlist/preachers-talk/",
+        "description": "Discuții și interviuri despre meșteșugul predicării biblice."
+      }
+    ]
+  },
+  {
+    "sectionTitle": "Site-uri Recomandate",
+    "sectionId": "site-uri-recomandate-items",
+    "items": [
+      {
+        "title": "The Simeon Trust",
+        "link": "https://simeontrust.org/",
+        "description": "Echipare pentru predicarea expozitivă a Cuvântului lui Dumnezeu."
+      }
+    ]
+  }
+]
