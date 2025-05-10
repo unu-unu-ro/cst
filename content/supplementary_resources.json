@@ -20,9 +20,14 @@
     "sectionId": "podcasturi-utile-items",
     "items": [
       {
-        "title": "Preacher's Talk Podcast",
+        "title": "Preacher's Talk",
         "link": "https://simeontrust.org/playlist/preachers-talk/",
         "description": "Discuții și interviuri despre meșteșugul predicării biblice."
+      },
+      {
+        "title": "A Storm in the Desert",
+        "link": "https://www.9marks.org/podcast/a-storm-in-the-desert/",
+        "description": "În 1972, la poalele unui munte elvețian, Dumnezeu a salvat un om pe nume Mack Stiles. Două decenii mai târziu, John Folmar „L-a acceptat pe Isus ca Mântuitor personal”; nici măcar nu își amintește unde a auzit prima dată această expresie. Ceea ce urmează în următorii 25 de ani este o mărturie a angajamentului lui Dumnezeu de a folosi slujirea credincioasă și obișnuită pentru a produce schimbări rodnice și extraordinare. Acest podcast spune această poveste."
       }
     ]
   },
