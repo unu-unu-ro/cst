@@ -30,7 +30,7 @@ header {
   padding: 4rem 1rem; /* Increased padding for better visual with background */
   text-align: center;
   border-bottom: 1px solid var(--border-color);
-  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("assets/hero.jpg") no-repeat center/cover;
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("assets/hero.jpg") no-repeat center/cover;
   color: var(--background-light); /* Set default text color for header to light */
 }
 
