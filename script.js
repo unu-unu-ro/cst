@@ -97,8 +97,42 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Back to Content Start button functionality
   const backToContentStartBtn = document.getElementById("backToContentStartBtn");
-  const mainContentStartElement = document.getElementById("cuprins");
+  const mainContentStartElement = document.getElementById("cuprins"); // For ghid.html
 
+  // Sticky navigation for index.html
+  const nav = document.querySelector(".tab-nav");
+  const mainContent = document.querySelector("main"); // Assuming there's only one main element
+
+  if (nav && mainContent) {
+    const navHeight = nav.offsetHeight;
+    let navOffsetTop = nav.offsetTop;
+
+    function updateNavOffset() {
+      // Recalculate offset if not fixed, in case of layout changes (e.g. window resize, though not explicitly handled here)
+      if (!nav.classList.contains("fixed-nav")) {
+        navOffsetTop = nav.offsetTop;
+      }
+    }
+
+    window.addEventListener("scroll", () => {
+      updateNavOffset(); // Ensure offset is current before checking scroll position
+      if (window.pageYOffset > navOffsetTop) {
+        if (!nav.classList.contains("fixed-nav")) {
+          nav.classList.add("fixed-nav");
+          mainContent.style.paddingTop = `${navHeight}px`;
+          mainContent.classList.add("main-content-padded"); // Add class for potential further styling
+        }
+      } else {
+        if (nav.classList.contains("fixed-nav")) {
+          nav.classList.remove("fixed-nav");
+          mainContent.style.paddingTop = "0";
+          mainContent.classList.remove("main-content-padded");
+        }
+      }
+    });
+  }
+
+  // Back to Content Start button functionality (ghid.html)
   if (backToContentStartBtn && mainContentStartElement) {
     window.addEventListener("scroll", () => {
       if (window.scrollY > 300) {

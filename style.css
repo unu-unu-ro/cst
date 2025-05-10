@@ -108,7 +108,7 @@ h2.section-title {
   padding: 1.75rem 1.5rem; /* Increased padding */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* Softer, more modern shadow */
   transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smoother transition */
-  height: 240px; /* Fixed height for the card - adjust as needed */
+  height: 250px; /* Fixed height for the card - adjust as needed */
   display: flex;
   flex-direction: column;
   justify-content: space-between; /* Distribute space */
@@ -206,6 +206,20 @@ footer {
   border-bottom: 1px solid var(--border-color);
   padding: 0 1rem; /* Align with main content padding - Adjusted from 1.5rem */
   margin-bottom: 1.5rem; /* Space between nav and content - Adjusted from 2rem */
+  position: relative; /* Added for z-index stacking context if needed later */
+  z-index: 100; /* Ensure it's above other content if it overlaps before fixing */
+  transition: all 0.3s ease-in-out; /* Smooth transition for any property changes */
+}
+
+.fixed-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  margin-bottom: 0; /* Remove bottom margin when fixed */
+  z-index: 1000; /* High z-index to stay on top */
+  /* background-color is already set on .tab-nav, so it will be inherited */
 }
 
 .tab-nav ul {
@@ -241,6 +255,12 @@ footer {
 .tab-link.active {
   color: var(--primary-dark);
   border-bottom-color: var(--primary-accent);
+}
+
+.main-content-padded {
+  /* This class will be added via JS to the main element */
+  /* Padding will be set dynamically via JS to match nav height */
+  padding-top: 0; /* Initial value, will be overridden by JS */
 }
 
 /* Tab Content */
