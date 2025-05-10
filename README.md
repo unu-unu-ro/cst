@@ -3,7 +3,7 @@
 Acest proiect găzduiește pagina web a CST Unu Unu. Pagina include informații despre evenimente, resurse și ghiduri pentru atelierele de predicare expozitivă.
 
 ## 🌐 Link activ
-Accesează pagina live aici: [unu-unu-ro.github.io/cst](https://unu-unu-ro.github.io/cst/)
+Accesează pagina live aici: [cst.unu-unu.ro](https://cst.unu-unu.ro/)
 
 ---
 
