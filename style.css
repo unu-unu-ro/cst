@@ -52,6 +52,13 @@ header p {
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Add shadow for readability */
 }
 
+.home-icon {
+  margin-right: 0.5em; /* Space between icon and text */
+  font-family: inherit; /* Inherit font from parent (h1) */
+  font-weight: normal; /* Ensure icon is not overly bold if h1 is very bold */
+  vertical-align: middle; /* Align icon nicely with the text */
+}
+
 .header-link {
   text-decoration: none;
   color: inherit; /* Ensures the link inherits the header's text color */
