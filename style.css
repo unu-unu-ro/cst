@@ -42,6 +42,7 @@ header h1 {
   color: var(--background-light); /* Changed from primary-dark */
   font-weight: 700;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Add shadow for readability */
+  animation: fadeInDown 1s ease;
 }
 
 header p {
@@ -50,6 +51,28 @@ header p {
   margin-top: 0.75rem;
   font-weight: 300;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Add shadow for readability */
+  animation: fadeInUp 1s ease;
+}
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .home-icon {
