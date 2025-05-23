@@ -16,11 +16,5 @@
     "description": "Resurse suplimentare recomandate și materiale care te pot ajuta în predicarea ta.",
     "buttonText": "Descoperă",
     "buttonLink": "/resurse.html"
-  },
-  {
-    "title": "Fisă de lucru (.DOC)",
-    "description": "Aceasta este o fișă de lucru pentru grupul tău mic. Te va ajuta să te pregătești pentru întâlnirea ta de expunere biblică.",
-    "buttonText": "Descarcă fișa ",
-    "buttonLink": "assets/FisaRO.docx"
   }
 ]
