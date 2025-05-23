@@ -36,6 +36,11 @@
     "sectionId": "site-uri-recomandate-items",
     "items": [
       {
+        "title": "UnCuvant.ro",
+        "link": "https://uncuvant.ro/",
+        "description": "Ghiduri de citire a scripturilor în procesul de ucenicizare și resurse pentru aprofundarea învățăturii biblice."
+      },
+      {
         "title": "The Simeon Trust",
         "link": "https://simeontrust.org/",
         "description": "Echipare pentru predicarea expozitivă a Cuvântului lui Dumnezeu."

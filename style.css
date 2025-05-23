@@ -516,3 +516,73 @@ footer {
   visibility: visible;
   opacity: 1;
 }
+
+/* Styles for fisa.html timeline layout */
+.timeline {
+  position: relative;
+  margin: 2rem auto;
+  padding-left: 2rem;
+  border-left: 3px solid var(--primary-accent);
+  max-width: 850px;
+}
+
+.step {
+  position: relative;
+  margin-bottom: 2.5rem;
+}
+
+.step::before {
+  content: attr(data-step);
+  position: absolute;
+  left: -2.5rem;
+  top: 0;
+  background-color: var(--primary-accent);
+  color: white;
+  font-weight: bold;
+  width: 2rem;
+  height: 2rem;
+  line-height: 2rem;
+  text-align: center;
+  border-radius: 50%;
+  font-family: var(--font-heading);
+  box-shadow: 0 0 0 3px white, 0 0 0 5px var(--primary-accent);
+}
+
+.step h3 {
+  margin-bottom: 0.5rem;
+  color: var(--primary-dark);
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+}
+
+.step p {
+  margin: 0 0 1rem 0;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.step ul {
+  padding-left: 1.2rem;
+}
+
+.step ul li {
+  margin-bottom: 0.5rem;
+}
+
+.intro {
+  margin-bottom: 2rem;
+  background-color: var(--background-off-white);
+  border: 1px solid var(--border-color);
+  padding: 1.5rem;
+  border-radius: 6px;
+}
+
+.intro p {
+  margin-bottom: 0.75rem;
+}
+.hint {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-style: italic;
+  margin-bottom: 0.5rem;
+}
