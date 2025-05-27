@@ -1,4 +1,4 @@
-# CST - Conferință Spirituală pentru Tineri
+# CST - Ateliere de predicare expozitivă
 
 Acest proiect găzduiește pagina web a CST Unu Unu. Pagina include informații despre evenimente, resurse și ghiduri pentru atelierele de predicare expozitivă.
 
