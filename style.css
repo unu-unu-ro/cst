@@ -588,3 +588,250 @@ footer {
   font-style: italic;
   margin-bottom: 0.5rem;
 }
+
+/* Print to PDF button styles */
+.btn-print {
+  margin-left: 1rem;
+  background-color: #2c5aa0;
+  border: 1px solid #2c5aa0;
+}
+
+.btn-print:hover,
+.btn-print:focus {
+  background-color: #1a3d6b;
+  border-color: #1a3d6b;
+}
+
+/* Print styles for PDF generation */
+@media print {
+  /* Page setup for A4 */
+  @page {
+    size: A4;
+    margin: 2cm 1.5cm 3cm 1.5cm;
+    
+    /* Header */
+    @top-center {
+      content: "Ghid de Pregătire a Fișei de Lucru - Seminar de Predicare Expozitivă Biblică";
+      font-size: 10pt;
+      font-weight: bold;
+      color: #333;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 0.5cm;
+      margin-bottom: 1cm;
+    }
+    
+    /* Footer with page numbers and date */
+    @bottom-left {
+      content: "Generat pe: " attr(data-print-date);
+      font-size: 9pt;
+      color: #666;
+    }
+    
+    @bottom-center {
+      content: "CST Biserica Unu-Unu, Cluj Napoca";
+      font-size: 9pt;
+      color: #666;
+    }
+    
+    @bottom-right {
+      content: "Pagina " counter(page) " din " counter(pages);
+      font-size: 9pt;
+      color: #666;
+    }
+  }
+
+  /* Reset print styles */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Hide elements that shouldn't be printed */
+  .btn,
+  .back-to-content-start,
+  .navigation-links,
+  .header-link {
+    display: none !important;
+  }
+
+  /* Print-specific body styling */
+  body {
+    font-size: 11pt;
+    line-height: 1.4;
+    color: #000;
+    background: white;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Header styling for print */
+  header {
+    background: none !important;
+    color: #000 !important;
+    border-bottom: 2px solid #333;
+    padding: 1cm 0 0.5cm 0;
+    margin-bottom: 1cm;
+    text-align: center;
+    page-break-after: avoid;
+  }
+
+  header h1 {
+    font-size: 18pt;
+    color: #000 !important;
+    text-shadow: none !important;
+    margin-bottom: 0.3cm;
+  }
+
+  header p {
+    font-size: 12pt;
+    color: #333 !important;
+    margin: 0;
+  }
+
+  /* Main content styling */
+  main {
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Section styling */
+  section {
+    page-break-inside: avoid;
+    margin-bottom: 1.5cm;
+  }
+
+  /* Heading styles */
+  h1 {
+    font-size: 18pt;
+    page-break-after: avoid;
+    margin-top: 1cm;
+    margin-bottom: 0.5cm;
+  }
+
+  h2 {
+    font-size: 14pt;
+    page-break-after: avoid;
+    margin-top: 0.8cm;
+    margin-bottom: 0.4cm;
+    color: #000;
+  }
+
+  h3 {
+    font-size: 12pt;
+    page-break-after: avoid;
+    margin-top: 0.6cm;
+    margin-bottom: 0.3cm;
+    color: #000;
+  }
+
+  /* Paragraph styling */
+  p {
+    margin-bottom: 0.4cm;
+    orphans: 3;
+    widows: 3;
+    text-align: justify;
+  }
+
+  /* List styling */
+  ul, ol {
+    margin-bottom: 0.4cm;
+    page-break-inside: avoid;
+  }
+
+  li {
+    margin-bottom: 0.2cm;
+    page-break-inside: avoid;
+  }
+
+  /* Table of contents styling */
+  .ghid-toc-main {
+    page-break-after: always;
+    border: 1px solid #ccc;
+    padding: 0.5cm;
+    margin-bottom: 1cm;
+  }
+
+  .ghid-toc-main h2 {
+    text-align: center;
+    margin-bottom: 0.5cm;
+    padding-bottom: 0.3cm;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .ghid-toc-main ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+
+  .ghid-toc-main li {
+    margin-bottom: 0.3cm;
+  }
+
+  .ghid-toc-main a {
+    color: #000;
+    text-decoration: none;
+  }
+
+  .ghid-toc-main a::after {
+    content: leader(".") target-counter(attr(href), page);
+    float: right;
+  }
+
+  /* Content sections */
+  .ghid-content-section {
+    margin-bottom: 1cm;
+  }
+
+  .ghid-subsection-main {
+    margin-left: 0.5cm;
+    padding-left: 0.5cm;
+    border-left: 2px solid #ccc;
+    margin-bottom: 0.8cm;
+  }
+
+  /* FAQ styling */
+  .faq-item-main {
+    border: 1px solid #ddd;
+    padding: 0.4cm;
+    margin-bottom: 0.5cm;
+    background-color: #f9f9f9;
+    page-break-inside: avoid;
+  }
+
+  /* Footnotes */
+  .footnote-main {
+    font-size: 9pt;
+    margin-top: 0.5cm;
+    padding-top: 0.3cm;
+    border-top: 1px solid #ddd;
+  }
+
+  /* Strong text */
+  strong {
+    font-weight: bold;
+    color: #000;
+  }
+
+  /* Links */
+  a {
+    color: #000;
+    text-decoration: none;
+  }
+
+  /* Page breaks */
+  .page-break {
+    page-break-before: always;
+  }
+
+  /* Prevent widows and orphans */
+  h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+  }
+
+  p, li {
+    orphans: 3;
+    widows: 3;
+  }
+}
