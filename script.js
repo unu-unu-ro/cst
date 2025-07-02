@@ -155,4 +155,35 @@ document.addEventListener("DOMContentLoaded", () => {
       console.warn("Target element for Back to Content Start button (structura-pasajului) not found.");
     }
   }
+
+  // Print to PDF functionality (ghid.html)
+  const printToPdfBtn = document.getElementById("printToPdfBtn");
+  if (printToPdfBtn) {
+    printToPdfBtn.addEventListener("click", () => {
+      // Set print date in document for footer
+      const printDate = new Date().toLocaleDateString("ro-RO", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit"
+      });
+      
+      // Add print date to body for CSS access
+      document.body.setAttribute("data-print-date", printDate);
+      
+      // Add print class for any additional styling
+      document.body.classList.add("printing");
+      
+      // Brief delay to ensure styles are applied
+      setTimeout(() => {
+        window.print();
+        
+        // Remove print class after printing
+        setTimeout(() => {
+          document.body.classList.remove("printing");
+        }, 1000);
+      }, 100);
+    });
+  }
 });
