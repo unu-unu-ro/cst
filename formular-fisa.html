@@ -227,6 +227,7 @@
         <div class="step-counter">
           Pasul <span id="currentStep">1</span> din 7
         </div>
+        <button type="button" id="resetForm" class="btn-secondary" style="margin-top: 1rem;">Resetează câmpuri</button>
       </div>
 
       <form id="fisaForm">
@@ -435,20 +436,62 @@
         </div>
 
         <div class="form-actions">
-          <button type="button" id="validateForm" class="btn-secondary">Validează formularul</button>
-          <button type="button" id="generatePDF" class="btn-primary">Generează PDF</button>
+          <button type="button" id="generatePDF" class="btn-primary">Salvează fișa PDF</button>
         </div>
       </form>
     </div>
 
     <section class="navigation-links">
       <p><a href="index.html" class="btn">Înapoi la pagina principală</a></p>
-      <p><a href="fisa.html" class="btn">Vezi fișa originală</a></p>
     </section>
     
     <footer>&copy; 2025 CST Biserica Unu-Unu, Cluj Napoca 🤍</footer>
 
     <script>
+      // LocalStorage functionality
+      const STORAGE_KEY = 'fisa-form-data';
+      
+      function saveFormData() {
+        const formData = {};
+        const inputs = document.querySelectorAll('input, textarea');
+        inputs.forEach(input => {
+          if (input.name) {
+            formData[input.name] = input.value;
+          }
+        });
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
+      }
+      
+      function loadFormData() {
+        const savedData = localStorage.getItem(STORAGE_KEY);
+        if (savedData) {
+          try {
+            const formData = JSON.parse(savedData);
+            Object.keys(formData).forEach(name => {
+              const input = document.querySelector(`[name="${name}"]`);
+              if (input) {
+                input.value = formData[name];
+              }
+            });
+          } catch (e) {
+            console.error('Error loading form data:', e);
+          }
+        }
+      }
+      
+      function resetFormData() {
+        if (confirm('Ești sigur că vrei să ștergi toate câmpurile completate?')) {
+          localStorage.removeItem(STORAGE_KEY);
+          const inputs = document.querySelectorAll('input, textarea');
+          inputs.forEach(input => {
+            input.value = '';
+            input.classList.remove('error');
+          });
+          document.querySelectorAll('.error-message').forEach(msg => msg.remove());
+          updateProgress();
+        }
+      }
+
       // Progress tracking
       function updateProgress() {
         const steps = document.querySelectorAll('.form-step');
@@ -505,7 +548,7 @@
         });
         
         if (!isValid) {
-          alert('Te rugăm să completezi toate câmpurile obligatorii (marcate cu *)');
+          alert('Te rugăm să completezi toate câmpurile obligatorii (marcate cu *) înainte de a salva fișa PDF.');
           // Scroll to first error
           const firstError = document.querySelector('.error');
           if (firstError) {
@@ -529,7 +572,7 @@
         // Get today's date
         const today = new Date().toLocaleDateString('ro-RO');
         
-        // Build the HTML content for the PDF
+        // Build the HTML content for the PDF with more compact styling
         let htmlContent = `
           <!DOCTYPE html>
           <html lang="ro">
@@ -538,77 +581,82 @@
             <title>Fișă de lucru pentru Pregătirea Predicii</title>
             <style>
               @page {
-                margin: 2cm;
+                margin: 1.5cm;
                 size: A4;
               }
               
               body {
                 font-family: Arial, sans-serif;
-                line-height: 1.6;
+                line-height: 1.4;
                 color: #333;
                 margin: 0;
                 padding: 0;
+                font-size: 11pt;
               }
               
               .header {
                 text-align: center;
-                margin-bottom: 2rem;
-                border-bottom: 2px solid #005a5b;
-                padding-bottom: 1rem;
+                margin-bottom: 1.5rem;
+                border-bottom: 1px solid #005a5b;
+                padding-bottom: 0.8rem;
               }
               
               .header h1 {
                 color: #2a3f54;
-                font-size: 1.8rem;
-                margin: 0 0 0.5rem 0;
+                font-size: 1.4rem;
+                margin: 0 0 0.3rem 0;
                 text-transform: uppercase;
-                letter-spacing: 1px;
+                letter-spacing: 0.5px;
               }
               
               .header p {
                 color: #555;
                 margin: 0;
                 font-style: italic;
+                font-size: 0.9rem;
               }
               
               .date {
                 text-align: right;
                 margin-bottom: 1rem;
-                font-size: 0.9rem;
+                font-size: 0.8rem;
                 color: #666;
               }
               
               .step {
-                margin-bottom: 2rem;
+                margin-bottom: 1.2rem;
                 page-break-inside: avoid;
               }
               
               .step h3 {
                 color: #2a3f54;
-                font-size: 1.2rem;
-                margin-bottom: 1rem;
+                font-size: 1rem;
+                margin-bottom: 0.8rem;
                 text-transform: uppercase;
                 border-bottom: 1px solid #005a5b;
-                padding-bottom: 0.5rem;
+                padding-bottom: 0.3rem;
+                font-weight: bold;
               }
               
               .question {
-                margin-bottom: 1rem;
+                margin-bottom: 0.8rem;
               }
               
               .question-label {
                 font-weight: bold;
                 color: #555;
-                margin-bottom: 0.3rem;
+                margin-bottom: 0.2rem;
+                font-size: 0.9rem;
               }
               
               .answer {
                 background: #f9f9f9;
-                padding: 0.8rem;
-                border-left: 3px solid #005a5b;
-                margin-bottom: 1rem;
+                padding: 0.5rem;
+                border-left: 2px solid #005a5b;
+                margin-bottom: 0.6rem;
                 white-space: pre-wrap;
                 word-wrap: break-word;
+                font-size: 0.9rem;
               }
               
               .empty-answer {
@@ -618,10 +666,23 @@
               
               @media print {
                 body { 
-                  font-size: 12pt; 
+                  font-size: 10pt; 
+                  line-height: 1.3;
                 }
                 .step { 
-                  page-break-inside: avoid; 
+                  page-break-inside: avoid;
+                  margin-bottom: 1rem;
+                }
+                .question {
+                  margin-bottom: 0.6rem;
+                }
+                .answer {
+                  padding: 0.4rem;
+                  margin-bottom: 0.5rem;
+                }
+                .header {
+                  margin-bottom: 1rem;
+                  padding-bottom: 0.6rem;
                 }
               }
             </style>
@@ -659,19 +720,19 @@
           <div class="step">
             <h3>2. Contextul pasajului</h3>
             <div class="question">
-              <div class="question-label">a) Contextul literar (pasajele dinainte și după)</div>
+              <div class="question-label">a) Contextul literar</div>
               <div class="answer">${formData.get('context-literar') || '<span class="empty-answer">Nu a fost completat</span>'}</div>
             </div>
             <div class="question">
-              <div class="question-label">b) Contextul istoric (împrejurările destinatarilor)</div>
+              <div class="question-label">b) Contextul istoric</div>
               <div class="answer">${formData.get('context-istoric') || '<span class="empty-answer">Nu a fost completat</span>'}</div>
             </div>
             <div class="question">
-              <div class="question-label">c) Contextul cultural (detalii despre viața oamenilor din acea vreme)</div>
+              <div class="question-label">c) Contextul cultural</div>
               <div class="answer">${formData.get('context-cultural') || '<span class="empty-answer">Nu a fost completat</span>'}</div>
             </div>
             <div class="question">
-              <div class="question-label">d) Contextul biblic (citate, aluzii sau legături cu alte cărți din Biblie)</div>
+              <div class="question-label">d) Contextul biblic</div>
               <div class="answer">${formData.get('context-biblic') || '<span class="empty-answer">Nu a fost completat</span>'}</div>
             </div>
           </div>
@@ -694,7 +755,7 @@
             title: "Legătura cu Evanghelia", 
             questions: [
               { 
-                label: "Care este legătura dintre acest pasaj și Evanghelia Domnului Isus Cristos? Ce parte a Evangheliei este avută în vedere?", 
+                label: "Care este legătura dintre acest pasaj și Evanghelia Domnului Isus Cristos?", 
                 field: "legatura-evanghelia" 
               }
             ]
@@ -775,10 +836,16 @@
 
       // Event listeners
       document.addEventListener('DOMContentLoaded', function() {
-        // Update progress on input
+        // Load saved form data
+        loadFormData();
+        
+        // Update progress on input and save data
         const inputs = document.querySelectorAll('input, textarea');
         inputs.forEach(input => {
-          input.addEventListener('input', updateProgress);
+          input.addEventListener('input', function() {
+            updateProgress();
+            saveFormData();
+          });
           input.addEventListener('blur', function() {
             // Clear error state when user starts typing
             if (this.classList.contains('error') && this.value.trim()) {
@@ -788,11 +855,12 @@
                 errorMsg.remove();
               }
             }
+            saveFormData();
           });
         });
         
-        // Validate form button
-        document.getElementById('validateForm').addEventListener('click', validateForm);
+        // Reset form button
+        document.getElementById('resetForm').addEventListener('click', resetFormData);
         
         // Generate PDF button
         document.getElementById('generatePDF').addEventListener('click', generatePDF);
