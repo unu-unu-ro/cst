@@ -514,6 +514,24 @@
           formData["text"] = textInput.value;
         }
         localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
+
+        // Update page title with name and text
+        updatePageTitle();
+      }
+
+      function updatePageTitle() {
+        const nume = document.getElementById("nume").value || localStorage.getItem("fisa-nume") || "";
+        const text = document.getElementById("text").value || "";
+
+        if (nume && text) {
+          document.title = `${nume} - ${text}`;
+        } else if (nume) {
+          document.title = `${nume} - Fișă de lucru`;
+        } else if (text) {
+          document.title = `Fișă de lucru - ${text}`;
+        } else {
+          document.title = "Formular Fișă de lucru – 7 Pași";
+        }
       }
 
       function loadFormData() {
@@ -542,6 +560,9 @@
         if (numeInput && numeVal !== null) {
           numeInput.value = numeVal;
         }
+
+        // Update page title after loading data
+        updatePageTitle();
       }
 
       function resetFormData() {
@@ -725,7 +746,7 @@
 <html lang="ro">
 <head>
   <meta charset="UTF-8">
-  <title>Fișă de lucru pentru Pregătirea Predicii</title>
+  <title>${document.title}</title>
   <style>
     @page { margin: 1.5cm; size: A4; }
     body { font-family: Arial, sans-serif; line-height: 1.4; color: #333; margin: 0; padding: 0; font-size: 11pt; }
