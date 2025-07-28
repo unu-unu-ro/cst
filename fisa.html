@@ -3,112 +3,927 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Fișă de lucru – 7 Pași</title>
+    <title>Formular Fișă de lucru – 7 Pași</title>
     <link
       href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@500;700&family=Work+Sans:wght@300;400;600&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+
+    <style>
+      .form-container {
+        max-width: 1100px;
+        margin: 1rem auto;
+        padding: 0 0.5rem;
+      }
+
+      .form-step {
+        background: var(--background-light);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 1.2rem 1rem;
+        margin-bottom: 1rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      }
+
+      .form-step h3 {
+        font-family: var(--font-heading);
+        font-size: 1.15rem;
+        color: var(--primary-dark);
+        margin-bottom: 0.7rem;
+        text-transform: uppercase;
+        font-weight: 700;
+        letter-spacing: 1px;
+        border-bottom: 2px solid var(--primary-accent);
+        padding-bottom: 0.3rem;
+      }
+
+      .form-group {
+        margin-bottom: 0.7rem;
+      }
+
+      .form-group label {
+        display: block;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: 0.2rem;
+        font-size: 0.97rem;
+      }
+      .extra-h3-label {
+        display: block;
+        font-family: var(--font-heading);
+        font-size: 1.1rem;
+        color: var(--primary-dark);
+        margin-bottom: 0.7rem;
+        text-transform: uppercase;
+        font-weight: 700;
+        letter-spacing: 1px;
+        border-bottom: 2px solid var(--primary-accent);
+        padding-bottom: 0.3rem;
+      }
+
+      .form-group .hint {
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+        font-style: italic;
+        margin-bottom: 0.2rem;
+      }
+
+      .form-group input[type="text"],
+      .form-group textarea {
+        width: 100%;
+        padding: 0.5rem;
+        border: 1px solid var(--border-color);
+        border-radius: 5px;
+        font-family: var(--font-body);
+        font-size: 0.97rem;
+        line-height: 1.3;
+        background-color: var(--background-light);
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .form-group input[type="text"]:focus,
+      .form-group textarea:focus {
+        outline: none;
+        border-color: var(--primary-accent);
+        box-shadow: 0 0 0 3px rgba(0, 90, 91, 0.1);
+      }
+
+      .form-group textarea {
+        min-height: 70px;
+        resize: vertical;
+      }
+
+      .form-group textarea.large {
+        min-height: 100px;
+      }
+
+      .form-actions {
+        text-align: center;
+        margin: 1.2rem 0;
+        padding: 1rem;
+        background: var(--background-off-white);
+        border-radius: 8px;
+      }
+
+      .btn-primary {
+        background-color: var(--primary-accent);
+        color: var(--background-light);
+        padding: 1rem 2rem;
+        font-size: 1rem;
+        text-decoration: none;
+        border: none;
+        border-radius: 5px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        margin: 0 0.5rem;
+      }
+
+      .btn-primary:hover {
+        background-color: #004748;
+        transform: translateY(-2px);
+      }
+
+      .btn-secondary {
+        background-color: transparent;
+        color: var(--primary-accent);
+        border: 1px solid var(--primary-accent);
+        padding: 1rem 2rem;
+        font-size: 1rem;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin: 0 0.5rem;
+      }
+
+      .btn-secondary:hover {
+        background-color: var(--primary-accent);
+        color: var(--background-light);
+      }
+
+      .progress-indicator {
+        background: var(--background-off-white);
+        padding: 0.5rem;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+        text-align: center;
+      }
+
+      .progress-bar {
+        width: 100%;
+        height: 8px;
+        background: var(--border-color);
+        border-radius: 4px;
+        overflow: hidden;
+        margin-bottom: 1rem;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: var(--primary-accent);
+        width: 0%;
+        transition: width 0.3s ease;
+      }
+
+      .step-counter {
+        font-weight: 600;
+        color: var(--primary-dark);
+      }
+
+      .required {
+        color: #e74c3c;
+      }
+
+      .error {
+        border-color: #e74c3c !important;
+        box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1) !important;
+      }
+
+      .error-message {
+        color: #e74c3c;
+        font-size: 0.9rem;
+        margin-top: 0.5rem;
+      }
+
+      @media (max-width: 768px) {
+        .form-step {
+          padding: 0.7rem 0.5rem;
+        }
+
+        .form-actions {
+          padding: 0.7rem;
+        }
+
+        .btn-primary,
+        .btn-secondary {
+          display: block;
+          margin: 0.3rem auto;
+          width: 100%;
+          max-width: 300px;
+        }
+      }
+      .extra-fields {
+        display: flex;
+        gap: 1rem;
+        margin: 1rem 0;
+        align-items: flex-end;
+      }
+      .intro {
+        margin-bottom: 1rem;
+        background-color: var(--background-off-white);
+        border: 1px solid var(--border-color);
+        padding: 0.7rem 1rem;
+        border-radius: 6px;
+        text-indent: 1.2rem;
+      }
+      .intro p {
+        margin-bottom: 0.4rem;
+        text-indent: 1.2rem;
+      }
+    </style>
   </head>
   <body>
     <a href="index.html" class="header-link">
       <header>
-        <h1><span class="home-icon">⌂</span>Fișă de lucru pentru Pregătirea Predicii</h1>
-        <p>Parcurge cei 7 pași de bază pentru o predicare expozitivă fidelă</p>
+        <h1><span class="home-icon">⌂</span>Formular Fișă de lucru pentru Pregătirea Predicii</h1>
+        <p>Completează online cei 7 pași și generează PDF-ul la final</p>
       </header>
     </a>
 
-    <main>
+    <div class="form-container">
       <section class="intro">
         <p>
-          <strong>Instrucțiuni atelier:</strong> În cadrul grupului tău mic, vei avea la dispoziție 5 minute ca să-ți
-          prezinți munca pe fiecare pasaj. Răspunde la întrebările de mai jos pentru fiecare text care ți-a fost atribuit.
-          Pregătește 10 exemplare fișei (față-verso, scris la computer). Descarcă de aici
-          <a href="/assets/FisaRO.docx">fișa format DOC</a><br />
+          <strong>Instrucțiuni:</strong> Completează toate câmpurile pentru fiecare dintre cei 7 pași. La sfârșitul
+          formularului vei putea genera un PDF cu răspunsurile tale, formatat conform fișei originale.
         </p>
         <p>
-          <strong
-            >Te încurajăm să îți asumi fișa ca instrument de lucru (chiar în afara atelierelor) pentru pregătirea fiecărui
-            mesaj, onorând fidelitatea predicării față de Cuvânt</strong
-          >
+          Pentru lămuriri despre fiecare pas, vizitează <a href="ghid.html" target="_blank">ghidul de pregătire</a>, iar
+          pentru o prezentare vizuală a pașilor, vezi <a href="fisa-vizual.html" target="_blank">fișa în format vizual </a>.
         </p>
-        <p>Pentru lămuriri, vizitează <a href="ghid.html" target="_blank">ghidul de pregătire</a>.</p>
       </section>
 
-      <section class="timeline">
-        <div class="step" data-step="1">
-          <h3>Structura textului</h3>
-          <ul>
-            <li>a) Arată structura sub formă de secțiuni, alături de versetele aferente</li>
-            <li>b) Explică strategiile folosite pentru a identifica structura.</li>
-            <li>c) Pe ce pune accent această structură?</li>
-          </ul>
+      <div class="progress-indicator">
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="step-counter">Proges fișa curentă - pasul <span id="currentStep">1</span> din 7</div>
+        <button
+          type="button"
+          id="resetForm"
+          style="
+            background: none;
+            border: none;
+            color: #666;
+            text-decoration: underline;
+            font-size: 0.8rem;
+            cursor: pointer;
+            margin-top: 0.5rem;
+          "
+        >
+          Resetează câmpuri
+        </button>
+      </div>
+
+      <div class="extra-fields" style="display: flex; gap: 2rem; margin: 2rem 0; align-items: flex-end">
+        <div class="form-group" style="flex: 1; margin-bottom: 0">
+          <label for="nume" class="extra-h3-label">Nume</label>
+          <input type="text" id="nume" name="nume" maxlength="64" placeholder="Numele complet" class="form-group-input" />
+        </div>
+        <div class="form-group" style="flex: 1; margin-bottom: 0">
+          <label for="text" class="extra-h3-label">Text</label>
+          <input type="text" id="text" name="text" maxlength="64" placeholder="Text scurt" class="form-group-input" />
+        </div>
+      </div>
+
+      <form id="fisaForm">
+        <!-- Pasul 1: Structura textului -->
+        <div class="form-step" data-step="1">
+          <h3>1. Structura textului</h3>
+
+          <div class="form-group">
+            <label for="structura-sectiuni">
+              a) Arată structura sub formă de secțiuni, alături de versetele aferente <span class="required">*</span>
+            </label>
+            <textarea
+              id="structura-sectiuni"
+              name="structura-sectiuni"
+              required
+              class="large"
+              placeholder="Ex: I. Introducere (v. 1-3), II. Dezvoltarea principală (v. 4-10), etc."
+            ></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="structura-strategii">
+              b) Explică strategiile folosite pentru a identifica structura <span class="required">*</span>
+            </label>
+            <textarea
+              id="structura-strategii"
+              name="structura-strategii"
+              required
+              placeholder="Ex: Cuvinte cheie repetate, conjuncții, schimbări de ton, etc."
+            ></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="structura-accent"> c) Pe ce pune accent această structură? <span class="required">*</span> </label>
+            <textarea
+              id="structura-accent"
+              name="structura-accent"
+              required
+              placeholder="Explică tema principală evidențiată prin structura identificată"
+            ></textarea>
+          </div>
         </div>
 
-        <div class="step" data-step="2">
-          <h3>Contextul pasajului</h3>
-          <p class="hint">Indicație: Te rugăm să le incluzi doar pe cele care sunt relevante pentru înțelesul pasajului</p>
-          <ul>
-            <li>
-              a) Contextul literar
-              <p class="hint">pasajele dinainte și după</p>
-            </li>
-            <li>
-              b) Contextul istoric
-              <p class="hint">împrejurările destinatarilor</p>
-            </li>
-            <li>
-              c) Contextul cultural
-              <p class="hint">detalii despre viața oamenilor din acea vreme</p>
-            </li>
-            <li>
-              d) Contextul biblic
-              <p class="hint">citate, aluzii sau legături cu alte cărți din Biblie</p>
-            </li>
-          </ul>
+        <!-- Pasul 2: Contextul pasajului -->
+        <div class="form-step" data-step="2">
+          <h3>2. Contextul pasajului</h3>
+          <div class="hint">
+            Indicație: Te rugăm să le incluzi doar pe cele care sunt relevante pentru înțelesul pasajului
+          </div>
+
+          <div class="form-group">
+            <label for="context-literar">a) Contextul literar</label>
+            <div class="hint">pasajele dinainte și după</div>
+            <textarea
+              id="context-literar"
+              name="context-literar"
+              placeholder="Descriere a contextului literar relevant pentru înțelegerea pasajului"
+            ></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="context-istoric">b) Contextul istoric</label>
+            <div class="hint">împrejurările destinatarilor</div>
+            <textarea
+              id="context-istoric"
+              name="context-istoric"
+              placeholder="Împrejurările istorice relevante pentru destinatarii originali"
+            ></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="context-cultural">c) Contextul cultural</label>
+            <div class="hint">detalii despre viața oamenilor din acea vreme</div>
+            <textarea
+              id="context-cultural"
+              name="context-cultural"
+              placeholder="Aspecte culturale care ajută la înțelegerea textului"
+            ></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="context-biblic">d) Contextul biblic</label>
+            <div class="hint">citate, aluzii sau legături cu alte cărți din Biblie</div>
+            <textarea
+              id="context-biblic"
+              name="context-biblic"
+              placeholder="Legături cu alte texte biblice, citate sau aluzii"
+            ></textarea>
+          </div>
         </div>
 
-        <div class="step" data-step="3">
-          <h3>Ideea autorului</h3>
-          <p>Care este ideea centrală pe care o argumentează autorul în fața ascultătorilor săi?</p>
-          <p class="hint">într-o propoziție scurtă</p>
+        <!-- Pasul 3: Ideea autorului -->
+        <div class="form-step" data-step="3">
+          <h3>3. Ideea autorului</h3>
+
+          <div class="form-group">
+            <label for="ideea-autorului">
+              Care este ideea centrală pe care o argumentează autorul în fața ascultătorilor săi?
+              <span class="required">*</span>
+            </label>
+            <div class="hint">într-o propoziție scurtă</div>
+            <textarea
+              id="ideea-autorului"
+              name="ideea-autorului"
+              required
+              placeholder="Formulează într-o propoziție clară și concisă ideea centrală a autorului"
+            ></textarea>
+          </div>
         </div>
 
-        <div class="step" data-step="4">
-          <h3>Legătura cu Evanghelia</h3>
-          <p>
-            Care este legătura dintre acest pasaj și Evanghelia Domnului Isus Cristos? Ce parte a Evangheliei este avută în
-            vedere?
-          </p>
+        <!-- Pasul 4: Legătura cu Evanghelia -->
+        <div class="form-step" data-step="4">
+          <h3>4. Legătura cu Evanghelia</h3>
+
+          <div class="form-group">
+            <label for="legatura-evanghelia">
+              Care este legătura dintre acest pasaj și Evanghelia Domnului Isus Cristos? Ce parte a Evangheliei este avută în
+              vedere? <span class="required">*</span>
+            </label>
+            <textarea
+              id="legatura-evanghelia"
+              name="legatura-evanghelia"
+              required
+              class="large"
+              placeholder="Explică cum se conectează pasajul cu Evanghelia și ce aspect specific al Evangheliei este evidențiat"
+            ></textarea>
+          </div>
         </div>
 
-        <div class="step" data-step="5">
-          <h3>Ideea ta centrală</h3>
-          <p>Care este ideea centrală pe care tu o vei argumenta în fața ascultătorilor tăi?</p>
-          <p class="hint">într-o propoziție scurtă</p>
+        <!-- Pasul 5: Ideea ta centrală -->
+        <div class="form-step" data-step="5">
+          <h3>5. Ideea ta centrală</h3>
+
+          <div class="form-group">
+            <label for="ideea-mea">
+              Care este ideea centrală pe care tu o vei argumenta în fața ascultătorilor tăi? <span class="required">*</span>
+            </label>
+            <div class="hint">într-o propoziție scurtă</div>
+            <textarea
+              id="ideea-mea"
+              name="ideea-mea"
+              required
+              placeholder="Formulează ideea centrală pe care o vei predica, bazată pe înțelegerea pasajului"
+            ></textarea>
+          </div>
         </div>
 
-        <div class="step" data-step="6">
-          <h3>Aplicații</h3>
-          <ul>
-            <li>Aplicații pentru cei mântuiți</li>
-            <li>Aplicații pentru cei nemântuiți</li>
-          </ul>
+        <!-- Pasul 6: Aplicații -->
+        <div class="form-step" data-step="6">
+          <h3>6. Aplicații</h3>
+
+          <div class="form-group">
+            <label for="aplicatii-mantuiti"> Aplicații pentru cei mântuiți <span class="required">*</span> </label>
+            <textarea
+              id="aplicatii-mantuiti"
+              name="aplicatii-mantuiti"
+              required
+              class="large"
+              placeholder="Aplicații practice și spirituale pentru creștini"
+            ></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="aplicatii-nemantuiti"> Aplicații pentru cei nemântuiți <span class="required">*</span> </label>
+            <textarea
+              id="aplicatii-nemantuiti"
+              name="aplicatii-nemantuiti"
+              required
+              class="large"
+              placeholder="Aplicații și îndemnuri pentru cei care nu sunt încă creștini"
+            ></textarea>
+          </div>
         </div>
 
-        <div class="step" data-step="7">
-          <h3>Titlu și schiță</h3>
-          <p>Care este titlul predicii tale și cum arată schița mesajului?</p>
-        </div>
-      </section>
-    </main>
+        <!-- Pasul 7: Titlu și schiță -->
+        <div class="form-step" data-step="7">
+          <h3>7. Titlu și schiță</h3>
 
-    <section class="navigation-links">
-      <p><a href="../index.html" class="btn">Înapoi la pagina principală</a></p>
-    </section>
+          <div class="form-group">
+            <label for="titlu-predica"> Care este titlul predicii tale? <span class="required">*</span> </label>
+            <input
+              type="text"
+              id="titlu-predica"
+              name="titlu-predica"
+              required
+              placeholder="Un titlu clar și captivant pentru predica ta"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="schita-mesaj"> Cum arată schița mesajului? <span class="required">*</span> </label>
+            <textarea
+              id="schita-mesaj"
+              name="schita-mesaj"
+              required
+              class="large"
+              placeholder="I. Introducere&#10;II. Punctul principal 1&#10;III. Punctul principal 2&#10;IV. Concluzie"
+            ></textarea>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <a href="index.html" class="btn-secondary">Înapoi la pagina principală</a>
+          <button type="button" id="generatePDF" class="btn-primary">Salvează fișa PDF</button>
+        </div>
+      </form>
+    </div>
+
     <footer>&copy; 2025 CST Biserica Unu-Unu, Cluj Napoca 🤍</footer>
 
-    <script src="script.js"></script>
+    <script>
+      // LocalStorage functionality
+      const STORAGE_KEY = "fisa-form-data";
+
+      function saveFormData() {
+        const formData = {};
+        const inputs = document.querySelectorAll("input, textarea");
+        inputs.forEach(input => {
+          if (input.name && input.name !== "nume") {
+            formData[input.name] = input.value;
+          }
+        });
+        // Save Nume separately
+        const numeInput = document.getElementById("nume");
+        if (numeInput) {
+          localStorage.setItem("fisa-nume", numeInput.value);
+        }
+        // Save Text in main formData
+        const textInput = document.getElementById("text");
+        if (textInput) {
+          formData["text"] = textInput.value;
+        }
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
+      }
+
+      function loadFormData() {
+        const savedData = localStorage.getItem(STORAGE_KEY);
+        if (savedData) {
+          try {
+            const formData = JSON.parse(savedData);
+            Object.keys(formData).forEach(name => {
+              const input = document.querySelector(`[name="${name}"]`);
+              if (input && name !== "nume") {
+                input.value = formData[name];
+              }
+            });
+            // Load Text field
+            const textInput = document.getElementById("text");
+            if (textInput && formData["text"] !== undefined) {
+              textInput.value = formData["text"];
+            }
+          } catch (e) {
+            console.error("Error loading form data:", e);
+          }
+        }
+        // Load Nume separately
+        const numeInput = document.getElementById("nume");
+        const numeVal = localStorage.getItem("fisa-nume");
+        if (numeInput && numeVal !== null) {
+          numeInput.value = numeVal;
+        }
+      }
+
+      function resetFormData() {
+        showCustomAlert(
+          "Ești sigur că vrei să ștergi toate câmpurile completate?",
+          function () {
+            localStorage.removeItem(STORAGE_KEY);
+            // Do NOT remove fisa-nume
+            const inputs = document.querySelectorAll("input, textarea");
+            inputs.forEach(input => {
+              if (input.name !== "nume") {
+                input.value = "";
+              }
+              input.classList.remove("error");
+            });
+            document.querySelectorAll(".error-message").forEach(msg => msg.remove());
+            // Restore Nume from localStorage
+            const numeInput = document.getElementById("nume");
+            const numeVal = localStorage.getItem("fisa-nume");
+            if (numeInput && numeVal !== null) {
+              numeInput.value = numeVal;
+            }
+            updateProgress();
+          },
+          true
+        );
+      }
+
+      // Progress tracking
+      function updateProgress() {
+        const steps = document.querySelectorAll(".form-step");
+        let completedSteps = 0;
+
+        steps.forEach((step, index) => {
+          const requiredFields = step.querySelectorAll("[required]");
+          const stepCompleted = Array.from(requiredFields).every(field => field.value.trim());
+
+          if (stepCompleted) {
+            completedSteps++;
+          }
+        });
+
+        const progressPercentage = (completedSteps / steps.length) * 100;
+        document.getElementById("progressFill").style.width = progressPercentage + "%";
+
+        // Update current step indicator
+        let currentStep = 1;
+        for (let i = 0; i < steps.length; i++) {
+          const requiredFields = steps[i].querySelectorAll("[required]");
+          const stepCompleted = Array.from(requiredFields).every(field => field.value.trim());
+          if (!stepCompleted) {
+            currentStep = i + 1;
+            break;
+          }
+          if (i === steps.length - 1) {
+            currentStep = steps.length;
+          }
+        }
+        document.getElementById("currentStep").textContent = currentStep;
+      }
+
+      // Form validation
+      function validateForm() {
+        const requiredFields = document.querySelectorAll("[required]");
+        let isValid = true;
+
+        // Clear previous errors
+        document.querySelectorAll(".error").forEach(field => field.classList.remove("error"));
+        document.querySelectorAll(".error-message").forEach(msg => msg.remove());
+
+        requiredFields.forEach(field => {
+          if (!field.value.trim()) {
+            field.classList.add("error");
+
+            const errorMsg = document.createElement("div");
+            errorMsg.className = "error-message";
+            errorMsg.textContent = "Acest câmp este obligatoriu";
+            field.parentNode.appendChild(errorMsg);
+
+            isValid = false;
+          }
+        });
+
+        if (!isValid) {
+          showCustomAlert("Te rugăm să completezi toate câmpurile obligatorii (marcate cu *) înainte de a salva fișa PDF.");
+          // Scroll to first error
+          const firstError = document.querySelector(".error");
+          if (firstError) {
+            firstError.scrollIntoView({ behavior: "smooth", block: "center" });
+          }
+        }
+
+        return isValid;
+      }
+
+      // Custom Alert logic
+      function showCustomAlert(message, onConfirm, isConfirm) {
+        let alertBox = document.getElementById("custom-alert");
+        if (!alertBox) {
+          alertBox = document.createElement("div");
+          alertBox.id = "custom-alert";
+          alertBox.className = "custom-alert";
+          alertBox.style.display = "none";
+          alertBox.style.position = "fixed";
+          alertBox.style.top = "0";
+          alertBox.style.left = "0";
+          alertBox.style.width = "100vw";
+          alertBox.style.height = "100vh";
+          alertBox.style.zIndex = "9999";
+          alertBox.style.background = "rgba(0,0,0,0.25)";
+          alertBox.style.display = "flex";
+          alertBox.style.alignItems = "center";
+          alertBox.style.justifyContent = "center";
+          alertBox.innerHTML = `
+            <div class="custom-alert-content" style="background: #fff; border-radius: 10px; box-shadow: 0 4px 24px rgba(0,0,0,0.18); padding: 2rem; min-width: 320px; max-width: 90vw; text-align: center;">
+              <span id="custom-alert-message" style="display:block; margin-bottom: 1.5rem; font-size: 1.1rem;"></span>
+              <div class="custom-alert-actions"></div>
+            </div>
+          `;
+          document.body.appendChild(alertBox);
+        }
+        alertBox.style.display = "flex";
+        alertBox.style.visibility = "visible";
+        alertBox.querySelector("#custom-alert-message").textContent = message;
+        const actions = alertBox.querySelector(".custom-alert-actions");
+        actions.innerHTML = "";
+        if (isConfirm) {
+          const confirmBtn = document.createElement("button");
+          confirmBtn.textContent = "Da";
+          confirmBtn.className = "btn-primary";
+          confirmBtn.style.marginRight = "1rem";
+          confirmBtn.onclick = function () {
+            closeCustomAlert();
+            if (onConfirm) onConfirm();
+          };
+          const cancelBtn = document.createElement("button");
+          cancelBtn.textContent = "Nu";
+          cancelBtn.className = "btn-secondary";
+          cancelBtn.onclick = function () {
+            closeCustomAlert();
+          };
+          actions.appendChild(confirmBtn);
+          actions.appendChild(cancelBtn);
+        } else {
+          const okBtn = document.createElement("button");
+          okBtn.textContent = "OK";
+          okBtn.className = "btn-primary";
+          okBtn.onclick = function () {
+            closeCustomAlert();
+          };
+          actions.appendChild(okBtn);
+        }
+      }
+
+      function closeCustomAlert() {
+        const alertBox = document.getElementById("custom-alert");
+        if (alertBox) {
+          alertBox.style.display = "none";
+          alertBox.style.visibility = "hidden";
+        }
+      }
+
+      // PDF Generation using browser print functionality
+      function generatePDF() {
+        if (!validateForm()) {
+          return;
+        }
+
+        // Create a new window with the form content formatted for printing
+        const printWindow = window.open("", "_blank");
+        const formData = new FormData(document.getElementById("fisaForm"));
+
+        // Get today's date
+        const today = new Date().toLocaleDateString("ro-RO");
+        // Get Nume and Text
+        const nume = document.getElementById("nume").value || localStorage.getItem("fisa-nume") || "";
+        const text = document.getElementById("text").value || "";
+
+        // Build the HTML content for the PDF with more compact styling
+        let htmlContent = `<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <title>Fișă de lucru pentru Pregătirea Predicii</title>
+  <style>
+    @page { margin: 1.5cm; size: A4; }
+    body { font-family: Arial, sans-serif; line-height: 1.4; color: #333; margin: 0; padding: 0; font-size: 11pt; }
+    .header { text-align: center; margin-bottom: 1.5rem; border-bottom: 1px solid #005a5b; padding-bottom: 0.8rem; }
+    .header h1 { color: #2a3f54; font-size: 1.4rem; margin: 0 0 0.3rem 0; text-transform: uppercase; letter-spacing: 0.5px; }
+    .header p { color: #555; margin: 0; font-style: italic; font-size: 0.9rem; }
+    .extra-row { display: flex; justify-content: space-between; align-items: center; margin: 1.2rem 0 0.8rem 0; font-size: 1rem; }
+    .extra-row .extra-label { font-weight: bold; color: #2a3f54; margin-right: 0.5rem; }
+    .extra-row .extra-value { color: #333; font-style: normal; margin-left: 0.5rem; text-align: right; }
+    .date { text-align: right; margin-bottom: 1rem; font-size: 0.8rem; color: #666; }
+    .step { margin-bottom: 1.2rem; page-break-inside: avoid; }
+    .step h3 { color: #2a3f54; font-size: 1rem; margin-bottom: 0.8rem; text-transform: uppercase; border-bottom: 1px solid #005a5b; padding-bottom: 0.3rem; font-weight: bold; }
+    .question { margin-bottom: 0.8rem; }
+    .question-label { font-weight: bold; color: #555; margin-bottom: 0.2rem; font-size: 0.9rem; }
+    .answer { background: #f9f9f9; padding: 0.5rem; border-left: 2px solid #005a5b; margin-bottom: 0.6rem; white-space: pre-wrap; word-wrap: break-word; font-size: 0.9rem; }
+    .empty-answer { color: #999; font-style: italic; }
+    @media print { body { font-size: 10pt; line-height: 1.3; } .step { page-break-inside: avoid; margin-bottom: 1rem; } .question { margin-bottom: 0.6rem; } .answer { padding: 0.4rem; margin-bottom: 0.5rem; } .header { margin-bottom: 1rem; padding-bottom: 0.6rem; } .extra-row { font-size: 0.95rem; margin: 0.8rem 0; } }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Fișă de lucru pentru Pregătirea Predicii</h1>
+    <p>Parcurge cei 7 pași de bază pentru o predicare expozitivă fidelă</p>
+  </div>
+  <div class="extra-row">
+    <span class="extra-label">Nume:</span>
+    <span class="extra-value" style="flex:1;text-align:left;">${nume || '<span class="empty-answer">-</span>'}</span>
+        <span class="extra-label">Text:</span>
+        <span class="extra-value" style="flex:1;text-align:left;">${text || '<span class="empty-answer">-</span>'}</span>
+  </div>
+  <div class="date">Completat cu <a href="http://cst.unu-unu.ro/fisa">http://cst.unu-unu.ro/fisa</a></div>
+  <div class="step">
+    <h3>1. Structura textului</h3>
+    <div class="question">
+      <div class="question-label">a) Arată structura sub formă de secțiuni, alături de versetele aferente</div>
+      <div class="answer">${
+        formData.get("structura-sectiuni") || '<span class="empty-answer">Nu a fost completat</span>'
+      }</div>
+    </div>
+    <div class="question">
+      <div class="question-label">b) Explică strategiile folosite pentru a identifica structura</div>
+      <div class="answer">${
+        formData.get("structura-strategii") || '<span class="empty-answer">Nu a fost completat</span>'
+      }</div>
+    </div>
+    <div class="question">
+      <div class="question-label">c) Pe ce pune accent această structură?</div>
+      <div class="answer">${
+        formData.get("structura-accent") || '<span class="empty-answer">Nu a fost completat</span>'
+      }</div>
+    </div>
+  </div>
+  <div class="step">
+    <h3>2. Contextul pasajului</h3>
+    <div class="question">
+      <div class="question-label">a) Contextul literar</div>
+      <div class="answer">${formData.get("context-literar") || '<span class="empty-answer">Nu a fost completat</span>'}</div>
+    </div>
+    <div class="question">
+      <div class="question-label">b) Contextul istoric</div>
+      <div class="answer">${formData.get("context-istoric") || '<span class="empty-answer">Nu a fost completat</span>'}</div>
+    </div>
+    <div class="question">
+      <div class="question-label">c) Contextul cultural</div>
+      <div class="answer">${
+        formData.get("context-cultural") || '<span class="empty-answer">Nu a fost completat</span>'
+      }</div>
+    </div>
+    <div class="question">
+      <div class="question-label">d) Contextul biblic</div>
+      <div class="answer">${formData.get("context-biblic") || '<span class="empty-answer">Nu a fost completat</span>'}</div>
+    </div>
+  </div>
+`;
+        // Steps 3-7
+        const steps = [
+          {
+            number: 3,
+            title: "Ideea autorului",
+            questions: [
+              {
+                label: "Care este ideea centrală pe care o argumentează autorul în fața ascultătorilor săi?",
+                field: "ideea-autorului"
+              }
+            ]
+          },
+          {
+            number: 4,
+            title: "Legătura cu Evanghelia",
+            questions: [
+              {
+                label: "Care este legătura dintre acest pasaj și Evanghelia Domnului Isus Cristos?",
+                field: "legatura-evanghelia"
+              }
+            ]
+          },
+          {
+            number: 5,
+            title: "Ideea ta centrală",
+            questions: [
+              {
+                label: "Care este ideea centrală pe care tu o vei argumenta în fața ascultătorilor tăi?",
+                field: "ideea-mea"
+              }
+            ]
+          },
+          {
+            number: 6,
+            title: "Aplicații",
+            questions: [
+              {
+                label: "Aplicații pentru cei mântuiți",
+                field: "aplicatii-mantuiti"
+              },
+              {
+                label: "Aplicații pentru cei nemântuiți",
+                field: "aplicatii-nemantuiti"
+              }
+            ]
+          },
+          {
+            number: 7,
+            title: "Titlu și schiță",
+            questions: [
+              {
+                label: "Care este titlul predicii tale?",
+                field: "titlu-predica"
+              },
+              {
+                label: "Cum arată schița mesajului?",
+                field: "schita-mesaj"
+              }
+            ]
+          }
+        ];
+        steps.forEach(step => {
+          htmlContent += `<div class="step"><h3>${step.number}. ${step.title}</h3>`;
+          step.questions.forEach(question => {
+            htmlContent += `
+              <div class="question">
+                <div class="question-label">${question.label}</div>
+                <div class="answer">${
+                  formData.get(question.field) || '<span class="empty-answer">Nu a fost completat</span>'
+                }</div>
+              </div>
+            `;
+          });
+          htmlContent += `</div>`;
+        });
+        htmlContent += `</body></html>`;
+
+        // Write content to the new window and print
+        printWindow.document.write(htmlContent);
+        printWindow.document.close();
+
+        // Wait for content to load, then print
+        printWindow.onload = function () {
+          setTimeout(() => {
+            printWindow.print();
+            printWindow.close();
+          }, 500);
+        };
+      }
+
+      // Event listeners
+      document.addEventListener("DOMContentLoaded", function () {
+        // Load saved form data
+        loadFormData();
+
+        // Update progress on input and save data
+        const inputs = document.querySelectorAll("input, textarea");
+        inputs.forEach(input => {
+          input.addEventListener("input", function () {
+            updateProgress();
+            saveFormData();
+          });
+          input.addEventListener("blur", function () {
+            // Clear error state when user starts typing
+            if (this.classList.contains("error") && this.value.trim()) {
+              this.classList.remove("error");
+              const errorMsg = this.parentNode.querySelector(".error-message");
+              if (errorMsg) {
+                errorMsg.remove();
+              }
+            }
+            saveFormData();
+          });
+        });
+
+        // Reset form button
+        document.getElementById("resetForm").addEventListener("click", resetFormData);
+
+        // Generate PDF button
+        document.getElementById("generatePDF").addEventListener("click", generatePDF);
+
+        // Initial progress update
+        updateProgress();
+      });
+    </script>
   </body>
 </html>

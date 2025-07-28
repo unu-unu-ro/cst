@@ -27,7 +27,7 @@ body {
 }
 
 header {
-  padding: 4rem 1rem; /* Increased padding for better visual with background */
+  padding: 2rem 1rem; /* Reduced from 4rem */
   text-align: center;
   border-bottom: 1px solid var(--border-color);
   background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("assets/hero.jpg") no-repeat center/cover;
@@ -36,7 +36,7 @@ header {
 
 header h1 {
   font-family: var(--font-heading);
-  font-size: 2.5rem; /* Slightly increased for hero effect */
+  font-size: 1.8rem; /* Reduced from 2.5rem */
   text-transform: uppercase;
   letter-spacing: 1.5px;
   color: var(--background-light); /* Changed from primary-dark */
@@ -46,9 +46,9 @@ header h1 {
 }
 
 header p {
-  font-size: 1.2rem; /* Slightly increased for hero effect */
+  font-size: 1rem; /* Reduced from 1.2rem */
   color: var(--background-light); /* Changed from text-secondary */
-  margin-top: 0.75rem;
+  margin-top: 0.5rem; /* Reduced from 0.75rem */
   font-weight: 300;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Add shadow for readability */
   animation: fadeInUp 1s ease;
@@ -90,15 +90,15 @@ header p {
 /* Responsive adjustments for header on smaller screens */
 @media (max-width: 768px) {
   header {
-    padding: 2.5rem 1rem; /* Reduced padding for mobile */
+    padding: 1.5rem 1rem; /* Reduced from 2.5rem */
   }
 
   header h1 {
-    font-size: 2rem; /* Reduced font size for H1 on mobile */
+    font-size: 1.5rem; /* Reduced from 2rem */
   }
 
   header p {
-    font-size: 1rem; /* Reduced font size for P on mobile */
+    font-size: 0.9rem; /* Reduced from 1rem */
   }
 }
 
@@ -608,7 +608,7 @@ footer {
   @page {
     size: A4;
     margin: 2cm 1.5cm 3cm 1.5cm;
-    
+
     /* Header */
     @top-center {
       content: "Ghid de Pregătire a Fișei de Lucru - Seminar de Predicare Expozitivă Biblică";
@@ -619,20 +619,20 @@ footer {
       padding-bottom: 0.5cm;
       margin-bottom: 1cm;
     }
-    
+
     /* Footer with page numbers and date */
     @bottom-left {
       content: "Generat pe: " attr(data-print-date);
       font-size: 9pt;
       color: #666;
     }
-    
+
     @bottom-center {
       content: "CST Biserica Unu-Unu, Cluj Napoca";
       font-size: 9pt;
       color: #666;
     }
-    
+
     @bottom-right {
       content: "Pagina " counter(page) " din " counter(pages);
       font-size: 9pt;
@@ -735,7 +735,8 @@ footer {
   }
 
   /* List styling */
-  ul, ol {
+  ul,
+  ol {
     margin-bottom: 0.4cm;
     page-break-inside: avoid;
   }
@@ -826,11 +827,16 @@ footer {
   }
 
   /* Prevent widows and orphans */
-  h2, h3, h4, h5, h6 {
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     page-break-after: avoid;
   }
 
-  p, li {
+  p,
+  li {
     orphans: 3;
     widows: 3;
   }
