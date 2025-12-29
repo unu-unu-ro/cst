@@ -99,7 +99,13 @@ function initHomePage() {
     if (container) {
         const footer = document.createElement('div');
         footer.className = 'hub-footer';
-        footer.innerHTML = '<a href="../../index.html">← Înapoi la Hub</a>';
+        const year = new Date().getFullYear();
+        footer.innerHTML = `
+            <a href="../../index.html">← Înapoi la Hub</a>
+            <div style="font-size: 0.8rem; margin-top: 0.5rem; opacity: 0.7;">
+                &copy; ${year} CST Biserica Unu-Unu, Cluj Napoca 🤍
+            </div>
+        `;
         container.appendChild(footer);
     }
 }

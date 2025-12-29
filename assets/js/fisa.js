@@ -454,6 +454,11 @@
 
       // Event listeners
       document.addEventListener("DOMContentLoaded", function () {
+        // Set Current Year
+        document.querySelectorAll(".current-year").forEach(el => {
+          el.textContent = new Date().getFullYear();
+        });
+
         // Load saved form data
         loadFormData();
 

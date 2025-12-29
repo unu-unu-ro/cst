@@ -116,28 +116,40 @@ document.addEventListener("DOMContentLoaded", () => {
   const backToContentStartBtn = document.getElementById("backToContentStartBtn");
   const mainContentStartElement = document.getElementById("cuprins"); // For ghid.html
 
-  // Sticky navigation for index.html
+  // Sticky Navigation Logic
+  const header = document.querySelector("header");
   const nav = document.querySelector(".tab-nav");
-  const mainContent = document.querySelector("main"); // Assuming there's only one main element
+  const mainContent = document.querySelector("main");
+
+  // Set Current Year
+  document.querySelectorAll(".current-year").forEach(el => {
+    el.textContent = new Date().getFullYear();
+  });
 
   if (nav && mainContent) {
     const navHeight = nav.offsetHeight;
-    let navOffsetTop = nav.offsetTop;
+    
+    // Initial offset calculation
+    let stickyOffset = header ? header.offsetHeight : nav.offsetTop;
 
-    function updateNavOffset() {
-      // Recalculate offset if not fixed, in case of layout changes (e.g. window resize, though not explicitly handled here)
-      if (!nav.classList.contains("fixed-nav")) {
-        navOffsetTop = nav.offsetTop;
-      }
-    }
+    // Recalculate on window resize to be safe
+    window.addEventListener('resize', () => {
+        if (!nav.classList.contains("fixed-nav")) {
+            stickyOffset = header ? header.offsetHeight : nav.offsetTop;
+        }
+    });
 
     window.addEventListener("scroll", () => {
-      updateNavOffset(); // Ensure offset is current before checking scroll position
-      if (window.pageYOffset > navOffsetTop) {
+      // If not fixed, keep updating offset (e.g. if content before changes)
+      if (!nav.classList.contains("fixed-nav")) {
+         stickyOffset = header ? header.offsetHeight : nav.offsetTop;
+      }
+
+      if (window.pageYOffset > stickyOffset) {
         if (!nav.classList.contains("fixed-nav")) {
           nav.classList.add("fixed-nav");
           mainContent.style.paddingTop = `${navHeight}px`;
-          mainContent.classList.add("main-content-padded"); // Add class for potential further styling
+          mainContent.classList.add("main-content-padded");
         }
       } else {
         if (nav.classList.contains("fixed-nav")) {
