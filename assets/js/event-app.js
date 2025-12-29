@@ -31,7 +31,7 @@ function initLayout() {
     const headerNav = document.querySelector('.header-nav');
     if (headerNav && headerNav.children.length === 0) {
         headerNav.innerHTML = `
-            <a href="index.html" class="back-link">
+            <a href="index" class="back-link">
                 <i class="fa-solid fa-arrow-left"></i> Înapoi
             </a>
         `;
@@ -101,7 +101,7 @@ function initHomePage() {
         footer.className = 'hub-footer';
         const year = new Date().getFullYear();
         footer.innerHTML = `
-            <a href="../../index.html">← Înapoi la Hub</a>
+            <a href="../../index">← Înapoi la Hub</a>
             <div style="font-size: 0.8rem; margin-top: 0.5rem; opacity: 0.7;">
                 &copy; ${year} CST Biserica Unu-Unu, Cluj Napoca 🤍
             </div>

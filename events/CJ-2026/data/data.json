@@ -7,31 +7,31 @@
   "links": [
     {
       "name": " Înregistrare",
-      "url": "inregistrare.html",
+      "url": "inregistrare",
       "icon": "fa-solid fa-user-plus",
       "active": true
     },
     {
       "name": "Listă participanți",
-      "url": "participanti.html",
+      "url": "participanti",
       "icon": "fa-solid fa-file-alt",
       "active": true
     },
     {
       "name": "Grupe de lucru",
-      "url": "grupe.html",
+      "url": "grupe",
       "icon": "fa-solid fa-people-group",
       "active": true
     },
     {
       "name": "Orar zilnic",
-      "url": "orar.html",
+      "url": "orar",
       "icon": "fa-solid fa-calendar-days",
       "active": true
     },
     {
       "name": "Ghid de pregătire",
-      "url": "https://cst.unu-unu.ro/ghid.html",
+      "url": "https://cst.unu-unu.ro/ghid",
       "icon": "fa-solid fa-book",
       "active": true
     }

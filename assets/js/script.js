@@ -218,7 +218,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // Resource Page Logic
-if (window.location.pathname.includes("resurse.html")) {
+if (window.location.pathname.includes("resurse")) {
   document.addEventListener("DOMContentLoaded", () => {
     const mainElement = document.querySelector("main");
     if (!mainElement) return;
@@ -284,7 +284,7 @@ if (window.location.pathname.includes("resurse.html")) {
         navigationSection.classList.add("navigation-links");
         const backLinkPara = document.createElement("p");
         const backLink = document.createElement("a");
-        backLink.href = "index.html";
+        backLink.href = "index";
         backLink.classList.add("btn");
         backLink.textContent = "Înapoi la pagina principală";
         backLinkPara.appendChild(backLink);
