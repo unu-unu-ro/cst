@@ -6,7 +6,7 @@
   },
   "links": [
     {
-      "name": "Inregistrare",
+      "name": " Înregistrare",
       "url": "inregistrare.html",
       "icon": "fa-solid fa-user-plus",
       "active": true
@@ -30,7 +30,7 @@
       "active": true
     },
     {
-      "name": "Ghid de pregatire",
+      "name": "Ghid de pregătire",
       "url": "https://cst.unu-unu.ro/ghid.html",
       "icon": "fa-solid fa-book",
       "active": true
