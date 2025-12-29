@@ -1,0 +1,39 @@
+{
+  "event": {
+    "title": "Atelier de predicare expozitivă",
+    "subtitle": "Predicare din profeți - AMOS",
+    "details": "3-5 martie 2026 | Biserica Unu Unu, Cluj-Napoca"
+  },
+  "links": [
+    {
+      "name": "Inregistrare",
+      "url": "inregistrare.html",
+      "icon": "fa-solid fa-user-plus",
+      "active": true
+    },
+    {
+      "name": "Listă participanți",
+      "url": "participanti.html",
+      "icon": "fa-solid fa-file-alt",
+      "active": true
+    },
+    {
+      "name": "Grupe de lucru",
+      "url": "grupe.html",
+      "icon": "fa-solid fa-people-group",
+      "active": true
+    },
+    {
+      "name": "Orar zilnic",
+      "url": "orar.html",
+      "icon": "fa-solid fa-calendar-days",
+      "active": true
+    },
+    {
+      "name": "Ghid de pregatire",
+      "url": "https://cst.unu-unu.ro/ghid.html",
+      "icon": "fa-solid fa-book",
+      "active": true
+    }
+  ]
+}

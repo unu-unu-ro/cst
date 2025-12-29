@@ -71,27 +71,44 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Load initial content
-  loadContent("events.json", eventsGrid);
-  loadContent("resources.json", resourcesGrid);
+  // Load initial content if grids exist
+  if (eventsGrid) loadContent("events.json", eventsGrid);
+  if (resourcesGrid) loadContent("resources.json", resourcesGrid);
+
+  // Function to activate tab by ID
+  function activateTab(tabId) {
+    // Remove active class from all tabs and content
+    tabs.forEach(t => t.classList.remove("active"));
+    tabContents.forEach(tc => tc.classList.remove("active"));
+
+    // Find the tab that targets this ID
+    const activeTab = document.querySelector(`.tab-link[data-target="${tabId}"]`);
+    if (activeTab) {
+      activeTab.classList.add("active");
+    }
+
+    // Add active class to the corresponding content
+    const targetContent = document.getElementById(tabId);
+    if (targetContent) {
+      targetContent.classList.add("active");
+    }
+  }
+
+  // Handle URL Hash on Load
+  const hash = window.location.hash.substring(1); // Remove '#'
+  if (hash) {
+    activateTab(hash);
+  }
 
   tabs.forEach(tab => {
     tab.addEventListener("click", event => {
       event.preventDefault(); // Prevent default anchor behavior
 
-      // Remove active class from all tabs and content
-      tabs.forEach(t => t.classList.remove("active"));
-      tabContents.forEach(tc => tc.classList.remove("active"));
-
-      // Add active class to the clicked tab
-      tab.classList.add("active");
-
-      // Add active class to the corresponding content
       const targetId = tab.dataset.target;
-      const targetContent = document.getElementById(targetId);
-      if (targetContent) {
-        targetContent.classList.add("active");
-      }
+      activateTab(targetId);
+
+      // Update URL Hash without scrolling
+      history.pushState(null, null, `#${targetId}`);
     });
   });
 
@@ -187,3 +204,86 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
+// Resource Page Logic
+if (window.location.pathname.includes("resurse.html")) {
+  document.addEventListener("DOMContentLoaded", () => {
+    const mainElement = document.querySelector("main");
+    if (!mainElement) return;
+
+    async function loadSupplementaryResources() {
+      try {
+        const response = await fetch("content/supplementary_resources.json");
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const sections = await response.json();
+
+        if (sections.length === 0) {
+          mainElement.innerHTML = "<p>Nu sunt resurse disponibile momentan.</p>";
+          return;
+        }
+
+        sections.forEach(sectionData => {
+          const sectionElement = document.createElement("section");
+          sectionElement.id = sectionData.sectionId.replace("-items", "");
+
+          const titleElement = document.createElement("h2");
+          titleElement.classList.add("section-title");
+          titleElement.textContent = sectionData.sectionTitle;
+          sectionElement.appendChild(titleElement);
+
+          const resourceListDiv = document.createElement("div");
+          resourceListDiv.classList.add("resource-list");
+          resourceListDiv.id = sectionData.sectionId;
+
+          if (sectionData.items && sectionData.items.length > 0) {
+            sectionData.items.forEach(item => {
+              const entryDiv = document.createElement("div");
+              entryDiv.classList.add("resource-entry");
+
+              const itemTitle = document.createElement("h3");
+              const itemLink = document.createElement("a");
+              itemLink.href = item.link;
+              itemLink.textContent = item.title;
+              if (item.link.startsWith("http")) {
+                itemLink.target = "_blank";
+              }
+              itemTitle.appendChild(itemLink);
+              entryDiv.appendChild(itemTitle);
+
+              const itemDescription = document.createElement("p");
+              itemDescription.textContent = item.description;
+              entryDiv.appendChild(itemDescription);
+
+              resourceListDiv.appendChild(entryDiv);
+            });
+          } else {
+            const noItemsPara = document.createElement("p");
+            noItemsPara.textContent = "Nu sunt elemente în această secțiune.";
+            resourceListDiv.appendChild(noItemsPara);
+          }
+          sectionElement.appendChild(resourceListDiv);
+          mainElement.appendChild(sectionElement);
+        });
+
+        // Add the 'Back to main page' button
+        const navigationSection = document.createElement("section");
+        navigationSection.classList.add("navigation-links");
+        const backLinkPara = document.createElement("p");
+        const backLink = document.createElement("a");
+        backLink.href = "index.html";
+        backLink.classList.add("btn");
+        backLink.textContent = "Înapoi la pagina principală";
+        backLinkPara.appendChild(backLink);
+        navigationSection.appendChild(backLinkPara);
+        mainElement.appendChild(navigationSection);
+      } catch (error) {
+        console.error("Could not load supplementary resources:", error);
+        mainElement.innerHTML = '<p class="error-message">Nu s-au putut încărca resursele. Vă rugăm încercați mai târziu.</p>';
+      }
+    }
+
+    loadSupplementaryResources();
+  });
+}

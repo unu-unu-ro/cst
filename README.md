@@ -12,16 +12,38 @@ Acest proiect găzduiește pagina web a CST Unu Unu. Pagina include informații 
 ```
 📁 root
 │
-├── index.html         # Pagina principală a conferinței
-├── style.css          # Fișiere CSS pentru stilizarea paginii
-├── script.js          # Scripturi JavaScript pentru interactivitate
-├── assets/            # Fișiere descărcabile (PDF-uri, imagini, etc.)
-├── content/           # JSON-uri pentru încărcarea dinamică a resurselor și evenimentelor
-├── res/               # Pagini individuale pentru resurse (ghiduri, articole, etc.)
-├── .prettierrc        # Configurare pentru Prettier
-├── .gitignore         # Fișiere ignorate în repository
-└── README.md          # Documentația proiectului
+├── index.html         # Conferința principală
+├── assets/            
+│   ├── css/           # Stiluri (inclusiv event-style.css)
+│   ├── js/            # Scripturi (inclusiv event-app.js)
+│   └── ...
+├── content/           # Date JSON globale
+├── events/            # Folder pentru evenimente
+│   ├── CJ-2026/       # Exemplu eveniment
+│   │   ├── data/      # JSON-uri specifice evenimentului
+│   │   ├── index.html
+│   │   └── ...
+└── README.md
 ```
+
+## 🚀 Cum se creează un nou eveniment
+
+Platforma este construită pentru a fi ușor extensibilă. Pentru a adăuga un nou eveniment (ex: `CJ-2027`):
+
+1.  **Copiază structura**:
+    Duplică folderul `events/CJ-2026` și redenumește-l (ex: `events/CJ-2027`).
+
+2.  **Actualizează Datele**:
+    În noul folder `events/CJ-2027/data/`, editează fișierele JSON:
+    -   `data.json`: Titlul evenimentului, subtitlu, link-uri.
+    -   `participants.json`: Lista de participanți și grupe.
+    -   `orar.json`: Programul evenimentului.
+
+3.  **Gata!**:
+    Nu este necesară nicio modificare de cod HTML/JS/CSS. Logica globală din `assets/js/event-app.js` se va ocupa automat de noul eveniment.
+
+4.  **Adaugă în Lista Principală** (Opțional):
+    Dacă dorești ca evenimentul să apară pe prima pagină, adaugă-l în `content/events.json`.
 
 ---
 

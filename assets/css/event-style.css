@@ -1,0 +1,474 @@
+/* Design Tokens from https://cst.unu-unu.ro/ */
+:root {
+  --primary-color: #005a5b; /* Dark Teal */
+  --primary-hover: #004546;
+  --text-color: #333333;
+  --heading-color: #2a3f54;
+  --bg-color: #f3f3f3;
+  --white: #ffffff;
+
+  --font-heading: "League Spartan", sans-serif;
+  --font-body: "Work Sans", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  line-height: 1.6;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.container {
+  width: 100%;
+  max-width: 480px; /* Default for Linktree style / mobile */
+  background: var(--white);
+  padding: 40px 20px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+}
+
+/* Wider container for content pages on desktop */
+.content-container {
+  max-width: 1200px;
+}
+
+/* Grid Layouts for Desktop */
+@media (min-width: 768px) {
+  .content-container #groups-container,
+  .content-container #schedule-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 20px;
+    /* Width is already 100% from base rule below */
+  }
+
+  /* Ensure cards inside grid stretch height */
+  .group-section {
+    margin-bottom: 0; /* Remove bottom margin in grid context since gap handles it */
+    height: 100%;
+  }
+}
+
+/* Ensure containers take full width in flex column parent */
+#groups-container,
+#schedule-container {
+  width: 100%;
+}
+
+.profile {
+  text-align: center;
+  margin-bottom: 30px;
+  width: 100%;
+}
+
+.logo {
+  width: 120px;
+  height: auto;
+  margin-bottom: 15px;
+}
+
+h1 {
+  font-family: var(--font-heading);
+  color: var(--heading-color);
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 5px;
+  line-height: 1.2;
+}
+
+h2 {
+  font-family: var(--font-heading);
+  color: var(--text-color);
+  font-size: 1.1rem; /* Slightly larger for subtitle */
+  font-weight: 600; /* Bolder for subtitle */
+  opacity: 0.9;
+  margin-bottom: 5px;
+}
+
+.event-details {
+  font-family: var(--font-body); /* Body font for details */
+  color: var(--text-color);
+  font-size: 0.95rem;
+  opacity: 0.8;
+  margin-top: 5px;
+}
+
+.links {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.link-card {
+  display: flex;
+  align-items: center;
+  background-color: var(--white);
+  color: var(--text-color);
+  background-color: var(--primary-color);
+  color: var(--white);
+  text-decoration: none;
+  padding: 16px 20px;
+  border-radius: 12px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s;
+  font-weight: 600;
+  font-size: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.link-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  background-color: var(--primary-hover);
+}
+
+.link-card i {
+  font-size: 1.2rem;
+  margin-right: 15px;
+  width: 24px;
+  text-align: center;
+}
+
+.link-card span {
+  flex-grow: 1;
+  text-align: center;
+  /* Offset the text back to center visually if icon is on left */
+  padding-right: 24px;
+}
+
+/* Popup Styles */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(2px);
+}
+
+.popup {
+  background-color: var(--white);
+  padding: 2.5rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  max-width: 90%;
+  width: 400px;
+  position: relative;
+  font-family: var(--font-body);
+}
+
+.popup h1 {
+  color: var(--heading-color);
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+}
+
+.popup p {
+  color: var(--text-color);
+  margin-bottom: 2rem;
+}
+
+.popup .btn {
+  display: inline-block;
+  background-color: var(--primary-color);
+  color: var(--white);
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background-color 0.2s;
+}
+
+.popup .btn:hover {
+  background-color: var(--primary-hover);
+}
+
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--text-color);
+  opacity: 0.5;
+  transition: opacity 0.2s;
+}
+
+.close-btn:hover {
+  opacity: 1;
+}
+
+/* Sub-page Styles */
+.header-nav {
+  width: 100%;
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+
+.back-link:hover {
+  color: var(--primary-hover);
+}
+
+.back-link i {
+  margin-right: 8px;
+}
+
+.page-title {
+  text-align: center;
+  color: var(--heading-color);
+  margin-bottom: 2rem;
+}
+
+/* Group Cards */
+.group-section {
+  width: 100%;
+  background: var(--bg-color);
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.group-header {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 10px 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+.participant-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #ddd;
+  font-size: 0.95rem;
+}
+
+.participant-row:last-child {
+  border-bottom: none;
+}
+
+.participant-info {
+  display: flex;
+  gap: 8px;
+}
+
+.role-tag {
+  font-weight: 700;
+  font-size: 0.8em;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background-color: #eee;
+  color: #555;
+  height: fit-content;
+  align-self: center;
+}
+
+.role-SGL {
+  background-color: var(--heading-color);
+  color: white;
+}
+.role-APP {
+  background-color: #a39680;
+  color: white;
+}
+.role-OBS {
+  background-color: #ddd;
+  color: #777;
+}
+
+/* Participants Table */
+.participants-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.participants-table th,
+.participants-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.participants-table th {
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: 600;
+}
+
+.participants-table tr:hover {
+  background-color: #f9f9f9;
+}
+
+/* Registration Page Styles */
+#registration-container {
+  width: 100%;
+  background: var(--white);
+  padding: 20px;
+  border-radius: 12px;
+}
+
+#registration-container iframe {
+  min-height: 500px;
+  border-radius: 8px;
+}
+
+.help-text {
+  margin-top: 20px;
+  text-align: center;
+  color: var(--text-color);
+  font-size: 0.9rem;
+}
+
+.link-highlight {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+
+.link-highlight:hover {
+  color: var(--primary-hover);
+  text-decoration: underline;
+}
+
+.loading-text {
+  text-align: center;
+  color: var(--text-color);
+  font-style: italic;
+  margin-top: 20px;
+}
+
+@media (max-width: 600px) {
+  body {
+    padding: 10px; /* Reduce outer padding */
+  }
+
+  .container {
+    padding: 20px 10px; /* Reduced horizontal padding */
+  }
+
+  .group-section {
+    padding: 15px 10px; /* Reduce card padding on mobile to maximize space */
+  }
+
+  .participant-row {
+    flex-direction: column;
+    gap: 4px; /* Stack name and texts */
+    padding: 10px 0; /* Clear separator between rows */
+  }
+
+  .participant-info {
+    width: 100%;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .participant-texts {
+    padding-left: 0; /* Reset indentation if any */
+    color: #666; /* Ensure better readability */
+  }
+
+  .participants-table thead {
+    display: none;
+  }
+
+  .participants-table,
+  .participants-table tbody,
+  .participants-table tr,
+  .participants-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .participants-table tr {
+    margin-bottom: 15px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 10px;
+  }
+
+  .participants-table td {
+    padding: 5px 0;
+    border: none;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .participants-table td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: var(--heading-color);
+    margin-right: 10px;
+  }
+
+  /* Registration page mobile adjustments */
+  #registration-container {
+    padding: 10px;
+  }
+
+  .help-text {
+    font-size: 0.85rem;
+    padding: 0 5px;
+  }
+}
+
+/* Discreet Footer (Back to Hub) */
+.hub-footer {
+  margin-top: 2.5rem;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #999;
+  width: 100%;
+}
+
+.hub-footer a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s;
+  padding: 10px;
+}
+
+.hub-footer a:hover {
+  color: var(--primary-color);
+  text-decoration: underline;
+}
