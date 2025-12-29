@@ -31,18 +31,38 @@
       <div class="header-nav"></div>
 
       <div id="registration-container">
-        <!-- Tally Embed -->
-        <iframe
-          data-tally-src="https://tally.so/embed/7Rqva2?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
-          loading="lazy"
-          width="100%"
-          height="989"
-          frameborder="0"
-          marginheight="0"
-          marginwidth="0"
-          title="Înregistrare Atelier CST 2026, Cluj"
-        ></iframe>
+        <!-- Language Switcher -->
+        <div style="text-align: center; margin-bottom: 2rem;">
+          <p style="font-size: 1.2rem;">
+            <a href="#" id="lang-ro" class="btn active-lang" style="font-weight: bold; text-decoration: underline;">Română</a> <span style="margin: 0 10px;">|</span> 
+            <a href="#" id="lang-en" class="btn" style="opacity: 0.7;">English</a>
+          </p>
+          <p id="lang-msg" style="font-size: 1rem; color: #555; margin-top: 1rem;">
+            If you want to register in English, please select the English option above.
+          </p>
+        </div>
+
+        <!-- Romanian Form (Default) -->
+        <div id="form-ro">
+            <iframe
+            data-tally-src="https://tally.so/embed/7Rqva2?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
+            loading="lazy"
+            width="100%"
+            height="989"
+            frameborder="0"
+            marginheight="0"
+            marginwidth="0"
+            title="Înregistrare Atelier CST 2026, Cluj"
+            ></iframe>
+        </div>
+
+        <!-- English Form (Hidden by default) -->
+        <div id="form-en" style="display: none;">
+           <iframe data-tally-src="https://tally.so/embed/81z7jl?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="1008" frameborder="0" marginheight="0" marginwidth="0" title="Înregistrare Atelier CST 2026, Cluj EN"></iframe>
+        </div>
+
         <script>
+          // Tally Embed Script
           var d = document,
             w = "https://tally.so/widgets/embed.js",
             v = function () {
@@ -59,7 +79,51 @@
             var s = d.createElement("script");
             (s.src = w), (s.onload = v), (s.onerror = v), d.body.appendChild(s);
           }
-        </script>
+
+          // Language Switcher Logic
+          document.addEventListener("DOMContentLoaded", function() {
+            const btnRo = document.getElementById("lang-ro");
+            const btnEn = document.getElementById("lang-en");
+            const formRo = document.getElementById("form-ro");
+            const formEn = document.getElementById("form-en");
+            const msg = document.getElementById("lang-msg");
+
+            btnRo.addEventListener("click", function(e) {
+              e.preventDefault();
+              formRo.style.display = "block";
+              formEn.style.display = "none";
+              
+              btnRo.style.fontWeight = "bold";
+              btnRo.style.textDecoration = "underline";
+              btnRo.style.opacity = "1";
+              
+              btnEn.style.fontWeight = "normal";
+              btnEn.style.textDecoration = "none";
+              btnEn.style.opacity = "0.7";
+              
+              msg.textContent = "If you want to register in English, please select the English option above.";
+            });
+
+            btnEn.addEventListener("click", function(e) {
+              e.preventDefault();
+              formRo.style.display = "none";
+              formEn.style.display = "block";
+              
+              btnEn.style.fontWeight = "bold";
+              btnEn.style.textDecoration = "underline";
+              btnEn.style.opacity = "1";
+
+              btnRo.style.fontWeight = "normal";
+              btnRo.style.textDecoration = "none";
+              btnRo.style.opacity = "0.7";
+
+              msg.textContent = "Dacă doriți completarea în limba română, selectați opțiunea Română de mai sus.";
+
+              // Attempt to load Tally if not loaded (though the script above handles it)
+              if ("undefined" != typeof Tally) Tally.loadEmbeds();
+            });
+          });
+          </script>
 
         <p class="help-text">
           Nu se încarcă formularul?

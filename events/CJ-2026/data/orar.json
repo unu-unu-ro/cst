@@ -1,169 +1,32 @@
 {
     "schedule": [
         {
-            "day": "Miercuri, 19 Martie",
+            "day": "Marți, 3 Martie",
             "sessions": [
                 {
-                    "time": "14:00",
+                    "time": "00:00",
                     "title": "Bun venit",
-                    "speaker": "Mitraș Dudaș"
-                },
-                {
-                    "time": "14:15",
-                    "title": "Instruire 1: Traseul pregătirii",
-                    "speaker": "Diego Lopes"
-                },
-                {
-                    "time": "15:15",
-                    "title": "Pauză",
-                    "type": "break"
-                },
-                {
-                    "time": "15:30",
-                    "title": "Instruire 2: Structură",
-                    "speaker": "Samuel Clintoc"
-                },
-                {
-                    "time": "16:30",
-                    "title": "Pauză",
-                    "type": "break"
-                },
-                {
-                    "time": "16:45",
-                    "title": "Expunere 1: Ioan 1:19-51",
-                    "speaker": "Ovidiu Hanc"
-                },
-                {
-                    "time": "17:15",
-                    "title": "Încheiere"
+                    "speaker": "TBA"
                 }
             ]
         },
         {
-            "day": "Joi, 20 Martie",
+            "day": "Miercuri, 4 Martie",
             "sessions": [
                 {
-                    "time": "09:00",
-                    "title": "Sosire"
-                },
-                {
-                    "time": "09:15",
-                    "title": "Instruire 3: Contextul",
-                    "speaker": "Diego Lopes"
-                },
-                {
-                    "time": "10:15",
-                    "title": "Pauză",
-                    "type": "break"
-                },
-                {
-                    "time": "10:30",
-                    "title": "Grup Mic 1: Ioan 1:1-18 & Ioan 2:1-12"
-                },
-                {
-                    "time": "12:00",
-                    "title": "Prânz",
-                    "type": "break"
-                },
-                {
-                    "time": "12:45",
-                    "title": "Anunțuri / Fotografie de grup"
-                },
-                {
-                    "time": "13:00",
-                    "title": "Întrebări și Răspunsuri"
-                },
-                {
-                    "time": "13:30",
-                    "title": "Instruire 4: Legătura cu Evanghelia",
-                    "speaker": "Samuel Clintoc"
-                },
-                {
-                    "time": "14:30",
-                    "title": "Pauză",
-                    "type": "break"
-                },
-                {
-                    "time": "14:45",
-                    "title": "Grup Mic 2: Ioan 4:1-26 & Ioan 7:1-44"
-                },
-                {
-                    "time": "16:15",
-                    "title": "Pauză",
-                    "type": "break"
-                },
-                {
-                    "time": "16:30",
-                    "title": "Expunere 2: Ioan 10:1-21",
-                    "speaker": "Samuel Clintoc"
-                },
-                {
-                    "time": "17:00",
-                    "title": "Încheiere"
+                    "time": "00:00",
+                    "title": "Ziua 2",
+                    "speaker": "TBA"
                 }
             ]
         },
         {
-            "day": "Vineri, 21 Martie",
+            "day": "Joi, 5 Martie",
             "sessions": [
                 {
-                    "time": "09:00",
-                    "title": "Sosire"
-                },
-                {
-                    "time": "09:15",
-                    "title": "Instruire 5: Linia Melodică",
-                    "speaker": "Diego Lopes"
-                },
-                {
-                    "time": "10:15",
-                    "title": "Pauză",
-                    "type": "break"
-                },
-                {
-                    "time": "10:30",
-                    "title": "Grup Mic 3: Ioan 11:1-27 & Ioan 12:20-36"
-                },
-                {
-                    "time": "12:00",
-                    "title": "Prânz",
-                    "type": "break"
-                },
-                {
-                    "time": "12:40",
-                    "title": "Anunț: Formulare de Feedback"
-                },
-                {
-                    "time": "12:45",
-                    "title": "Instruire 6: Aplicație",
-                    "speaker": "Samuel Clintoc"
-                },
-                {
-                    "time": "13:45",
-                    "title": "Anunț: Formulare de Feedback"
-                },
-                {
-                    "time": "14:00",
-                    "title": "Pauză",
-                    "type": "break"
-                },
-                {
-                    "time": "14:15",
-                    "title": "Grup Mic 4: Ioan 17 & Ioan 20:11-18"
-                },
-                {
-                    "time": "15:45",
-                    "title": "Pauză",
-                    "type": "break"
-                },
-                {
-                    "time": "16:00",
-                    "title": "Expunere 3: Ioan 21",
-                    "speaker": "Diego Lopes"
-                },
-                {
-                    "time": "16:30",
-                    "title": "Rugăciune și Formulare de Feedback"
+                    "time": "00:00",
+                    "title": "Ziua 3",
+                    "speaker": "TBA"
                 }
             ]
         }
