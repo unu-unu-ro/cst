@@ -71,7 +71,7 @@ body {
 
 .profile {
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   width: 100%;
 }
 
@@ -471,4 +471,40 @@ h2 {
 .hub-footer a:hover {
   color: var(--primary-color);
   text-decoration: underline;
+}
+
+/* Updating Message with Loading Dots Animation */
+.updating-message {
+  font-size: 1.1rem;
+  color: var(--primary-color);
+  margin-top: 15px;
+  margin-bottom: 20px;
+  font-weight: 600;
+  background-color: #e8f4f4;
+  padding: 12px 20px;
+  border-radius: 8px;
+  border-left: 4px solid var(--primary-color);
+}
+
+.loading-dots::after {
+  content: "...";
+  animation: blink 1.4s infinite;
+  letter-spacing: 2px;
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.update-note {
+  font-size: 0.85rem;
+  color: #666;
+  margin-top: 8px;
+  font-style: italic;
 }
