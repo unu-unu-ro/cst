@@ -1,34 +1,34 @@
 {
-    "schedule": [
+  "schedule": [
+    {
+      "day": "Miercuri, 4 Martie",
+      "sessions": [
         {
-            "day": "Marți, 3 Martie",
-            "sessions": [
-                {
-                    "time": "00:00",
-                    "title": "Bun venit",
-                    "speaker": "TBA"
-                }
-            ]
-        },
-        {
-            "day": "Miercuri, 4 Martie",
-            "sessions": [
-                {
-                    "time": "00:00",
-                    "title": "Ziua 2",
-                    "speaker": "TBA"
-                }
-            ]
-        },
-        {
-            "day": "Joi, 5 Martie",
-            "sessions": [
-                {
-                    "time": "00:00",
-                    "title": "Ziua 3",
-                    "speaker": "TBA"
-                }
-            ]
+          "time": "14:00",
+          "title": "Bun venit",
+          "speaker": "TBA"
         }
-    ]
+      ]
+    },
+    {
+      "day": "Joi, 5 Martie",
+      "sessions": [
+        {
+          "time": "00:00",
+          "title": "Ziua 2",
+          "speaker": "TBA"
+        }
+      ]
+    },
+    {
+      "day": "Vineri, 6 Martie",
+      "sessions": [
+        {
+          "time": "00:00",
+          "title": "Ziua 3",
+          "speaker": "TBA"
+        }
+      ]
+    }
+  ]
 }
