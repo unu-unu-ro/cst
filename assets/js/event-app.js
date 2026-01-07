@@ -235,11 +235,16 @@ function initSchedulePage() {
                 
                 let sessionsHtml = '';
                 day.sessions.forEach(session => {
-                    if (session.type === 'break') {
-                        sessionsHtml += `<p><strong>${session.time}</strong> - ${session.title}</p>`;
+                    const isBreak = session.title.toLowerCase().includes('pauză') || 
+                                  session.title.toLowerCase().includes('prânz') ||
+                                  session.title.toLowerCase().includes('sosire');
+                    const sessionClass = isBreak ? 'session-break' : 'session-normal';
+                    
+                    if (session.type === 'break' || isBreak) {
+                        sessionsHtml += `<p class="${sessionClass}"><strong>${session.time}</strong> - ${session.title}</p>`;
                     } else {
-                        const description = session.speaker ? `${session.title} - ${session.speaker}` : session.title;
-                        sessionsHtml += `<p>${session.time} - ${description}</p>`;
+                        const description = session.speaker ? `${session.title} <span class="speaker">• ${session.speaker}</span>` : session.title;
+                        sessionsHtml += `<p class="${sessionClass}"><strong>${session.time}</strong> - ${description}</p>`;
                     }
                 });
 

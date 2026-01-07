@@ -5,8 +5,43 @@
       "sessions": [
         {
           "time": "14:00",
+          "title": "Sosire și înregistrare",
+          "speaker": ""
+        },
+        {
+          "time": "14:15",
           "title": "Bun venit",
-          "speaker": "TBA"
+          "speaker": "Mitraș Dudaș"
+        },
+        {
+          "time": "14:30",
+          "title": "Sesiunea 1 – Rămânând pe linie",
+          "speaker": "Daniel Suciu"
+        },
+        {
+          "time": "15:30",
+          "title": "Pauză",
+          "speaker": ""
+        },
+        {
+          "time": "15:45",
+          "title": "Sesiunea 2 – Structura",
+          "speaker": "John Folmar"
+        },
+        {
+          "time": "16:45",
+          "title": "Pauză",
+          "speaker": ""
+        },
+        {
+          "time": "17:00",
+          "title": "Expunere 1 – Amos",
+          "speaker": "Florin Mureșan"
+        },
+        {
+          "time": "17:30",
+          "title": "Încheiere",
+          "speaker": ""
         }
       ]
     },
@@ -14,9 +49,74 @@
       "day": "Joi, 5 Martie",
       "sessions": [
         {
-          "time": "00:00",
-          "title": "Ziua 2",
-          "speaker": "TBA"
+          "time": "09:00",
+          "title": "Sosire",
+          "speaker": ""
+        },
+        {
+          "time": "09:15",
+          "title": "Sesiunea 3 – Contextul",
+          "speaker": "Daniel Suciu"
+        },
+        {
+          "time": "10:15",
+          "title": "Pauză",
+          "speaker": ""
+        },
+        {
+          "time": "10:30",
+          "title": "Grup mic 1 – Amos 1:1–2:3 și Amos 2:4–16",
+          "speaker": ""
+        },
+        {
+          "time": "12:00",
+          "title": "Prânz",
+          "speaker": ""
+        },
+        {
+          "time": "12:45",
+          "title": "Anunțuri – Anunțuri de instruire",
+          "speaker": ""
+        },
+        {
+          "time": "12:55",
+          "title": "Q&A – Întrebări și răspunsuri",
+          "speaker": "Toți vorbitorii"
+        },
+        {
+          "time": "13:25",
+          "title": "Pauză",
+          "speaker": ""
+        },
+        {
+          "time": "13:30",
+          "title": "Sesiunea 4 – Conectarea la Evanghelie",
+          "speaker": "John Folmar"
+        },
+        {
+          "time": "14:30",
+          "title": "Pauză",
+          "speaker": ""
+        },
+        {
+          "time": "14:45",
+          "title": "Grup mic 2 – Amos 4:1–5 și Amos 4:6–13",
+          "speaker": ""
+        },
+        {
+          "time": "16:15",
+          "title": "Pauză",
+          "speaker": ""
+        },
+        {
+          "time": "16:30",
+          "title": "Expunere 2 – Amos",
+          "speaker": "Daniel Suciu"
+        },
+        {
+          "time": "17:00",
+          "title": "Încheiere",
+          "speaker": ""
         }
       ]
     },
@@ -24,9 +124,64 @@
       "day": "Vineri, 6 Martie",
       "sessions": [
         {
-          "time": "00:00",
-          "title": "Ziua 3",
-          "speaker": "TBA"
+          "time": "09:00",
+          "title": "Sosire",
+          "speaker": ""
+        },
+        {
+          "time": "09:15",
+          "title": "Sesiunea 5 – Linia melodică",
+          "speaker": "Daniel Suciu"
+        },
+        {
+          "time": "10:15",
+          "title": "Pauză",
+          "speaker": ""
+        },
+        {
+          "time": "10:30",
+          "title": "Grup mic 3 – Amos 5:1–17 și Amos 5:18–27",
+          "speaker": ""
+        },
+        {
+          "time": "12:00",
+          "title": "Prânz",
+          "speaker": ""
+        },
+        {
+          "time": "12:45",
+          "title": "Sesiunea 6 – Aranjamentul",
+          "speaker": "John Folmar"
+        },
+        {
+          "time": "13:45",
+          "title": "Anunț – Formulare de feedback",
+          "speaker": ""
+        },
+        {
+          "time": "14:00",
+          "title": "Pauză",
+          "speaker": ""
+        },
+        {
+          "time": "14:15",
+          "title": "Grup mic 4 – Amos 7:1–8:3 și Amos 9:1–10",
+          "speaker": ""
+        },
+        {
+          "time": "15:45",
+          "title": "Pauză",
+          "speaker": ""
+        },
+        {
+          "time": "16:00",
+          "title": "Expunere 3 – Amos",
+          "speaker": "John Folmar"
+        },
+        {
+          "time": "16:30",
+          "title": "Rugăciune și feedback",
+          "speaker": ""
         }
       ]
     }

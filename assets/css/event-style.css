@@ -20,6 +20,10 @@
 body {
   font-family: var(--font-body);
   background-color: var(--bg-color);
+  background-image: 
+    radial-gradient(circle at 20% 50%, rgba(0, 90, 91, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(0, 90, 91, 0.02) 0%, transparent 50%);
+  background-attachment: fixed;
   color: var(--text-color);
   line-height: 1.6;
   display: flex;
@@ -250,7 +254,22 @@ h2 {
 .page-title {
   text-align: center;
   color: var(--heading-color);
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
+  font-size: 1.75rem;
+  position: relative;
+  padding-bottom: 0.75rem;
+}
+
+.page-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-color), #007b7d);
+  border-radius: 2px;
 }
 
 /* Group Cards */
@@ -262,13 +281,61 @@ h2 {
   margin-bottom: 20px;
 }
 
-.group-header {
-  background-color: var(--primary-color);
-  color: white;
-  padding: 10px 15px;
-  border-radius: 8px;
+/* Schedule Day Cards - Enhanced */
+.group-section.day {
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  border: 1px solid #e3e8ec;
+  box-shadow: 0 4px 12px rgba(0, 90, 91, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  padding: 15px;
   margin-bottom: 15px;
+}
+
+.group-section.day:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 90, 91, 0.15);
+}
+
+.group-header {
+  background: linear-gradient(135deg, var(--primary-color) 0%, #007b7d 100%);
+  color: white;
+  padding: 10px 16px;
+  border-radius: 8px;
+  margin-bottom: 12px;
   font-weight: 700;
+  font-size: 1.05rem;
+  box-shadow: 0 3px 8px rgba(0, 90, 91, 0.2);
+  text-align: center;
+  letter-spacing: 0.3px;
+}
+
+/* Schedule Session Styling */
+.group-section.day p {
+  padding: 8px 12px;
+  margin: 5px 0;
+  background: white;
+  border-left: 4px solid var(--primary-color);
+  border-radius: 5px;
+  line-height: 1.5;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+  font-size: 0.95rem;
+}
+
+.group-section.day p:hover {
+  background: #f0f8f8;
+  border-left-width: 5px;
+  padding-left: 11px;
+  box-shadow: 0 3px 8px rgba(0, 90, 91, 0.12);
+}
+
+.group-section.day p strong {
+  color: var(--primary-color);
+  font-weight: 700;
+  display: inline-block;
+  min-width: 55px;
+  font-family: var(--font-heading);
+  font-size: 0.9em;
 }
 
 .participant-row {
@@ -378,6 +445,54 @@ h2 {
   margin-top: 20px;
 }
 
+/* Schedule Enhancements */
+/* Break Sessions Styling */
+.group-section.day p.session-break {
+  background: linear-gradient(90deg, #fff8e1 0%, #fffbf0 100%);
+  border-left-color: #ffa726;
+  font-style: italic;
+  opacity: 0.9;
+}
+
+.group-section.day p.session-break:hover {
+  background: linear-gradient(90deg, #fff3d0 0%, #fff8e1 100%);
+}
+
+/* Speaker name styling */
+.speaker {
+  color: #666;
+  font-size: 0.95em;
+  font-weight: 500;
+  margin-left: 4px;
+  font-style: italic;
+}
+
+/* Add visual separator between days */
+.group-section.day::after {
+  content: '';
+  display: block;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, var(--primary-color) 50%, transparent 100%);
+  margin-top: 15px;
+  opacity: 0.2;
+}
+
+/* Enhanced Schedule Container */
+#schedule-container {
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @media (max-width: 600px) {
   body {
     padding: 10px; /* Reduce outer padding */
@@ -389,6 +504,28 @@ h2 {
 
   .group-section {
     padding: 15px 10px; /* Reduce card padding on mobile to maximize space */
+  }
+
+  .group-section.day {
+    padding: 15px;
+  }
+
+  .group-section.day p {
+    padding: 8px 10px;
+    font-size: 0.9rem;
+    margin: 4px 0;
+  }
+
+  .group-section.day p strong {
+    display: block;
+    margin-bottom: 4px;
+    min-width: auto;
+  }
+
+  .group-header {
+    padding: 10px 14px;
+    font-size: 1rem;
+    margin-bottom: 10px;
   }
 
   .participant-row {
