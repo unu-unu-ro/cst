@@ -128,21 +128,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (nav && mainContent) {
     const navHeight = nav.offsetHeight;
-    
+
     // Initial offset calculation
     let stickyOffset = header ? header.offsetHeight : nav.offsetTop;
 
     // Recalculate on window resize to be safe
-    window.addEventListener('resize', () => {
-        if (!nav.classList.contains("fixed-nav")) {
-            stickyOffset = header ? header.offsetHeight : nav.offsetTop;
-        }
+    window.addEventListener("resize", () => {
+      if (!nav.classList.contains("fixed-nav")) {
+        stickyOffset = header ? header.offsetHeight : nav.offsetTop;
+      }
     });
 
     window.addEventListener("scroll", () => {
       // If not fixed, keep updating offset (e.g. if content before changes)
       if (!nav.classList.contains("fixed-nav")) {
-         stickyOffset = header ? header.offsetHeight : nav.offsetTop;
+        stickyOffset = header ? header.offsetHeight : nav.offsetTop;
       }
 
       if (window.pageYOffset > stickyOffset) {
@@ -197,17 +197,17 @@ document.addEventListener("DOMContentLoaded", () => {
         hour: "2-digit",
         minute: "2-digit"
       });
-      
+
       // Add print date to body for CSS access
       document.body.setAttribute("data-print-date", printDate);
-      
+
       // Add print class for any additional styling
       document.body.classList.add("printing");
-      
+
       // Brief delay to ensure styles are applied
       setTimeout(() => {
         window.print();
-        
+
         // Remove print class after printing
         setTimeout(() => {
           document.body.classList.remove("printing");
@@ -215,6 +215,71 @@ document.addEventListener("DOMContentLoaded", () => {
       }, 100);
     });
   }
+
+  // Conference banner: show during alert window based on events.json and display countdown
+  const confBanner = document.getElementById("conferenceBanner");
+  const confLink = document.getElementById("conferenceLink");
+  const confText = document.getElementById("conferenceText");
+  async function checkEventAlerts() {
+    if (!confBanner || !confLink || !confText) return;
+    try {
+      const response = await fetch("./content/events.json");
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const events = await response.json();
+      const now = new Date();
+
+      // Find first event with valid alert window covering current time
+      const active = events.find(ev => {
+        if (!ev.alertFromDate || !ev.alertToDate) return false;
+        const from = new Date(ev.alertFromDate);
+        const to = new Date(ev.alertToDate);
+        if (isNaN(from.getTime()) || isNaN(to.getTime())) return false;
+        return now >= from && now <= to;
+      });
+
+      const hasActive = !!(active && active.buttonLink);
+      if (hasActive) {
+        // Link to event page
+        confLink.href = active.buttonLink;
+
+        // Compute countdown using events.json fields
+        const startStr = active.startDate;
+        const title = active.title || "Eveniment";
+        if (startStr) {
+          const startDate = new Date(startStr);
+          if (!isNaN(startDate.getTime())) {
+            const msDiff = startDate.getTime() - now.getTime();
+            const days = Math.max(0, Math.ceil(msDiff / (1000 * 60 * 60 * 24)));
+            confText.textContent = `📅 ${days} zile pana la ${title}`;
+          } else {
+            confText.textContent = `📅 Urmatorul atelier e aproape: ${title}`;
+          }
+        } else {
+          confText.textContent = `📅 Urmatorul atelier e aproape: ${title}`;
+        }
+
+        confBanner.style.display = "block";
+        // Attach banner to nav: remove spacing
+        if (nav) nav.classList.add("nav-banner-attached");
+        if (mainContent) mainContent.classList.add("main-banner-attached");
+      } else {
+        confBanner.style.display = "none";
+        // Restore spacing when banner hidden
+        if (nav) nav.classList.remove("nav-banner-attached");
+        if (mainContent) mainContent.classList.remove("main-banner-attached");
+      }
+    } catch (err) {
+      console.error("Could not evaluate event alerts:", err);
+      confBanner.style.display = "none";
+      if (nav) nav.classList.remove("nav-banner-attached");
+      if (mainContent) mainContent.classList.remove("main-banner-attached");
+    }
+  }
+
+  // Evaluate on load
+  checkEventAlerts();
 });
 
 // Resource Page Logic
@@ -292,7 +357,8 @@ if (window.location.pathname.includes("resurse")) {
         mainElement.appendChild(navigationSection);
       } catch (error) {
         console.error("Could not load supplementary resources:", error);
-        mainElement.innerHTML = '<p class="error-message">Nu s-au putut încărca resursele. Vă rugăm încercați mai târziu.</p>';
+        mainElement.innerHTML =
+          '<p class="error-message">Nu s-au putut încărca resursele. Vă rugăm încercați mai târziu.</p>';
       }
     }
 

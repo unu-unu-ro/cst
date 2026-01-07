@@ -517,6 +517,42 @@ footer {
   opacity: 1;
 }
 
+/* Floating casting button removed */
+
+/* Conference banner under nav */
+.conference-banner {
+  display: none; /* toggled via JS */
+  width: 100%;
+  background-color: var(--primary-accent);
+  color: #ffffff;
+  padding: 10px 16px;
+  text-align: center;
+  z-index: 200; /* above content but below fixed nav */
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  margin-bottom: 1rem;
+}
+
+.conference-banner a {
+  color: #ffffff;
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+/* When banner is shown, attach it to nav by removing gaps */
+.nav-banner-attached {
+  margin-bottom: 0;
+}
+
+.main-banner-attached {
+  margin-top: 0;
+}
+
+/* Small gap between nav and banner when attached */
+.tab-nav.nav-banner-attached + main .conference-banner {
+  margin-top: 0.25rem;
+}
+
 /* Styles for fisa.html timeline layout */
 .timeline {
   position: relative;

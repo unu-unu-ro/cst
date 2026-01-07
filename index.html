@@ -29,6 +29,11 @@
     </nav>
 
     <main>
+      <!-- Conference banner shown during alert window -->
+      <div class="conference-banner" id="conferenceBanner" style="display: none;" role="status" aria-live="polite">
+        <span id="conferenceText"></span>
+        <a href="#" id="conferenceLink">vezi detalii</a>
+      </div>
       <section id="resources" class="tab-content active">
         <h2 class="section-title visually-hidden">Resurse</h2>
         <div class="card-grid">
@@ -60,6 +65,8 @@
         </div>
       </section>
     </main>
+
+    <!-- Floating casting button removed per request -->
 
     <footer>&copy; <span class="current-year"></span> CST Biserica Unu-Unu, Cluj Napoca 🤍</footer>
     <script src="assets/js/script.js"></script>
