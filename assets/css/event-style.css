@@ -20,8 +20,7 @@
 body {
   font-family: var(--font-body);
   background-color: var(--bg-color);
-  background-image: 
-    radial-gradient(circle at 20% 50%, rgba(0, 90, 91, 0.03) 0%, transparent 50%),
+  background-image: radial-gradient(circle at 20% 50%, rgba(0, 90, 91, 0.03) 0%, transparent 50%),
     radial-gradient(circle at 80% 80%, rgba(0, 90, 91, 0.02) 0%, transparent 50%);
   background-attachment: fixed;
   color: var(--text-color);
@@ -261,7 +260,7 @@ h2 {
 }
 
 .page-title::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   left: 50%;
@@ -364,6 +363,13 @@ h2 {
   color: #555;
   height: fit-content;
   align-self: center;
+  cursor: help;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.role-tag:hover {
+  transform: scale(1.1);
+  opacity: 0.85;
 }
 
 .role-SGL {
@@ -469,7 +475,7 @@ h2 {
 
 /* Add visual separator between days */
 .group-section.day::after {
-  content: '';
+  content: "";
   display: block;
   height: 2px;
   background: linear-gradient(90deg, transparent 0%, var(--primary-color) 50%, transparent 100%);
