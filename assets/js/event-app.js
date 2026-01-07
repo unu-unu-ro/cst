@@ -196,6 +196,7 @@ function initGroupsPage() {
 function initParticipantsPage() {
   const tbody = document.getElementById("participants-body");
   const loading = document.getElementById("loading");
+  const counterElement = document.getElementById("participant-count");
 
   fetch("data/participants.json")
     .then(res => res.json())
@@ -203,6 +204,11 @@ function initParticipantsPage() {
       if (loading) loading.style.display = "none";
 
       data.sort((a, b) => a.name.localeCompare(b.name));
+
+      // Update counter
+      if (counterElement) {
+        counterElement.textContent = data.length;
+      }
 
       data.forEach(p => {
         const row = document.createElement("tr");
