@@ -37,7 +37,7 @@
   {
     "name": "Ovidiu Chis",
     "role": "Ucenic",
-    "group": "Florin Mureşan ",
+    "group": "",
     "text1": "",
     "text2": ""
   },
@@ -51,7 +51,7 @@
   {
     "name": "Daniel Suciu ",
     "role": "Lider",
-    "group": "Daniel Suciu",
+    "group": "",
     "text1": "",
     "text2": ""
   },
@@ -65,13 +65,55 @@
   {
     "name": "Mitraș Dudaș ",
     "role": "Lider",
-    "group": "Mitraș Dudaș",
+    "group": "",
     "text1": "",
     "text2": ""
   },
   {
     "name": "Bîrcă Daniel",
     "role": "Participant",
+    "group": "",
+    "text1": "",
+    "text2": ""
+  },
+  {
+    "name": "Flavius Coman",
+    "role": "",
+    "group": "",
+    "text1": "",
+    "text2": ""
+  },
+  {
+    "name": "Neemia Faur",
+    "role": "",
+    "group": "",
+    "text1": "",
+    "text2": ""
+  },
+  {
+    "name": "Ciutac Dan",
+    "role": "",
+    "group": "",
+    "text1": "",
+    "text2": ""
+  },
+  {
+    "name": "DAVID TRAIAN",
+    "role": "",
+    "group": "",
+    "text1": "",
+    "text2": ""
+  },
+  {
+    "name": "Kemeri Zsolt",
+    "role": "Participant",
+    "group": "",
+    "text1": "",
+    "text2": ""
+  },
+  {
+    "name": "Paul McDonald",
+    "role": "",
     "group": "",
     "text1": "",
     "text2": ""
