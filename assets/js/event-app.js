@@ -212,7 +212,7 @@ function initParticipantsPage() {
 
       data.forEach(p => {
         const row = document.createElement("tr");
-        
+
         // Build role badge if role is not "Participant"
         let roleBadge = "";
         if (p.role === "Ucenic") {
@@ -222,7 +222,7 @@ function initParticipantsPage() {
         } else if (p.role === "Lider") {
           roleBadge = ` <span class="role-tag role-LID" title="Lider">L</span>`;
         }
-        
+
         row.innerHTML = `
                     <td data-label="Nume"><strong>${p.name}</strong>${roleBadge}</td>
                     <td data-label="Text 1">${p.text1 || "-"}</td>

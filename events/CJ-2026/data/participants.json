@@ -85,7 +85,7 @@
   },
   {
     "name": "Neemia Faur",
-    "role": "Participant",
+    "role": "Ucenic",
     "group": "",
     "text1": "",
     "text2": ""
@@ -126,6 +126,34 @@
     "text2": ""
   },
   {
+    "name": "Porsega Mihai",
+    "role": "Participant",
+    "group": "",
+    "text1": "",
+    "text2": ""
+  },
+  {
+    "name": "Deaj David",
+    "role": "Participant",
+    "group": "",
+    "text1": "",
+    "text2": ""
+  },
+  {
+    "name": "Hot Călin",
+    "role": "Participant",
+    "group": "",
+    "text1": "",
+    "text2": ""
+  },
+  {
+    "name": "Flavius Indreiu",
+    "role": "",
+    "group": "",
+    "text1": "",
+    "text2": ""
+  },
+  {
     "name": "Kemeri Zsolt",
     "role": "Participant",
     "group": "",
@@ -135,6 +163,20 @@
   {
     "name": "Paul McDonald",
     "role": "Participant",
+    "group": "",
+    "text1": "",
+    "text2": ""
+  },
+  {
+    "name": "Gulfam 1",
+    "role": "Participant",
+    "group": "",
+    "text1": "",
+    "text2": ""
+  },
+  {
+    "name": "Gulfam 2",
+    "role": "",
     "group": "",
     "text1": "",
     "text2": ""
