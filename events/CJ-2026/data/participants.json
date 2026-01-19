@@ -86,7 +86,7 @@
   {
     "name": "Neemia Faur",
     "role": "Ucenic",
-    "group": "",
+    "group": "Daniel Suciu",
     "text1": "",
     "text2": ""
   },
@@ -148,7 +148,70 @@
   },
   {
     "name": "Flavius Indreiu",
+    "role": "Participant",
+    "group": "",
+    "text1": "",
+    "text2": ""
+  },
+  {
+    "name": "Sergiu Matei",
+    "role": "Participant",
+    "group": "",
+    "text1": "",
+    "text2": ""
+  },
+  {
+    "name": "Alexandru Ovidiu Hotea",
+    "role": "Participant",
+    "group": "",
+    "text1": "",
+    "text2": ""
+  },
+  {
+    "name": "Isztojka iancu ",
+    "role": "Participant",
+    "group": "",
+    "text1": "",
+    "text2": ""
+  },
+  {
+    "name": "Balta Adrian",
+    "role": "Participant",
+    "group": "",
+    "text1": "",
+    "text2": ""
+  },
+  {
+    "name": "Ardelean Sergiu",
+    "role": "Participant",
+    "group": "",
+    "text1": "",
+    "text2": ""
+  },
+  {
+    "name": "Juncu Samuel",
+    "role": "Participant",
+    "group": "",
+    "text1": "",
+    "text2": ""
+  },
+  {
+    "name": "Ovidiu Hanc",
+    "role": "Ucenic",
+    "group": "",
+    "text1": "",
+    "text2": ""
+  },
+  {
+    "name": "Cuc Mihai",
     "role": "",
+    "group": "",
+    "text1": "",
+    "text2": ""
+  },
+  {
+    "name": "Sabin Varan",
+    "role": "Ucenic",
     "group": "",
     "text1": "",
     "text2": ""
@@ -176,7 +239,7 @@
   },
   {
     "name": "Gulfam 2",
-    "role": "",
+    "role": "Participant",
     "group": "",
     "text1": "",
     "text2": ""
