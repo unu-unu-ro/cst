@@ -831,7 +831,7 @@ h2 {
     visibility: visible !important;
     opacity: 1 !important;
     background: white !important;
-    border: 1px solid #ccc !important;
+    border: none !important;
     break-inside: avoid !important;
     margin-bottom: 5mm !important;
   }
