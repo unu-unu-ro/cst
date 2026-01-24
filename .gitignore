@@ -30,3 +30,6 @@ out/
 # System files
 *.DS_Store
 Thumbs.db
+
+# Local cleanup scripts
+events/**/cleanup-participants.py

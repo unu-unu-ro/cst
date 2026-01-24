@@ -37,7 +37,7 @@
   {
     "name": "Ovidiu Chis",
     "role": "Ucenic",
-    "group": "",
+    "group": "Florin Mureşan",
     "text1": "",
     "text2": ""
   },
@@ -51,7 +51,7 @@
   {
     "name": "Daniel Suciu ",
     "role": "Lider",
-    "group": "",
+    "group": "Daniel Suciu",
     "text1": "",
     "text2": ""
   },
@@ -65,7 +65,7 @@
   {
     "name": "Mitraș Dudaș ",
     "role": "Lider",
-    "group": "",
+    "group": "Mitraș Dudaș",
     "text1": "",
     "text2": ""
   },
@@ -121,7 +121,7 @@
   {
     "name": "Florin Muresan",
     "role": "Lider",
-    "group": "",
+    "group": "Florin Mureşan",
     "text1": "",
     "text2": ""
   },
@@ -198,13 +198,13 @@
   {
     "name": "Ovidiu Hanc",
     "role": "Ucenic",
-    "group": "",
+    "group": "John Folmar",
     "text1": "",
     "text2": ""
   },
   {
     "name": "Cuc Mihai",
-    "role": "",
+    "role": "Participant",
     "group": "",
     "text1": "",
     "text2": ""
@@ -212,6 +212,27 @@
   {
     "name": "Sabin Varan",
     "role": "Ucenic",
+    "group": "Iosua Faur",
+    "text1": "",
+    "text2": ""
+  },
+  {
+    "name": "Ionică Martonfi",
+    "role": "Participant",
+    "group": "",
+    "text1": "",
+    "text2": ""
+  },
+  {
+    "name": "Torok Alin",
+    "role": "Participant",
+    "group": "",
+    "text1": "",
+    "text2": ""
+  },
+  {
+    "name": "Coman Andi",
+    "role": "Participant",
     "group": "",
     "text1": "",
     "text2": ""
@@ -239,6 +260,13 @@
   },
   {
     "name": "Gulfam 2",
+    "role": "Participant",
+    "group": "",
+    "text1": "",
+    "text2": ""
+  },
+  {
+    "name": "Edgar Maron",
     "role": "Participant",
     "group": "",
     "text1": "",
