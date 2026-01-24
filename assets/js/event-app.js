@@ -372,6 +372,8 @@ function initSchedulePage() {
           return;
       }
 
+      container.innerHTML = "";
+
       data.schedule.forEach(day => {
         const dayDiv = document.createElement("div");
         dayDiv.className = "group-section day";
