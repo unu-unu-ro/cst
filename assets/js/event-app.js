@@ -33,43 +33,55 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function initHandout() {
-    // 1. Populate Cover Page
-    const coverContainer = document.getElementById("cover-page");
-    if (coverContainer) {
-        coverContainer.innerHTML = `
-            <div class="cover-logos">
-                <img src="../../assets/11logo.png" alt="Biserica 11 Logo">
-                <img src="https://cst-media.s3.amazonaws.com/graphic/cst-logo-black-web.jpg" alt="CST Logo">
-            </div>
-            <div class="cover-title">Atelier de predicare expozitivă</div>
-            <div class="cover-details">
-                Predicare din profeți - AMOS<br>
-                4-6 martie 2026 | Biserica Unu Unu, Cluj-Napoca
-            </div>
+    // 1. Fetch Event Info for Title and Cover
+    fetch("data/data.json")
+        .then(res => res.json())
+        .then(data => {
+            const event = data.event || {};
             
-            <div class="cover-fields">
-                <div class="field-row">
-                    <span class="field-label">Nume:</span>
-                    <div class="field-line"></div>
-                </div>
-                <div class="field-row">
-                    <span class="field-label">Grupă:</span>
-                    <div class="field-line"></div>
-                </div>
-            </div>
-        `;
-    }
+            // Set Document Title (affects printed file name)
+            const cleanSubtitle = (event.subtitle || "").replace("Predicare din profeți - ", "");
+            document.title = `Mapa Participant - ${cleanSubtitle || "Atelier"} - CST 2026`;
+
+            // Populate Cover Page
+            const coverContainer = document.getElementById("cover-page");
+            if (coverContainer) {
+                coverContainer.innerHTML = `
+                    <div class="cover-logos">
+                        <img src="../../assets/11logo.png" alt="Biserica 11 Logo" style="filter: grayscale(100%);">
+                        <img src="https://cst-media.s3.amazonaws.com/graphic/cst-logo-black-web.jpg" alt="CST Logo">
+                    </div>
+                    <div class="cover-title">${event.title || "Atelier de predicare expozitivă"}</div>
+                    <div class="cover-subtitle">${event.subtitle || ""}</div>
+                    <div class="cover-details">
+                        ${event.details || ""}
+                    </div>
+                    
+                    <div class="cover-fields">
+                        <div class="field-row">
+                            <span class="field-label">Nume:</span>
+                            <div class="field-line"></div>
+                        </div>
+                        <div class="field-row">
+                            <span class="field-label">Grupă:</span>
+                            <div class="field-line"></div>
+                        </div>
+                    </div>
+                `;
+            }
+        })
+        .catch(err => console.error("Error loading event data for handout:", err));
 
     // 2. Inject Print Footer (previously in global logic)
     const footer = document.createElement("div");
     footer.className = "print-footer";
     footer.style.display = "none"; // Hidden on screen, shown in print via CSS
     footer.innerHTML = `
-        <img src="../../assets/11logo.png" alt="Biserica 11 Logo" style="height: 30px;">
+        <img src="../../assets/11logo.png" alt="Biserica 11 Logo" style="height: 25px;">
         <div class="print-footer-text">
             
         </div>
-        <img src="https://cst-media.s3.amazonaws.com/graphic/cst-logo-black-web.jpg" alt="CST Logo" style="height: 30px;">
+        <img src="https://cst-media.s3.amazonaws.com/graphic/cst-logo-black-web.jpg" alt="CST Logo" style="height: 25px;">
     `;
     document.body.appendChild(footer);
 
