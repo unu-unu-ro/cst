@@ -12,16 +12,122 @@ document.addEventListener("DOMContentLoaded", () => {
   initLayout();
 
   // 2. Router / Dispatcher
+  // 2. Router / Dispatcher
   if (document.getElementById("links-container")) {
     initHomePage();
-  } else if (document.getElementById("groups-container")) {
+  }
+  if (document.getElementById("groups-container")) {
     initGroupsPage();
-  } else if (document.getElementById("participants-body")) {
+  }
+  if (document.getElementById("participants-body")) {
     initParticipantsPage();
-  } else if (document.getElementById("schedule-container")) {
+  }
+  if (document.getElementById("schedule-container")) {
     initSchedulePage();
   }
+  
+  // Specific Handout Logic
+  if (window.location.pathname.includes("handout")) {
+      initHandout();
+  }
 });
+
+function initHandout() {
+    // 1. Populate Cover Page
+    const coverContainer = document.getElementById("cover-page");
+    if (coverContainer) {
+        coverContainer.innerHTML = `
+            <div class="cover-logos">
+                <img src="../../assets/11logo.png" alt="Biserica 11 Logo">
+                <img src="https://cst-media.s3.amazonaws.com/graphic/cst-logo-black-web.jpg" alt="CST Logo">
+            </div>
+            <div class="cover-title">Atelier de predicare expozitivă</div>
+            <div class="cover-details">
+                Predicare din profeți - AMOS<br>
+                4-6 martie 2026 | Biserica Unu Unu, Cluj-Napoca
+            </div>
+            
+            <div class="cover-fields">
+                <div class="field-row">
+                    <span class="field-label">Nume:</span>
+                    <div class="field-line"></div>
+                </div>
+                <div class="field-row">
+                    <span class="field-label">Grupă:</span>
+                    <div class="field-line"></div>
+                </div>
+            </div>
+        `;
+    }
+
+    // 2. Inject Print Footer (previously in global logic)
+    const footer = document.createElement("div");
+    footer.className = "print-footer";
+    footer.style.display = "none"; // Hidden on screen, shown in print via CSS
+    footer.innerHTML = `
+        <img src="../../assets/11logo.png" alt="Biserica 11 Logo" style="height: 30px;">
+        <div class="print-footer-text">
+            
+        </div>
+        <img src="https://cst-media.s3.amazonaws.com/graphic/cst-logo-black-web.jpg" alt="CST Logo" style="height: 30px;">
+    `;
+    document.body.appendChild(footer);
+
+    // 3. Generate Note Pages based on Schedule
+    const notesContainer = document.getElementById("notes-container");
+    if (notesContainer) {
+        fetch("data/orar.json")
+            .then(res => res.json())
+            .then(data => {
+                notesContainer.innerHTML = "";
+                let pageCount = 0;
+                
+                data.schedule.forEach(day => {
+                   day.sessions.forEach(session => {
+                       if (session.pageInPrint === true) {
+                           pageCount++;
+                           const notePage = document.createElement("div");
+                           notePage.className = "note-page";
+                           
+                           // Generate empty space or just header as requested
+                           /* Lines removed per user request
+                           let linesHtml = "";
+                           for(let i=0; i<34; i++) {
+                               linesHtml += `<div class="note-line"></div>`;
+                           }
+                           */
+                           
+                           notePage.innerHTML = `
+                                <div class="note-header">
+                                    <div class="note-title">${session.title}</div>
+                                    <div class="note-meta">
+                                        ${day.day} | ${session.time} | ${session.speaker || ""}
+                                    </div>
+                                </div>
+                                <!-- No lines, just white space -->
+                                <div class="note-lines"></div>
+                           `;
+                           notesContainer.appendChild(notePage);
+                       } 
+                   }); 
+                });
+            })
+            .catch(err => console.error("Error loading schedule for notes:", err));
+    }
+
+    // 4. Populate Feedback Page
+    const feedbackContainer = document.getElementById("feedback-page");
+    if (feedbackContainer) {
+        feedbackContainer.innerHTML = `
+            <div class="page-break"></div>
+            <div class="feedback-content" style="height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+                <h1 style="font-size: 32pt; margin-bottom: 50px;">Formular feedback</h1>
+                <img src="data/qrevaluare.png" alt="QR Code Feedback" style="width: 300px; height: 300px; margin-bottom: 20px;">
+                <p style="font-size: 14pt; color: #666;">Scanează codul de mai sus pentru a ne oferi feedback-ul tău.</p>
+            </div>
+        `;
+    }
+}
 
 /**
  * Initializes common layout elements.
@@ -36,6 +142,8 @@ function initLayout() {
             </a>
         `;
   }
+
+  /* Print logic moved to initHandout exclusively */
 }
 
 /**
@@ -247,13 +355,17 @@ function initSchedulePage() {
   fetch("data/orar.json")
     .then(res => res.json())
     .then(data => {
-      container.innerHTML = "";
+      if (!data.schedule || data.schedule.length === 0) {
+          container.innerHTML = "<p>Programul nu este disponibil (fișierul de date este gol).</p>";
+          return;
+      }
 
       data.schedule.forEach(day => {
         const dayDiv = document.createElement("div");
         dayDiv.className = "group-section day";
 
         let sessionsHtml = "";
+        
         day.sessions.forEach(session => {
           const isBreak =
             session.title.toLowerCase().includes("pauză") ||
@@ -273,7 +385,9 @@ function initSchedulePage() {
 
         dayDiv.innerHTML = `
                     <div class="group-header">${day.day}</div>
-                    ${sessionsHtml}
+                    <div class="sessions-list">
+                        ${sessionsHtml}
+                    </div>
                 `;
         container.appendChild(dayDiv);
       });

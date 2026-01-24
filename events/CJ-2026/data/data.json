@@ -34,6 +34,12 @@
       "url": "https://cst.unu-unu.ro/ghid",
       "icon": "fa-solid fa-book",
       "active": true
+    },
+    {
+      "name": "Mapă participant PDF",
+      "url": "handout",
+      "icon": "fa-solid fa-file-pdf",
+      "active": true
     }
   ]
 }

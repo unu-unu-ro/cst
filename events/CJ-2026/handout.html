@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ro">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Handout Conferință - Rogers & Cluj</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;700&family=Work+Sans:wght@400;600&display=swap"
+        rel="stylesheet">
+
+    <!-- FontAwesome -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="icon" type="image/x-icon" href="../../assets/favicon.ico" />
+    <link rel="stylesheet" href="../../assets/css/event-style.css" />
+    <style>
+        /* Specific tweaks for Handout view on screen */
+        .handout-section-title {
+            margin-top: 40px;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
+        }
+
+        @media print {
+
+            /* Hide these internal titles in print if desired, or keep them */
+            .handout-section-title {
+                margin-top: 0;
+            }
+
+            /* Ensure container is visible in print */
+            .container {
+                display: block !important;
+            }
+
+            /* Ensure container is visible in print */
+            .container {
+                display: block !important;
+            }
+
+            #print-ui {
+                display: none !important;
+            }
+        }
+
+        @media screen {
+
+            /* Hide content on screen */
+            .container {
+                display: none;
+            }
+
+            #print-ui {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                text-align: center;
+                background: white;
+                padding: 40px;
+                border-radius: 16px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+                width: 90%;
+                max-width: 400px;
+            }
+
+            #print-ui p {
+                margin-bottom: 20px;
+                color: #333;
+                font-size: 1.1rem;
+            }
+
+            #print-ui button {
+                background: var(--primary-color);
+                color: white;
+                border: none;
+                padding: 12px 30px;
+                border-radius: 50px;
+                font-size: 1rem;
+                font-weight: 700;
+                cursor: pointer;
+                display: inline-flex;
+                align-items: center;
+                gap: 10px;
+                transition: background 0.2s;
+            }
+
+            #print-ui button:hover {
+                background: var(--primary-hover);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container content-container">
+        <div class="header-nav"></div>
+
+        <!-- COVER PAGE -->
+        <div id="cover-page" class="handout-section">
+            <!-- Populated by JS -->
+        </div>
+
+        <div class="page-break"></div>
+
+        <!-- SCHEDULE SECTION -->
+        <h2 class="handout-section-title">Programul Conferinței</h2>
+        <div id="schedule-container">
+            <!-- Schedule injected here -->
+            <p class="loading-text">Se încarcă programul...</p>
+        </div>
+
+        <div class="page-break"></div>
+
+        <!-- GROUPS SECTION -->
+        <h2 class="handout-section-title">Împărțirea pe Grupe</h2>
+        <div id="groups-container">
+            <!-- Groups injected here -->
+            <p class="loading-text">Se încarcă grupele...</p>
+        </div>
+
+        <!-- NOTES SECTION -->
+        <div id="notes-container">
+            <!-- Dynamic note pages injected here -->
+        </div>
+
+        <!-- FEEDBACK PAGE -->
+        <div id="feedback-page" class="handout-section">
+            <!-- Populated by JS -->
+        </div>
+    </div>
+
+    <!-- Screen Only UI -->
+    <div id="print-ui">
+        <p>Vă rugăm să folosiți butonul de mai jos pentru a genera documentul PDF.</p>
+        <button onclick="window.print()">
+            <i class="fa-solid fa-print"></i> Tipărește PDF
+        </button>
+        <div style="margin-top: 20px;">
+            <a href="index" style="color: var(--primary-color); text-decoration: none; font-weight: 600;">
+                <i class="fa-solid fa-arrow-left"></i> Înapoi
+            </a>
+        </div>
+    </div>
+
+    <!-- Script to load both components -->
+    <script src="../../assets/js/event-app.js"></script>
+</body>
+
+</html>

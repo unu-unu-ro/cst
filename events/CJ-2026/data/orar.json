@@ -16,7 +16,8 @@
         {
           "time": "14:30",
           "title": "Sesiunea 1 – Rămânând pe linie",
-          "speaker": "Daniel Suciu"
+          "speaker": "Daniel Suciu",
+          "pageInPrint": true
         },
         {
           "time": "15:30",
@@ -26,7 +27,8 @@
         {
           "time": "15:45",
           "title": "Sesiunea 2 – Structura",
-          "speaker": "John Folmar"
+          "speaker": "John Folmar",
+          "pageInPrint": true
         },
         {
           "time": "16:45",
@@ -36,7 +38,8 @@
         {
           "time": "17:00",
           "title": "Expunere 1 – Amos",
-          "speaker": "Florin Mureșan"
+          "speaker": "Florin Mureșan",
+          "pageInPrint": true
         },
         {
           "time": "17:30",
@@ -56,7 +59,8 @@
         {
           "time": "09:15",
           "title": "Sesiunea 3 – Contextul",
-          "speaker": "Daniel Suciu"
+          "speaker": "Daniel Suciu",
+          "pageInPrint": true
         },
         {
           "time": "10:15",
@@ -91,7 +95,8 @@
         {
           "time": "13:30",
           "title": "Sesiunea 4 – Conectarea la Evanghelie",
-          "speaker": "John Folmar"
+          "speaker": "John Folmar",
+          "pageInPrint": true
         },
         {
           "time": "14:30",
@@ -111,7 +116,8 @@
         {
           "time": "16:30",
           "title": "Expunere 2 – Amos",
-          "speaker": "Daniel Suciu"
+          "speaker": "Daniel Suciu",
+          "pageInPrint": true
         },
         {
           "time": "17:00",
@@ -131,7 +137,8 @@
         {
           "time": "09:15",
           "title": "Sesiunea 5 – Linia melodică",
-          "speaker": "Daniel Suciu"
+          "speaker": "Daniel Suciu",
+          "pageInPrint": true
         },
         {
           "time": "10:15",
@@ -151,7 +158,8 @@
         {
           "time": "12:45",
           "title": "Sesiunea 6 – Aranjamentul",
-          "speaker": "John Folmar"
+          "speaker": "John Folmar",
+          "pageInPrint": true
         },
         {
           "time": "13:45",
@@ -176,7 +184,8 @@
         {
           "time": "16:00",
           "title": "Expunere 3 – Amos",
-          "speaker": "John Folmar"
+          "speaker": "John Folmar",
+          "pageInPrint": true
         },
         {
           "time": "16:30",

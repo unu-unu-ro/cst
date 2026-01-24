@@ -674,3 +674,317 @@ h2 {
   margin-top: 8px;
   font-style: italic;
 }
+
+/* Print Styles */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 1cm; /* Reduced margin */
+  }
+
+  body {
+    background: white;
+    background-image: none;
+    display: block;
+    height: auto;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-size: 11pt; /* Base print font size */
+  }
+
+  .container,
+  .content-container {
+    width: 100%;
+    max-width: 100%;
+    box-shadow: none;
+    margin: 0;
+    padding: 0;
+    background: white;
+  }
+
+  /* Hide UI elements not needed for print */
+  .header-nav,
+  .hub-footer,
+  #print-btn-container,
+  .loading-text,
+  footer,
+  .group-section.day::after {
+    display: none !important;
+  }
+
+  /* Compact Profile for Print */
+  .profile {
+    margin-bottom: 5px;
+    border-bottom: 2px solid #000;
+    padding-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row-reverse;
+  }
+
+  .profile h1.page-title {
+    font-size: 16pt;
+    margin: 0;
+    text-align: left;
+    padding: 0;
+  }
+  
+  .profile h1.page-title::after {
+    display: none;
+  }
+
+  /* Reset layout for print */
+  .group-section,
+  .group-section.day {
+    display: block !important; /* Ensure visible */
+    break-inside: avoid;
+    border: none; /* Remove border to save visual noise */
+    border-bottom: 1px solid #ccc; /* Simple separator */
+    box-shadow: none;
+    margin-bottom: 10px; /* Reduced spacing */
+    padding: 5px 0; /* Reduced padding */
+    background: white !important;
+  }
+
+  /* Ensure text is black */
+  body, h1, h2, h3, p, span, div, strong, b {
+    color: black !important;
+  }
+  
+  /* Compact Headers */
+  .group-header {
+    background: #ddd !important;
+    color: black !important;
+    border: 1px solid #999;
+    box-shadow: none;
+    padding: 4px 10px;
+    font-size: 10pt;
+    margin-bottom: 5px;
+    display: inline-block; /* Inline to save space if needed, or keeping block ok */
+    width: 100%;
+  }
+
+  /* Very Compact Sessions */
+  .group-section.day p {
+    padding: 2px 5px; /* Minimal padding */
+    margin: 2px 0;
+    border-left: 2px solid #666 !important; /* Thinner border */
+    font-size: 9pt; /* Smaller font for schedule items */
+    line-height: 1.2;
+  }
+  
+  .group-section.day p strong {
+    font-size: 9pt;
+    min-width: 45px; /* Condense time column */
+  }
+
+  /* Footer for Print - Compact */
+  .print-footer {
+    display: flex !important;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding-top: 5px;
+    border-top: 1px solid #000;
+    background: white;
+    height: 30px; /* Fixed small height */
+  }
+  
+  .print-footer img {
+    height: 25px; /* Smaller logos */
+    width: auto;
+  }
+  
+  .print-footer-text {
+    font-size: 7pt;
+    text-align: center;
+    width: 100%;
+    color: #000 !important;
+  }
+  
+  /* Hide breaks in print to save space if needed? */
+  /* .session-break { display: none !important; } */ /* Keeping them based on user request "nicely formatted" */
+  
+  /* Allow 2-column layout for schedule if it fits better landscape-ish behavior on portrait? 
+     No, user asked for portrait. Let's stick to list but compact. */
+     
+  /* Force Schedule Visibility in Print */
+  #schedule-container {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    animation: none !important;
+    transition: none !important;
+    overflow: visible !important;
+    page-break-after: auto !important;
+  }
+
+  /* Target both Groups and Schedule cards in print */
+  .group-section,
+  .group-section.day {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    background: white !important;
+    border: 1px solid #ccc !important;
+    break-inside: avoid !important;
+    margin-bottom: 5mm !important;
+  }
+
+  /* Specific sessions styling for print visibility */
+  .sessions-list p {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    color: black !important;
+  }
+
+  .page-break {
+    page-break-before: always;
+    display: block;
+    height: 1px;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* --- Handout Sections --- */
+
+  /* 1. Cover Page */
+  #cover-page {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      page-break-after: always;
+  }
+
+  .cover-logos {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 40px;
+      align-items: center;
+      justify-content: center;
+  }
+
+  .cover-logos img {
+      height: 120px; 
+      width: auto;
+  }
+
+  .cover-title {
+      font-size: 32pt;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin-bottom: 20px;
+  }
+
+  .cover-details {
+      font-size: 14pt;
+      margin-bottom: 60px;
+  }
+
+  .cover-fields {
+      width: 80%;
+      text-align: left;
+  }
+
+  .field-row {
+      margin-bottom: 30px;
+  }
+
+  .field-label {
+      font-weight: 600;
+      font-size: 14pt;
+      display: block;
+      margin-bottom: 5px;
+  }
+
+  .field-line {
+      border-bottom: 1px solid #000;
+      height: 30px;
+  }
+
+  /* 2. Squeezed Groups */
+  /* Target groups ONLY within handout context if possible, 
+     but since this CSS is media-print globally, applies to all print. 
+     We can target #groups-container specifically. */
+  
+  #groups-container {
+     column-count: 2; /* 2 Columns */
+     column-gap: 20px;
+     font-size: 9pt; /* Smaller font */
+  }
+
+  #groups-container .group-section {
+      break-inside: avoid; /* Prevent split groups */
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      padding: 5px;
+  }
+  
+  #groups-container .group-header {
+      font-size: 10pt;
+      padding: 2px 5px;
+      margin-bottom: 5px;
+  }
+
+  #groups-container .participant-row {
+      padding: 2px 0;
+      border-bottom: none; /* Clean look */
+  }
+  
+  /* 3. Note Pages */
+  .note-page {
+      page-break-before: always;
+      height: 100vh;
+      padding-top: 20px;
+  }
+
+  .note-header {
+      border-bottom: 2px solid var(--primary-color);
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+  }
+
+  .note-title {
+      font-size: 18pt;
+      font-weight: 700;
+      margin-bottom: 5px;
+  }
+
+  .note-meta {
+      font-size: 12pt;
+      font-style: italic;
+      color: #555;
+  }
+
+  .note-lines {
+      width: 100%;
+      height: auto;
+  }
+
+  .note-line {
+      border-bottom: 1px solid #e0e0e0; /* Light line */
+      height: 30px; /* Line height spacing */
+      width: 100%;
+  }
+
+  /* 4. Feedback Page */
+  #feedback-page {
+      page-break-before: always;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+  }
+}
+
