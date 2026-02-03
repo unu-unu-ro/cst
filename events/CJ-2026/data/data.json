@@ -39,7 +39,7 @@
       "name": "Mapă participant PDF",
       "url": "handout",
       "icon": "fa-solid fa-file-pdf",
-      "active": true
+      "active": false
     }
   ]
 }

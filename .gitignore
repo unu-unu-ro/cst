@@ -33,3 +33,4 @@ Thumbs.db
 
 # Local cleanup scripts
 events/**/cleanup-participants.py
+events/**/generate-badge.py
