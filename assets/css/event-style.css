@@ -310,15 +310,24 @@ h2 {
 
 /* Schedule Session Styling */
 .group-section.day p {
-  padding: 8px 12px;
-  margin: 5px 0;
+  padding: 10px 14px;
+  margin: 6px 0;
   background: white;
   border-left: 4px solid var(--primary-color);
-  border-radius: 5px;
+  border-radius: 6px;
   line-height: 1.5;
   transition: all 0.2s ease;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
   font-size: 0.95rem;
+}
+
+/* Normal session styling enhancement */
+.group-section.day p.session-normal {
+  border-left-color: var(--primary-color);
+}
+
+.group-section.day p.session-normal:nth-child(odd) {
+  background: linear-gradient(90deg, #ffffff 0%, #fafcfc 100%);
 }
 
 .group-section.day p:hover {
@@ -452,35 +461,38 @@ h2 {
 }
 
 /* Schedule Enhancements */
-/* Break Sessions Styling */
+/* Break Sessions Styling - Soft green to indicate pause/rest */
 .group-section.day p.session-break {
-  background: linear-gradient(90deg, #fff8e1 0%, #fffbf0 100%);
-  border-left-color: #ffa726;
+  background: linear-gradient(90deg, #e8f5e9 0%, #f1f8f2 100%);
+  border-left-color: #66bb6a;
   font-style: italic;
-  opacity: 0.9;
+  opacity: 0.92;
 }
 
 .group-section.day p.session-break:hover {
-  background: linear-gradient(90deg, #fff3d0 0%, #fff8e1 100%);
+  background: linear-gradient(90deg, #c8e6c9 0%, #e8f5e9 100%);
+  border-left-color: #4caf50;
 }
 
 /* Speaker name styling */
 .speaker {
-  color: #666;
-  font-size: 0.95em;
-  font-weight: 500;
-  margin-left: 4px;
-  font-style: italic;
+  color: var(--primary-color);
+  font-size: 0.92em;
+  font-weight: 600;
+  margin-left: 6px;
+  font-style: normal;
 }
 
-/* Add visual separator between days */
-.group-section.day::after {
-  content: "";
-  display: block;
-  height: 2px;
-  background: linear-gradient(90deg, transparent 0%, var(--primary-color) 50%, transparent 100%);
-  margin-top: 15px;
-  opacity: 0.2;
+/* Visual separator between days - only on mobile (non-grid) */
+@media (max-width: 767px) {
+  .group-section.day::after {
+    content: "";
+    display: block;
+    height: 2px;
+    background: linear-gradient(90deg, transparent 0%, var(--primary-color) 50%, transparent 100%);
+    margin-top: 15px;
+    opacity: 0.2;
+  }
 }
 
 /* Enhanced Schedule Container */
