@@ -20,7 +20,8 @@
 body {
   font-family: var(--font-body);
   background-color: var(--bg-color);
-  background-image: radial-gradient(circle at 20% 50%, rgba(0, 90, 91, 0.03) 0%, transparent 50%),
+  background-image:
+    radial-gradient(circle at 20% 50%, rgba(0, 90, 91, 0.03) 0%, transparent 50%),
     radial-gradient(circle at 80% 80%, rgba(0, 90, 91, 0.02) 0%, transparent 50%);
   background-attachment: fixed;
   color: var(--text-color);
@@ -127,7 +128,10 @@ h2 {
   text-decoration: none;
   padding: 16px 20px;
   border-radius: 12px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s;
   font-weight: 600;
   font-size: 1rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -285,7 +289,9 @@ h2 {
   background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
   border: 1px solid #e3e8ec;
   box-shadow: 0 4px 12px rgba(0, 90, 91, 0.08);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
   padding: 15px;
   margin-bottom: 15px;
 }
@@ -373,7 +379,9 @@ h2 {
   height: fit-content;
   align-self: center;
   cursor: help;
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
 }
 
 .role-tag:hover {
@@ -742,7 +750,7 @@ h2 {
     text-align: left;
     padding: 0;
   }
-  
+
   .profile h1.page-title::after {
     display: none;
   }
@@ -761,10 +769,18 @@ h2 {
   }
 
   /* Ensure text is black */
-  body, h1, h2, h3, p, span, div, strong, b {
+  body,
+  h1,
+  h2,
+  h3,
+  p,
+  span,
+  div,
+  strong,
+  b {
     color: black !important;
   }
-  
+
   /* Compact Headers */
   .group-header {
     background: #ddd !important;
@@ -786,7 +802,7 @@ h2 {
     font-size: 9pt; /* Smaller font for schedule items */
     line-height: 1.2;
   }
-  
+
   .group-section.day p strong {
     font-size: 9pt;
     min-width: 45px; /* Condense time column */
@@ -806,25 +822,25 @@ h2 {
     background: white;
     height: 30px; /* Fixed small height */
   }
-  
+
   .print-footer img {
     height: 25px; /* Smaller logos */
     width: auto;
   }
-  
+
   .print-footer-text {
     font-size: 7pt;
     text-align: center;
     width: 100%;
     color: #000 !important;
   }
-  
+
   /* Hide breaks in print to save space if needed? */
   /* .session-break { display: none !important; } */ /* Keeping them based on user request "nicely formatted" */
-  
+
   /* Allow 2-column layout for schedule if it fits better landscape-ish behavior on portrait? 
      No, user asked for portrait. Let's stick to list but compact. */
-     
+
   /* Force Schedule Visibility in Print */
   #schedule-container {
     display: block !important;
@@ -868,146 +884,145 @@ h2 {
 
   /* 1. Cover Page */
   #cover-page {
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      page-break-after: always;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    page-break-after: always;
   }
 
   .cover-logos {
-      display: flex;
-      gap: 20px;
-      margin-bottom: 40px;
-      align-items: center;
-      justify-content: center;
+    display: flex;
+    gap: 20px;
+    margin-bottom: 40px;
+    align-items: center;
+    justify-content: center;
   }
 
   .cover-logos img {
-      height: 120px; 
-      width: auto;
+    height: 120px;
+    width: auto;
   }
 
   .cover-title {
-      font-size: 28pt; 
-      font-weight: 400; 
-      color: #666;
-      margin-bottom: 10px;
-      text-transform: uppercase;
-      letter-spacing: 2px;
+    font-size: 28pt;
+    font-weight: 400;
+    color: #666;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
   }
 
   .cover-subtitle {
-      font-size: 42pt;
-      font-weight: 700;
-      color: var(--primary-color);
-      margin-bottom: 40px;
-      line-height: 1.1;
+    font-size: 42pt;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 40px;
+    line-height: 1.1;
   }
 
   .cover-details {
-      font-size: 16pt;
-      margin-bottom: 80px;
-      color: #444;
+    font-size: 16pt;
+    margin-bottom: 80px;
+    color: #444;
   }
 
   .cover-fields {
-      width: 80%;
-      text-align: left;
+    width: 80%;
+    text-align: left;
   }
 
   .field-row {
-      margin-bottom: 30px;
+    margin-bottom: 30px;
   }
 
   .field-label {
-      font-weight: 600;
-      font-size: 14pt;
-      display: block;
-      margin-bottom: 5px;
+    font-weight: 600;
+    font-size: 14pt;
+    display: block;
+    margin-bottom: 5px;
   }
 
   .field-line {
-      border-bottom: 1px solid #000;
-      height: 30px;
+    border-bottom: 1px solid #000;
+    height: 30px;
   }
 
   /* 2. Squeezed Groups */
   /* Target groups ONLY within handout context if possible, 
      but since this CSS is media-print globally, applies to all print. 
      We can target #groups-container specifically. */
-  
+
   #groups-container {
-     column-count: 2; /* 2 Columns */
-     column-gap: 20px;
-     font-size: 9pt; /* Smaller font */
+    column-count: 2; /* 2 Columns */
+    column-gap: 20px;
+    font-size: 9pt; /* Smaller font */
   }
 
   #groups-container .group-section {
-      break-inside: avoid; /* Prevent split groups */
-      margin-bottom: 10px;
-      border: 1px solid #ccc;
-      padding: 5px;
+    break-inside: avoid; /* Prevent split groups */
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    padding: 5px;
   }
-  
+
   #groups-container .group-header {
-      font-size: 10pt;
-      padding: 2px 5px;
-      margin-bottom: 5px;
+    font-size: 10pt;
+    padding: 2px 5px;
+    margin-bottom: 5px;
   }
 
   #groups-container .participant-row {
-      padding: 2px 0;
-      border-bottom: none; /* Clean look */
+    padding: 2px 0;
+    border-bottom: none; /* Clean look */
   }
-  
+
   /* 3. Note Pages */
   .note-page {
-      page-break-before: always;
-      height: 100vh;
-      padding-top: 20px;
+    page-break-before: always;
+    height: 100vh;
+    padding-top: 20px;
   }
 
   .note-header {
-      border-bottom: 2px solid var(--primary-color);
-      margin-bottom: 20px;
-      padding-bottom: 10px;
+    border-bottom: 2px solid var(--primary-color);
+    margin-bottom: 20px;
+    padding-bottom: 10px;
   }
 
   .note-title {
-      font-size: 18pt;
-      font-weight: 700;
-      margin-bottom: 5px;
+    font-size: 18pt;
+    font-weight: 700;
+    margin-bottom: 5px;
   }
 
   .note-meta {
-      font-size: 12pt;
-      font-style: italic;
-      color: #555;
+    font-size: 12pt;
+    font-style: italic;
+    color: #555;
   }
 
   .note-lines {
-      width: 100%;
-      height: auto;
+    width: 100%;
+    height: auto;
   }
 
   .note-line {
-      border-bottom: 1px solid #e0e0e0; /* Light line */
-      height: 30px; /* Line height spacing */
-      width: 100%;
+    border-bottom: 1px solid #e0e0e0; /* Light line */
+    height: 30px; /* Line height spacing */
+    width: 100%;
   }
 
   /* 4. Feedback Page */
   #feedback-page {
-      page-break-before: always;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
+    page-break-before: always;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
   }
 }
-
