@@ -322,13 +322,6 @@
     "text2": "Amos 9:1-10"
   },
   {
-    "name": "Codrean Oliviu",
-    "role": "Participant",
-    "group": "Mitraș Dudaș",
-    "text1": "Amos 4:6-13",
-    "text2": "Amos 9:1-10"
-  },
-  {
     "name": "Marin Liviu",
     "role": "Participant",
     "group": "Iosua Faur",
@@ -341,6 +334,13 @@
     "group": "Daniel Suciu",
     "text1": "Amos 4:6-13",
     "text2": "Amos 9:1-10"
+  },
+  {
+    "name": "Țap Cristian Marius",
+    "role": "Participant",
+    "group": "Mitraș Dudaș",
+    "text1": "Amos 2:4-16",
+    "text2": "Amos 5:18-27"
   },
   {
     "name": "Kemeri Zsolt",
