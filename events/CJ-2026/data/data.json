@@ -40,6 +40,12 @@
       "url": "handout",
       "icon": "fa-solid fa-file-pdf",
       "active": false
+    },
+    {
+      "name": "Feedback",
+      "url": "feedback",
+      "icon": "fa-solid fa-comment",
+      "active": false
     }
   ]
 }
