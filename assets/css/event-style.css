@@ -69,7 +69,8 @@ body {
 
 /* Ensure containers take full width in flex column parent */
 #groups-container,
-#schedule-container {
+#schedule-container,
+#feedback-container {
   width: 100%;
 }
 

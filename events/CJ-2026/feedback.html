@@ -26,52 +26,32 @@
       <div id="feedback-container">
         <h1 style="text-align: center; margin-bottom: 2rem">Feedback</h1>
 
-        <p style="text-align: center; font-size: 1.1rem; color: #555; margin-bottom: 2rem">
-          Formularul de feedback va fi disponibil în curând.
-        </p>
-
-        <!-- Tally Form Placeholder - uncomment and configure when ready -->
-        <!--
         <iframe
-          data-tally-src="https://tally.so/embed/YOUR_FORM_ID?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
+          data-tally-src="https://tally.so/embed/WONyEj?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
           loading="lazy"
           width="100%"
-          height="600"
+          height="4099"
           frameborder="0"
           marginheight="0"
           marginwidth="0"
-          title="Feedback CST 2026, Cluj"
+          title="Formular Evaluare CST Cluj 2026"
         ></iframe>
-
         <script>
           var d = document,
             w = "https://tally.so/widgets/embed.js",
             v = function () {
               "undefined" != typeof Tally
                 ? Tally.loadEmbeds()
-                : d
-                    .querySelectorAll("iframe[data-tally-src]:not([src])")
-                    .forEach(function (e) {
-                      e.src = e.dataset.tallySrc;
-                    });
+                : d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach(function (e) {
+                    e.src = e.dataset.tallySrc;
+                  });
             };
           if ("undefined" != typeof Tally) v();
           else if (d.querySelector('script[src="' + w + '"]') == null) {
             var s = d.createElement("script");
-            (s.src = w), (s.onload = v), (s.onerror = v), d.body.appendChild(s);
+            ((s.src = w), (s.onload = v), (s.onerror = v), d.body.appendChild(s));
           }
         </script>
-
-        <p class="help-text">
-          Nu se încarcă formularul?
-          <a
-            href="https://tally.so/r/YOUR_FORM_ID"
-            target="_blank"
-            class="link-highlight"
-            >Deschide în fereastră nouă</a
-          >.
-        </p>
-        -->
       </div>
     </div>
     <script src="../../assets/js/event-app.js"></script>
