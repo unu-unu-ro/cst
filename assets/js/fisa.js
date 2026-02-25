@@ -305,6 +305,17 @@ function loadJson() {
   fileInput.click();
 }
 
+function downloadJson() {
+  const values = getFormValues();
+  const date = new Date();
+  values.date = date.toISOString();
+  const rawData = JSON.stringify(values, null, 2);
+  // Swedish locale) produces ISO-like local time.
+  const dateStr = date.toLocaleString("sv").slice(0, 16).replace(":", "-").replace(" ", "_");
+  const rawName = `${getPageTitle(values["nume"], values["text"])}-${dateStr}-raw.json`;
+  download(rawData, getFileName(rawName), "application/json");
+}
+
 // PDF Generation using browser print functionality
 function generatePDF(values) {
   if (!validateForm()) {
@@ -527,23 +538,12 @@ document.addEventListener("DOMContentLoaded", function () {
   // Reset form button
   $("#resetForm").addEventListener("click", resetFormData);
 
-  // Load JSON button
-  const loadJsonBtn = $("#loadJson");
-  if (loadJsonBtn) {
-    loadJsonBtn.addEventListener("click", loadJson);
-  }
+  $("#loadJson").addEventListener("click", loadJson);
+  $("#downloadJson").addEventListener("click", downloadJson);
 
   // Generate PDF button
   $("#generatePDF").addEventListener("click", function () {
     const values = getFormValues();
-    const date = new Date();
-    values.date = date.toISOString();
-    const rawData = JSON.stringify(values, null, 2);
-    // Swedish locale) produces ISO-like local time.
-    const dateStr = date.toLocaleString("sv").slice(0, 16).replace(":", "-").replace(" ", "_");
-    const rawName = `${getPageTitle(values["nume"], values["text"])}-${dateStr}-raw.json`;
-    download(rawData, getFileName(rawName), "application/json");
-
     generatePDF(values);
   });
 

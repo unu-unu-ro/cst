@@ -4,29 +4,23 @@
   padding: 0 0.5rem;
 }
 
-#resetForm {
-  background: none;
-  border: none;
-  color: #666;
-  text-decoration: underline;
-  font-size: 0.8rem;
-  cursor: pointer;
-  margin-top: 0.5rem;
-}
-
 .separator {
   margin: 0 0.5rem;
   color: #ccc;
 }
 
-#loadJson {
+.simple-btn {
   background: none;
   border: none;
   color: #666;
-  text-decoration: underline;
+  text-decoration: none;
   font-size: 0.8rem;
   cursor: pointer;
   margin-top: 0.5rem;
+}
+.simple-btn:hover {
+  color: var(--primary-accent);
+  text-decoration: underline;
 }
 
 .form-step {

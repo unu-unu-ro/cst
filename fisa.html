@@ -41,9 +41,25 @@
           Progres fișa curentă - pasul <span id="currentStep">1</span> din 7
           <button type="button" id="openFormattingHelp" class="info-btn" title="Ghid de formatare">i</button>
         </div>
-        <button type="button" id="resetForm">Resetează câmpuri</button>
+        <button type="button" id="resetForm" class="simple-btn">Resetează câmpuri</button>
         <span class="separator">|</span>
-        <button type="button" id="loadJson">încarcă din *-raw.json</button>
+        <button
+          type="button"
+          id="loadJson"
+          class="simple-btn"
+          title="Încarcă datele dintr-un fișier raw.json salvat anterior"
+        >
+          ⬆ Încarcă din raw.json
+        </button>
+        <span class="separator">|</span>
+        <button
+          type="button"
+          id="downloadJson"
+          class="simple-btn"
+          title="Descarcă datele în format raw.json pentru editări ulterioare"
+        >
+          ⬇ Descarcă raw.json
+        </button>
       </div>
 
       <div class="extra-fields" style="display: flex; gap: 2rem; margin: 2rem 0; align-items: flex-end">
