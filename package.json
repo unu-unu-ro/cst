@@ -1,0 +1,32 @@
+{
+  "name": "cst",
+  "version": "1.0.0",
+  "description": "CST Utilities",
+  "keywords": [
+    "CST",
+    "Cluj",
+    "Romania",
+    "Biserica",
+    "Unu-unu"
+  ],
+  "homepage": "https://github.com/unu-unu-ro/cst#readme",
+  "bugs": {
+    "url": "https://github.com/unu-unu-ro/cst/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/unu-unu-ro/cst.git"
+  },
+  "license": "ISC",
+  "author": "Ovidiu Chis, Nicolae Matei, Daniel Dudas",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clear": "rimraf node_modules",
+    "start": "browser-sync start --server --files '**/*' --single --no-notify"
+  },
+  "devDependencies": {
+    "browser-sync": "^3.0.2"
+  }
+}

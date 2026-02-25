@@ -570,7 +570,7 @@ footer {
 .step::before {
   content: attr(data-step);
   position: absolute;
-  left: -2.5rem;
+  left: -3rem;
   top: 0;
   background-color: var(--primary-accent);
   color: white;

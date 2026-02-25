@@ -10,11 +10,9 @@ Thumbs.db
 *.sublime-project
 *.sublime-workspace
 
-# Prettier configuration
-.prettierrc
-
 # Node modules (if any node dependencies are added)
 node_modules/
+package-lock.json
 
 # Dist / Build folders
 dist/
