@@ -200,7 +200,7 @@ function showCustomAlert(message, onConfirm, isConfirm) {
   }
   alertBox.style.display = "flex";
   alertBox.style.visibility = "visible";
-  alertBox.querySelector("#custom-alert-message").textContent = message;
+  alertBox.querySelector("#custom-alert-message").innerHTML = message;
   const actions = alertBox.querySelector(".custom-alert-actions");
   actions.innerHTML = "";
   if (isConfirm) {
@@ -265,6 +265,44 @@ function parseMarkdown(text) {
   html = html.replace(/\n/g, "<br>");
 
   return html;
+}
+
+// Load JSON file and populate form
+function loadJson() {
+  const fileInput = document.createElement("input");
+  fileInput.type = "file";
+  fileInput.accept = ".json,application/json";
+  fileInput.style.display = "none";
+  document.body.appendChild(fileInput);
+
+  fileInput.addEventListener("change", function () {
+    const file = fileInput.files[0];
+    if (!file) {
+      document.body.removeChild(fileInput);
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      try {
+        const data = JSON.parse(e.target.result);
+        setFormValues(data);
+        persistFormData();
+        updateProgress();
+        showCustomAlert(
+          `Fișa a fost încărcată cu succes din <strong>${file.name}</strong>. <br />
+          (Document modificat la: <strong>${new Date(data.date).toLocaleString("ro-RO")}</strong>)`
+        );
+      } catch (err) {
+        console.error("Error loading JSON:", err);
+        showCustomAlert("Fișierul selectat nu este un JSON valid.");
+      } finally {
+        document.body.removeChild(fileInput);
+      }
+    };
+    reader.readAsText(file);
+  });
+
+  fileInput.click();
 }
 
 // PDF Generation using browser print functionality
@@ -489,12 +527,21 @@ document.addEventListener("DOMContentLoaded", function () {
   // Reset form button
   $("#resetForm").addEventListener("click", resetFormData);
 
+  // Load JSON button
+  const loadJsonBtn = $("#loadJson");
+  if (loadJsonBtn) {
+    loadJsonBtn.addEventListener("click", loadJson);
+  }
+
   // Generate PDF button
   $("#generatePDF").addEventListener("click", function () {
     const values = getFormValues();
-    values.date = new Date().toISOString();
+    const date = new Date();
+    values.date = date.toISOString();
     const rawData = JSON.stringify(values, null, 2);
-    const rawName = `${getPageTitle(values["nume"], values["text"])}-raw.json`;
+    // Swedish locale) produces ISO-like local time.
+    const dateStr = date.toLocaleString("sv").slice(0, 16).replace(":", "-").replace(" ", "_");
+    const rawName = `${getPageTitle(values["nume"], values["text"])}-${dateStr}-raw.json`;
     download(rawData, getFileName(rawName), "application/json");
 
     generatePDF(values);
