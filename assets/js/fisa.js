@@ -1,81 +1,82 @@
-// TODO:
-
+// TODO
 //  - allow markdown for better formatting
 //  - auto indentify bible references and format them differently
 //     - (auto set title attribute with full reference)
 //  - store values in firebase based on user account
 
-// LocalStorage functionality
+const USER_NAME_KEY = "fisa-nume";
 const STORAGE_KEY = "fisa-form-data";
 
-function saveFormData() {
-  const formData = {};
-  const inputs = document.querySelectorAll("input, textarea");
-  inputs.forEach(input => {
-    if (input.name && input.name !== "nume") {
-      formData[input.name] = input.value;
+function getFormValues() {
+  return $$("input, textarea").reduce((data, input) => {
+    if (input.name) {
+      data[input.name] = input.value;
     }
-  });
-  // Save Nume separately
-  const numeInput = document.getElementById("nume");
-  if (numeInput) {
-    localStorage.setItem("fisa-nume", numeInput.value);
-  }
-  // Save Text in main formData
-  const textInput = document.getElementById("text");
-  if (textInput) {
-    formData["text"] = textInput.value;
-  }
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
-
-  // Update page title with name and text
-  updatePageTitle();
+    return data;
+  }, {});
 }
 
-function updatePageTitle() {
-  const nume = document.getElementById("nume").value || localStorage.getItem("fisa-nume") || "";
-  const text = document.getElementById("text").value || "";
+function setFormValues(data) {
+  Object.keys(data).forEach(name => {
+    const input = $(`[name="${name}"]`);
+    if (input) {
+      input.value = data[name];
+    }
+  });
+}
+
+function persistFormData() {
+  const formData = getFormValues();
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
+
+  // Save Nume separately
+  const numeInput = $("#nume");
+  localStorage.setItem(USER_NAME_KEY, numeInput.value);
+
+  // Update page title with name and text
+  updatePageTitle(formData.nume, formData.text);
+  return formData;
+}
+
+function getPageTitle(nume, text) {
+  nume = nume || "";
+  text = text || "";
+
+  let title = "Formular Fișă de lucru – 7 Pași";
 
   if (nume && text) {
-    document.title = `${nume} - ${text}`;
+    title = `${nume} - ${text}`;
   } else if (nume) {
-    document.title = `${nume} - Fișă de lucru`;
+    title = `${nume} - Fișă de lucru`;
   } else if (text) {
-    document.title = `Fișă de lucru - ${text}`;
-  } else {
-    document.title = "Formular Fișă de lucru – 7 Pași";
+    title = `Fișă de lucru - ${text}`;
   }
+  return title;
+}
+
+function updatePageTitle(nume, text) {
+  document.title = getPageTitle(nume, text);
 }
 
 function loadFormData() {
   const savedData = localStorage.getItem(STORAGE_KEY);
   if (savedData) {
     try {
-      const formData = JSON.parse(savedData);
-      Object.keys(formData).forEach(name => {
-        const input = document.querySelector(`[name="${name}"]`);
-        if (input && name !== "nume") {
-          input.value = formData[name];
-        }
-      });
-      // Load Text field
-      const textInput = document.getElementById("text");
-      if (textInput && formData["text"] !== undefined) {
-        textInput.value = formData["text"];
-      }
+      const data = JSON.parse(savedData);
+      setFormValues(data);
     } catch (e) {
       console.error("Error loading form data:", e);
     }
   }
+
   // Load Nume separately
-  const numeInput = document.getElementById("nume");
-  const numeVal = localStorage.getItem("fisa-nume");
-  if (numeInput && numeVal !== null) {
+  const numeInput = $("#nume");
+  const numeVal = localStorage.getItem(USER_NAME_KEY);
+  if (numeVal !== null) {
     numeInput.value = numeVal;
   }
 
-  // Update page title after loading data
-  updatePageTitle();
+  updatePageTitle(numeInput.value, $("#text").value);
 }
 
 function resetFormData() {
@@ -84,17 +85,17 @@ function resetFormData() {
     function () {
       localStorage.removeItem(STORAGE_KEY);
       // Do NOT remove fisa-nume
-      const inputs = document.querySelectorAll("input, textarea");
+      const inputs = $$("input, textarea");
       inputs.forEach(input => {
         if (input.name !== "nume") {
           input.value = "";
         }
         input.classList.remove("error");
       });
-      document.querySelectorAll(".error-message").forEach(msg => msg.remove());
+      $$(".error-message").forEach(msg => msg.remove());
       // Restore Nume from localStorage
-      const numeInput = document.getElementById("nume");
-      const numeVal = localStorage.getItem("fisa-nume");
+      const numeInput = $("#nume");
+      const numeVal = localStorage.getItem(USER_NAME_KEY);
       if (numeInput && numeVal !== null) {
         numeInput.value = numeVal;
       }
@@ -106,7 +107,7 @@ function resetFormData() {
 
 // Progress tracking
 function updateProgress() {
-  const steps = document.querySelectorAll(".form-step");
+  const steps = $$(".form-step");
   let completedSteps = 0;
 
   steps.forEach((step, index) => {
@@ -119,7 +120,7 @@ function updateProgress() {
   });
 
   const progressPercentage = (completedSteps / steps.length) * 100;
-  document.getElementById("progressFill").style.width = progressPercentage + "%";
+  $("#progressFill").style.width = progressPercentage + "%";
 
   // Update current step indicator
   let currentStep = 1;
@@ -134,17 +135,17 @@ function updateProgress() {
       currentStep = steps.length;
     }
   }
-  document.getElementById("currentStep").textContent = currentStep;
+  $("#currentStep").textContent = currentStep;
 }
 
 // Form validation
 function validateForm() {
-  const requiredFields = document.querySelectorAll("[required]");
+  const requiredFields = $$("[required]");
   let isValid = true;
 
   // Clear previous errors
-  document.querySelectorAll(".error").forEach(field => field.classList.remove("error"));
-  document.querySelectorAll(".error-message").forEach(msg => msg.remove());
+  $$(".error").forEach(field => field.classList.remove("error"));
+  $$(".error-message").forEach(msg => msg.remove());
 
   requiredFields.forEach(field => {
     if (!field.value.trim()) {
@@ -162,7 +163,7 @@ function validateForm() {
   if (!isValid) {
     showCustomAlert("Te rugăm să completezi toate câmpurile obligatorii (marcate cu *) înainte de a salva fișa PDF.");
     // Scroll to first error
-    const firstError = document.querySelector(".error");
+    const firstError = $(".error");
     if (firstError) {
       firstError.scrollIntoView({ behavior: "smooth", block: "center" });
     }
@@ -173,7 +174,7 @@ function validateForm() {
 
 // Custom Alert logic
 function showCustomAlert(message, onConfirm, isConfirm) {
-  let alertBox = document.getElementById("custom-alert");
+  let alertBox = $("#custom-alert");
   if (!alertBox) {
     alertBox = document.createElement("div");
     alertBox.id = "custom-alert";
@@ -231,7 +232,7 @@ function showCustomAlert(message, onConfirm, isConfirm) {
 }
 
 function closeCustomAlert() {
-  const alertBox = document.getElementById("custom-alert");
+  const alertBox = $("#custom-alert");
   if (alertBox) {
     alertBox.style.display = "none";
     alertBox.style.visibility = "hidden";
@@ -267,20 +268,17 @@ function parseMarkdown(text) {
 }
 
 // PDF Generation using browser print functionality
-function generatePDF() {
+function generatePDF(values) {
   if (!validateForm()) {
     return;
   }
 
   // Create a new window with the form content formatted for printing
   const printWindow = window.open("", "_blank");
-  const formData = new FormData(document.getElementById("fisaForm"));
 
   // Get today's date
   const today = new Date().toLocaleDateString("ro-RO");
-  // Get Nume and Text
-  const nume = document.getElementById("nume").value || localStorage.getItem("fisa-nume") || "";
-  const text = document.getElementById("text").value || "";
+  console.info("Generating PDF on", today);
 
   // Build the HTML content for the PDF with more compact styling
   let htmlContent = `<!DOCTYPE html>
@@ -314,9 +312,9 @@ function generatePDF() {
   </div>
   <div class="extra-row">
     <span class="extra-label">Nume:</span>
-    <span class="extra-value" style="flex:1;text-align:left;">${nume || '<span class="empty-answer">-</span>'}</span>
+    <span class="extra-value" style="flex:1;text-align:left;">${values["nume"] || '<span class="empty-answer">-</span>'}</span>
         <span class="extra-label">Text:</span>
-        <span class="extra-value" style="flex:1;text-align:left;">${text || '<span class="empty-answer">-</span>'}</span>
+        <span class="extra-value" style="flex:1;text-align:left;">${values["text"] || '<span class="empty-answer">-</span>'}</span>
   </div>
   <div class="date">Completat cu <a href="http://cst.unu-unu.ro/fisa">http://cst.unu-unu.ro/fisa</a></div>
   <div class="step">
@@ -324,19 +322,19 @@ function generatePDF() {
     <div class="question">
       <div class="question-label">a) Arată structura sub formă de secțiuni, alături de versetele aferente</div>
       <div class="answer">${
-        parseMarkdown(formData.get("structura-sectiuni")) || '<span class="empty-answer">Nu a fost completat</span>'
+        parseMarkdown(values["structura-sectiuni"]) || '<span class="empty-answer">Nu a fost completat</span>'
       }</div>
     </div>
     <div class="question">
       <div class="question-label">b) Explică strategiile folosite pentru a identifica structura</div>
       <div class="answer">${
-        parseMarkdown(formData.get("structura-strategii")) || '<span class="empty-answer">Nu a fost completat</span>'
+        parseMarkdown(values["structura-strategii"]) || '<span class="empty-answer">Nu a fost completat</span>'
       }</div>
     </div>
     <div class="question">
       <div class="question-label">c) Pe ce pune accent această structură?</div>
       <div class="answer">${
-        parseMarkdown(formData.get("structura-accent")) || '<span class="empty-answer">Nu a fost completat</span>'
+        parseMarkdown(values["structura-accent"]) || '<span class="empty-answer">Nu a fost completat</span>'
       }</div>
     </div>
   </div>
@@ -344,21 +342,21 @@ function generatePDF() {
     <h3>2. Contextul pasajului</h3>
     <div class="question">
       <div class="question-label">a) Contextul literar</div>
-      <div class="answer">${parseMarkdown(formData.get("context-literar")) || '<span class="empty-answer">Nu a fost completat</span>'}</div>
+      <div class="answer">${parseMarkdown(values["context-literar"]) || '<span class="empty-answer">Nu a fost completat</span>'}</div>
     </div>
     <div class="question">
       <div class="question-label">b) Contextul istoric</div>
-      <div class="answer">${parseMarkdown(formData.get("context-istoric")) || '<span class="empty-answer">Nu a fost completat</span>'}</div>
+      <div class="answer">${parseMarkdown(values["context-istoric"]) || '<span class="empty-answer">Nu a fost completat</span>'}</div>
     </div>
     <div class="question">
       <div class="question-label">c) Contextul cultural</div>
       <div class="answer">${
-        parseMarkdown(formData.get("context-cultural")) || '<span class="empty-answer">Nu a fost completat</span>'
+        parseMarkdown(values["context-cultural"]) || '<span class="empty-answer">Nu a fost completat</span>'
       }</div>
     </div>
     <div class="question">
       <div class="question-label">d) Contextul biblic</div>
-      <div class="answer">${parseMarkdown(formData.get("context-biblic")) || '<span class="empty-answer">Nu a fost completat</span>'}</div>
+      <div class="answer">${parseMarkdown(values["context-biblic"]) || '<span class="empty-answer">Nu a fost completat</span>'}</div>
     </div>
   </div>
 `;
@@ -424,6 +422,7 @@ function generatePDF() {
       ]
     }
   ];
+
   steps.forEach(step => {
     htmlContent += `<div class="step"><h3>${step.number}. ${step.title}</h3>`;
     step.questions.forEach(question => {
@@ -431,7 +430,7 @@ function generatePDF() {
               <div class="question">
                 <div class="question-label">${question.label}</div>
                 <div class="answer">${
-                  parseMarkdown(formData.get(question.field)) || '<span class="empty-answer">Nu a fost completat</span>'
+                  parseMarkdown(values[question.field]) || '<span class="empty-answer">Nu a fost completat</span>'
                 }</div>
               </div>
             `;
@@ -456,7 +455,7 @@ function generatePDF() {
 // Event listeners
 document.addEventListener("DOMContentLoaded", function () {
   // Set Current Year
-  document.querySelectorAll(".current-year").forEach(el => {
+  $$(".current-year").forEach(el => {
     el.textContent = new Date().getFullYear();
   });
 
@@ -464,12 +463,16 @@ document.addEventListener("DOMContentLoaded", function () {
   loadFormData();
 
   // Update progress on input and save data
-  const inputs = document.querySelectorAll("input, textarea");
+  const inputs = $$("input, textarea");
   inputs.forEach(input => {
-    input.addEventListener("input", function () {
-      updateProgress();
-      saveFormData();
-    });
+    input.addEventListener(
+      "input",
+      debounce(function () {
+        updateProgress();
+        persistFormData();
+      }, 300)
+    );
+
     input.addEventListener("blur", function () {
       // Clear error state when user starts typing
       if (this.classList.contains("error") && this.value.trim()) {
@@ -479,20 +482,28 @@ document.addEventListener("DOMContentLoaded", function () {
           errorMsg.remove();
         }
       }
-      saveFormData();
+      persistFormData();
     });
   });
 
   // Reset form button
-  document.getElementById("resetForm").addEventListener("click", resetFormData);
+  $("#resetForm").addEventListener("click", resetFormData);
 
   // Generate PDF button
-  document.getElementById("generatePDF").addEventListener("click", generatePDF);
+  $("#generatePDF").addEventListener("click", function () {
+    const values = getFormValues();
+    values.date = new Date().toISOString();
+    const rawData = JSON.stringify(values, null, 2);
+    const rawName = `${getPageTitle(values["nume"], values["text"])}-raw.json`;
+    download(rawData, getFileName(rawName), "application/json");
+
+    generatePDF(values);
+  });
 
   // Formatting Help Modal logic
-  const modal = document.getElementById("formattingHelpModal");
-  const openBtn = document.getElementById("openFormattingHelp");
-  const closeBtn = document.getElementById("closeFormattingHelp");
+  const modal = $("#formattingHelpModal");
+  const openBtn = $("#openFormattingHelp");
+  const closeBtn = $("#closeFormattingHelp");
 
   if (openBtn && modal && closeBtn) {
     openBtn.addEventListener("click", function () {
