@@ -312,7 +312,7 @@ function downloadJson() {
   const rawData = JSON.stringify(values, null, 2);
   // Swedish locale) produces ISO-like local time.
   const dateStr = date.toLocaleString("sv").slice(0, 16).replace(":", "-").replace(" ", "_");
-  const rawName = `${getPageTitle(values["nume"], values["text"])}-${dateStr}-raw.json`;
+  const rawName = `${getPageTitle(values["nume"], values["text"])} - ${dateStr} - raw.json`;
   download(rawData, getFileName(rawName), "application/json");
 }
 
