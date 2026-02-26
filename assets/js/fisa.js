@@ -55,22 +55,15 @@ function resetFormData() {
     "Ești sigur că vrei să ștergi toate câmpurile completate?",
     function () {
       localStorage.removeItem(STORAGE_KEY);
-      // Do NOT remove fisa-nume
+      $("form").reset();
+      $("#text").value = ""; // text is outside form, so reset separately
       const inputs = $$("input, textarea");
       inputs.forEach(input => {
-        if (input.name !== "nume") {
-          input.value = "";
-        }
         input.classList.remove("error");
       });
       $$(".error-message").forEach(msg => msg.remove());
-      // Restore Nume from localStorage
-      const numeInput = $("#nume");
-      const numeVal = localStorage.getItem(USER_NAME_KEY);
-      if (numeInput && numeVal !== null) {
-        numeInput.value = numeVal;
-      }
       updateProgress();
+      autoResizeTextareas();
     },
     true
   );
@@ -260,7 +253,40 @@ function downloadJson() {
 }
 
 function renderSteps(steps) {
-  // TODO generate steps HTML based on STEPS constant and render in preview page, instead of hardcoding in print-preview.html
+  const form = $("#fisaForm");
+  if (!form) return;
+
+  const stepsHtml = steps
+    .map(
+      step => `
+    <div class="form-step">
+      <h3>${step.number}. ${step.title}</h3>
+      ${step.hint ? `<div class="hint">${step.hint}</div>` : ""}
+      ${step.questions
+        .map(q => {
+          const required = q.required ? " required" : "";
+          const reqMark = q.required ? ' <span class="required">*</span>' : "";
+          const placeholder = q.placeholder ? q.placeholder.replace(/\n/g, "&#10;") : "";
+          const phAttr = placeholder ? ` placeholder="${placeholder}"` : "";
+          const field =
+            q.type === "text"
+              ? `<input type="text" id="${q.field}" name="${q.field}"${required}${phAttr} class="form-group-input" />`
+              : `<textarea id="${q.field}" name="${q.field}"${required}${q.cls ? ` class="${q.cls}"` : ""}${phAttr}></textarea>`;
+          return `
+        <div class="form-group">
+          <label for="${q.field}">
+            ${q.label}${reqMark}
+          </label>
+          ${q.hint ? `<div class="hint">${q.hint}</div>` : ""}
+          ${field}
+        </div>`;
+        })
+        .join("")}
+    </div>`
+    )
+    .join("");
+
+  form.insertAdjacentHTML("afterbegin", stepsHtml);
 }
 
 // PDF Generation using browser print functionality
@@ -273,7 +299,7 @@ function generatePDF() {
   persistFormData();
 
   // Open the external preview page with ?print=1 to trigger auto-print
-  window.open("print-preview.html", "_blank");
+  window.open("print-preview", "_blank");
 }
 
 // Event listeners

@@ -104,7 +104,6 @@ li {
   padding: 0.5rem;
   border-left: 2px solid #005a5b;
   margin-bottom: 0.6rem;
-
   font-size: 0.9rem;
 }
 /* .answer p { */
@@ -114,6 +113,7 @@ li {
 .empty-answer {
   color: #999;
   font-style: italic;
+  font-size: 0.8rem;
 }
 
 body {

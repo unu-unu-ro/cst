@@ -25,6 +25,7 @@ const STEPS = [
       {
         label: "c) Pe ce pune accent această structură?",
         field: "structura-accent",
+        placeholder: "Explică tema principală evidențiată prin structura identificată",
         required: true
       }
     ]
@@ -37,21 +38,26 @@ const STEPS = [
       {
         label: "a) Contextul literar",
         field: "context-literar",
-        hint: "pasajele dinainte și după"
+        hint: "pasajele dinainte și după",
+        placeholder: "Descriere a contextului literar relevant pentru înțelegerea pasajului"
       },
       {
         label: "b) Contextul istoric",
         field: "context-istoric",
-        hint: "împrejurările destinatarilor"
+        hint: "împrejurările destinatarilor",
+        placeholder: "Împrejurările istorice relevante pentru destinatarii originali"
       },
       {
         label: "c) Contextul cultural",
         field: "context-cultural",
-        hint: "detalii despre viața oamenilor din acea vreme"
+        hint: "detalii despre viața oamenilor din acea vreme",
+        placeholder: "Aspecte culturale care ajută la înțelegerea textului"
       },
       {
         label: "d) Contextul biblic",
-        field: "context-biblic"
+        field: "context-biblic",
+        hint: "citate, aluzii sau legături cu alte cărți din Biblie",
+        placeholder: "Legături cu alte texte biblice, citate sau aluzii"
       }
     ]
   },
@@ -62,6 +68,8 @@ const STEPS = [
       {
         label: "Care este ideea centrală pe care o argumentează autorul în fața ascultătorilor săi?",
         field: "ideea-autorului",
+        hint: "într-o propoziție scurtă",
+        placeholder: "Formulează într-o propoziție clară și concisă ideea centrală a autorului",
         required: true
       }
     ]
@@ -71,9 +79,13 @@ const STEPS = [
     title: "Legătura cu Evanghelia",
     questions: [
       {
-        label: "Care este legătura dintre acest pasaj și Evanghelia Domnului Isus Cristos?",
+        label:
+          "Care este legătura dintre acest pasaj și Evanghelia Domnului Isus Cristos? Ce parte a Evangheliei este avută în vedere?",
         field: "legatura-evanghelia",
-        required: true
+        placeholder:
+          "Explică cum se conectează pasajul cu Evanghelia și ce aspect specific al Evangheliei este evidențiat",
+        required: true,
+        cls: "large"
       }
     ]
   },
@@ -84,6 +96,8 @@ const STEPS = [
       {
         label: "Care este ideea centrală pe care tu o vei argumenta în fața ascultătorilor tăi?",
         field: "ideea-mea",
+        hint: "într-o propoziție scurtă",
+        placeholder: "Formulează ideea centrală pe care o vei predica, bazată pe înțelegerea pasajului",
         required: true
       }
     ]
@@ -95,12 +109,16 @@ const STEPS = [
       {
         label: "Aplicații pentru cei mântuiți",
         field: "aplicatii-mantuiti",
-        required: true
+        placeholder: "Aplicații practice și spirituale pentru creștini",
+        required: true,
+        cls: "large"
       },
       {
         label: "Aplicații pentru cei nemântuiți",
         field: "aplicatii-nemantuiti",
-        required: true
+        placeholder: "Aplicații și îndemnuri pentru cei care nu sunt încă creștini",
+        required: true,
+        cls: "large"
       }
     ]
   },
@@ -111,13 +129,16 @@ const STEPS = [
       {
         label: "Care este titlul predicii tale?",
         field: "titlu-predica",
+        placeholder: "Un titlu clar și captivant pentru predica ta",
         required: true,
         type: "text"
       },
       {
         label: "Cum arată schița mesajului?",
         field: "schita-mesaj",
-        required: true
+        placeholder: "I. Introducere\nII. Punctul principal 1\nIII. Punctul principal 2\nIV. Concluzie",
+        required: true,
+        cls: "large"
       }
     ]
   }

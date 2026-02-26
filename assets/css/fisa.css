@@ -117,6 +117,12 @@
   border-radius: 8px;
 }
 
+.custom-alert-actions {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
 button.btn-primary {
   display: flex;
   align-items: center;
