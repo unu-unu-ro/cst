@@ -24,7 +24,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "clear": "rimraf node_modules package-lock.json",
-    "start": "browser-sync start --server --files '**/*' --single --no-notify",
+    "start": "browser-sync start --config scripts/bs-config.js",
     "copy-libs": "run-os",
     "copy-libs:macos": "mkdir -p assets/external && cp node_modules/marked/lib/marked.umd.js assets/external/marked.min.js && cp node_modules/dompurify/dist/purify.min.js assets/external/dompurify.min.js",
     "copy-libs:windows": "mkdir assets\\external && copy node_modules\\marked\\lib\\marked.umd.js assets\\external\\marked.min.js && copy node_modules\\dompurify\\dist\\purify.min.js assets\\external\\dompurify.min.js",

@@ -4,14 +4,20 @@
 //     - (auto set title attribute with full reference)
 //  - store values in firebase based on user account
 
-function autoResizeTextareas() {
-  $$("textarea").forEach(textarea => {
+function autoResizeTextareas(input) {
+  let textareas;
+  if (input && input.tagName.toLowerCase() === "textarea") {
+    textareas = [input];
+  } else {
+    textareas = $$("textarea");
+  }
+  textareas.forEach(textarea => {
     textarea.style.height = "auto";
     textarea.style.height = textarea.scrollHeight + 2 + "px";
   });
 }
 
-function persistFormData() {
+function persistFormData(input) {
   const formData = getFormValues();
   localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
 
@@ -21,7 +27,7 @@ function persistFormData() {
 
   // Update page title with name and text
   updatePageTitle(formData.nume, formData.text);
-  autoResizeTextareas();
+  autoResizeTextareas(input);
   return formData;
 }
 
@@ -253,6 +259,10 @@ function downloadJson() {
   download(rawData, getFileName(rawName), "application/json");
 }
 
+function renderSteps(steps) {
+  // TODO generate steps HTML based on STEPS constant and render in preview page, instead of hardcoding in print-preview.html
+}
+
 // PDF Generation using browser print functionality
 function generatePDF() {
   if (!validateForm()) {
@@ -268,6 +278,8 @@ function generatePDF() {
 
 // Event listeners
 document.addEventListener("DOMContentLoaded", function () {
+  renderSteps(STEPS);
+
   // Set Current Year
   $$(".current-year").forEach(el => {
     el.textContent = new Date().getFullYear();
@@ -283,7 +295,7 @@ document.addEventListener("DOMContentLoaded", function () {
       "input",
       debounce(function () {
         updateProgress();
-        persistFormData();
+        persistFormData(input);
       }, 300)
     );
 
@@ -296,7 +308,7 @@ document.addEventListener("DOMContentLoaded", function () {
           errorMsg.remove();
         }
       }
-      persistFormData();
+      persistFormData(input);
     });
   });
 
