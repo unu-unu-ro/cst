@@ -254,7 +254,7 @@ function generatePDF() {
   persistFormData();
 
   // Open the external preview page with ?print=1 to trigger auto-print
-  window.open("print-preview.html?print=1", "_blank");
+  window.open("print-preview.html", "_blank");
 }
 
 // Event listeners
