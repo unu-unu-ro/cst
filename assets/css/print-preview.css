@@ -107,10 +107,10 @@ li {
 
   font-size: 0.9rem;
 }
-.answer p {
-  /* white-space: pre-wrap; */
-  /* word-wrap: break-word; */
-}
+/* .answer p { */
+/* white-space: pre-wrap; */
+/* word-wrap: break-word; */
+/* } */
 .empty-answer {
   color: #999;
   font-style: italic;

@@ -4,6 +4,13 @@
 //     - (auto set title attribute with full reference)
 //  - store values in firebase based on user account
 
+function autoResizeTextareas() {
+  $$("textarea").forEach(textarea => {
+    textarea.style.height = "auto";
+    textarea.style.height = textarea.scrollHeight + 2 + "px";
+  });
+}
+
 function persistFormData() {
   const formData = getFormValues();
   localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
@@ -14,6 +21,7 @@ function persistFormData() {
 
   // Update page title with name and text
   updatePageTitle(formData.nume, formData.text);
+  autoResizeTextareas();
   return formData;
 }
 
@@ -33,6 +41,7 @@ function loadFormData() {
   }
 
   updatePageTitle(numeInput.value, $("#text").value);
+  autoResizeTextareas();
 }
 
 function resetFormData() {

@@ -98,7 +98,7 @@
 }
 
 .form-group textarea {
-  min-height: 70px;
+  min-height: 80px;
   resize: vertical;
 }
 
