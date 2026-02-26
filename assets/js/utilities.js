@@ -36,3 +36,21 @@ function download(text, name, type) {
 function getFileName(name) {
   return (name || "filename").replace(/\\|\:|\/|\*|\?|\<|\>\|/gi, "_");
 }
+
+function getFormValues() {
+  return $$("input, textarea").reduce((data, input) => {
+    if (input.name) {
+      data[input.name] = input.value;
+    }
+    return data;
+  }, {});
+}
+
+function setFormValues(data) {
+  Object.keys(data).forEach(name => {
+    const input = $(`[name="${name}"]`);
+    if (input) {
+      input.value = data[name];
+    }
+  });
+}

@@ -1,0 +1,119 @@
+:root {
+  --max-width: 1050px;
+}
+@page {
+  margin: 1.5cm;
+  size: A4 portrait;
+}
+body {
+  max-width: var(--max-width);
+  font-family: Arial, sans-serif;
+  line-height: 1.4;
+  color: #333;
+  margin: 0 auto;
+  padding: 0;
+  font-size: 11pt;
+}
+.header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #005a5b;
+  padding-bottom: 0.8rem;
+}
+.header h1 {
+  color: #2a3f54;
+  font-size: 1.4rem;
+  margin: 0 0 0.3rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.header p {
+  color: #555;
+  margin: 0;
+  font-style: italic;
+  font-size: 0.9rem;
+}
+.extra-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1.2rem 0 0.8rem 0;
+  font-size: 1rem;
+}
+.extra-row .extra-label {
+  font-weight: bold;
+  color: #2a3f54;
+  margin-right: 0.5rem;
+}
+.extra-row .extra-value {
+  color: #333;
+  font-style: normal;
+  margin-left: 0.5rem;
+  text-align: right;
+}
+.date {
+  text-align: right;
+  margin-bottom: 1rem;
+  font-size: 0.8rem;
+  color: #666;
+}
+.step {
+  margin-bottom: 1.2rem;
+  page-break-inside: avoid;
+}
+.step h3 {
+  color: #2a3f54;
+  font-size: 1rem;
+  margin-bottom: 0.8rem;
+  text-transform: uppercase;
+  border-bottom: 1px solid #005a5b;
+  padding-bottom: 0.3rem;
+  font-weight: bold;
+}
+.question {
+  margin-bottom: 0.8rem;
+}
+.question-label {
+  font-weight: bold;
+  color: #555;
+  margin-bottom: 0.2rem;
+  font-size: 0.9rem;
+}
+.answer {
+  background: #f9f9f9;
+  padding: 0.5rem;
+  border-left: 2px solid #005a5b;
+  margin-bottom: 0.6rem;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-size: 0.9rem;
+}
+.empty-answer {
+  color: #999;
+  font-style: italic;
+}
+@media print {
+  body {
+    font-size: 10pt;
+    line-height: 1.3;
+  }
+  .step {
+    page-break-inside: avoid;
+    margin-bottom: 1rem;
+  }
+  .question {
+    margin-bottom: 0.6rem;
+  }
+  .answer {
+    padding: 0.4rem;
+    margin-bottom: 0.5rem;
+  }
+  .header {
+    margin-bottom: 1rem;
+    padding-bottom: 0.6rem;
+  }
+  .extra-row {
+    font-size: 0.95rem;
+    margin: 0.8rem 0;
+  }
+}

@@ -7,24 +7,6 @@
 const USER_NAME_KEY = "fisa-nume";
 const STORAGE_KEY = "fisa-form-data";
 
-function getFormValues() {
-  return $$("input, textarea").reduce((data, input) => {
-    if (input.name) {
-      data[input.name] = input.value;
-    }
-    return data;
-  }, {});
-}
-
-function setFormValues(data) {
-  Object.keys(data).forEach(name => {
-    const input = $(`[name="${name}"]`);
-    if (input) {
-      input.value = data[name];
-    }
-  });
-}
-
 function persistFormData() {
   const formData = getFormValues();
   localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
@@ -325,34 +307,13 @@ function generatePDF(values) {
   // Create a new window with the form content formatted for printing
   const printWindow = window.open("", "_blank");
 
-  // Get today's date
-  const today = new Date().toLocaleDateString("ro-RO");
-  console.info("Generating PDF on", today);
-
   // Build the HTML content for the PDF with more compact styling
   let htmlContent = `<!DOCTYPE html>
 <html lang="ro">
 <head>
   <meta charset="UTF-8">
   <title>${document.title}</title>
-  <style>
-    @page { margin: 1.5cm; size: A4; }
-    body { font-family: Arial, sans-serif; line-height: 1.4; color: #333; margin: 0; padding: 0; font-size: 11pt; }
-    .header { text-align: center; margin-bottom: 1.5rem; border-bottom: 1px solid #005a5b; padding-bottom: 0.8rem; }
-    .header h1 { color: #2a3f54; font-size: 1.4rem; margin: 0 0 0.3rem 0; text-transform: uppercase; letter-spacing: 0.5px; }
-    .header p { color: #555; margin: 0; font-style: italic; font-size: 0.9rem; }
-    .extra-row { display: flex; justify-content: space-between; align-items: center; margin: 1.2rem 0 0.8rem 0; font-size: 1rem; }
-    .extra-row .extra-label { font-weight: bold; color: #2a3f54; margin-right: 0.5rem; }
-    .extra-row .extra-value { color: #333; font-style: normal; margin-left: 0.5rem; text-align: right; }
-    .date { text-align: right; margin-bottom: 1rem; font-size: 0.8rem; color: #666; }
-    .step { margin-bottom: 1.2rem; page-break-inside: avoid; }
-    .step h3 { color: #2a3f54; font-size: 1rem; margin-bottom: 0.8rem; text-transform: uppercase; border-bottom: 1px solid #005a5b; padding-bottom: 0.3rem; font-weight: bold; }
-    .question { margin-bottom: 0.8rem; }
-    .question-label { font-weight: bold; color: #555; margin-bottom: 0.2rem; font-size: 0.9rem; }
-    .answer { background: #f9f9f9; padding: 0.5rem; border-left: 2px solid #005a5b; margin-bottom: 0.6rem; white-space: pre-wrap; word-wrap: break-word; font-size: 0.9rem; }
-    .empty-answer { color: #999; font-style: italic; }
-    @media print { body { font-size: 10pt; line-height: 1.3; } .step { page-break-inside: avoid; margin-bottom: 1rem; } .question { margin-bottom: 0.6rem; } .answer { padding: 0.4rem; margin-bottom: 0.5rem; } .header { margin-bottom: 1rem; padding-bottom: 0.6rem; } .extra-row { font-size: 0.95rem; margin: 0.8rem 0; } }
-  </style>
+  <link rel="stylesheet" href="assets/css/fisa-preview.css" />
 </head>
 <body>
   <div class="header">
@@ -366,52 +327,49 @@ function generatePDF(values) {
         <span class="extra-value" style="flex:1;text-align:left;">${values["text"] || '<span class="empty-answer">-</span>'}</span>
   </div>
   <div class="date">Completat cu <a href="http://cst.unu-unu.ro/fisa">http://cst.unu-unu.ro/fisa</a></div>
-  <div class="step">
-    <h3>1. Structura textului</h3>
-    <div class="question">
-      <div class="question-label">a) Arată structura sub formă de secțiuni, alături de versetele aferente</div>
-      <div class="answer">${
-        parseMarkdown(values["structura-sectiuni"]) || '<span class="empty-answer">Nu a fost completat</span>'
-      }</div>
-    </div>
-    <div class="question">
-      <div class="question-label">b) Explică strategiile folosite pentru a identifica structura</div>
-      <div class="answer">${
-        parseMarkdown(values["structura-strategii"]) || '<span class="empty-answer">Nu a fost completat</span>'
-      }</div>
-    </div>
-    <div class="question">
-      <div class="question-label">c) Pe ce pune accent această structură?</div>
-      <div class="answer">${
-        parseMarkdown(values["structura-accent"]) || '<span class="empty-answer">Nu a fost completat</span>'
-      }</div>
-    </div>
-  </div>
-  <div class="step">
-    <h3>2. Contextul pasajului</h3>
-    <div class="question">
-      <div class="question-label">a) Contextul literar</div>
-      <div class="answer">${parseMarkdown(values["context-literar"]) || '<span class="empty-answer">Nu a fost completat</span>'}</div>
-    </div>
-    <div class="question">
-      <div class="question-label">b) Contextul istoric</div>
-      <div class="answer">${parseMarkdown(values["context-istoric"]) || '<span class="empty-answer">Nu a fost completat</span>'}</div>
-    </div>
-    <div class="question">
-      <div class="question-label">c) Contextul cultural</div>
-      <div class="answer">${
-        parseMarkdown(values["context-cultural"]) || '<span class="empty-answer">Nu a fost completat</span>'
-      }</div>
-    </div>
-    <div class="question">
-      <div class="question-label">d) Contextul biblic</div>
-      <div class="answer">${parseMarkdown(values["context-biblic"]) || '<span class="empty-answer">Nu a fost completat</span>'}</div>
-    </div>
-  </div>
 `;
 
-  // Steps 3-7
   const steps = [
+    {
+      number: 1,
+      title: "Structura textului",
+      questions: [
+        {
+          label: "a) Arată structura sub formă de secțiuni, alături de versetele aferente",
+          field: "structura-sectiuni"
+        },
+        {
+          label: "b) Explică strategiile folosite pentru a identifica structura",
+          field: "structura-strategii"
+        },
+        {
+          label: "c) Pe ce pune accent această structură?",
+          field: "structura-accent"
+        }
+      ]
+    },
+    {
+      number: 2,
+      title: "Contextul pasajului",
+      questions: [
+        {
+          label: "a) Contextul literar",
+          field: "context-literar"
+        },
+        {
+          label: "b) Contextul istoric",
+          field: "context-istoric"
+        },
+        {
+          label: "c) Contextul cultural",
+          field: "context-cultural"
+        },
+        {
+          label: "d) Contextul biblic",
+          field: "context-biblic"
+        }
+      ]
+    },
     {
       number: 3,
       title: "Ideea autorului",
@@ -472,20 +430,22 @@ function generatePDF(values) {
     }
   ];
 
-  steps.forEach(step => {
-    htmlContent += `<div class="step"><h3>${step.number}. ${step.title}</h3>`;
-    step.questions.forEach(question => {
-      htmlContent += `
-              <div class="question">
-                <div class="question-label">${question.label}</div>
-                <div class="answer">${
-                  parseMarkdown(values[question.field]) || '<span class="empty-answer">Nu a fost completat</span>'
-                }</div>
-              </div>
-            `;
-    });
-    htmlContent += `</div>`;
-  });
+  htmlContent += steps
+    .map(
+      step => `<div class="step">
+      <h3>${step.number}. ${step.title}</h3>
+      ${step.questions
+        .map(
+          question => `
+          <div class="question">
+            <div class="question-label">${question.label}</div>
+            <div class="answer">${parseMarkdown(values[question.field]) || '<span class="empty-answer">Nu a fost completat</span>'}</div>
+          </div>`
+        )
+        .join("")}
+    </div>`
+    )
+    .join("");
   htmlContent += `</body></html>`;
 
   // Write content to the new window and print
@@ -496,7 +456,7 @@ function generatePDF(values) {
   printWindow.onload = function () {
     setTimeout(() => {
       printWindow.print();
-      printWindow.close();
+      // printWindow.close();
     }, 500);
   };
 }
