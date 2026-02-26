@@ -166,6 +166,12 @@ body {
     page-break-inside: avoid;
     margin-bottom: 0.6rem;
   }
+  #step-3,
+  #step-4,
+  #step-5 {
+    page-break-inside: avoid;
+  }
+
   .answer {
     padding: 0.4rem;
     margin-bottom: 0.5rem;
