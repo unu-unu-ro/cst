@@ -3,6 +3,7 @@
 Acest proiect găzduiește pagina web a CST Unu Unu. Pagina include informații despre evenimente, resurse și ghiduri pentru atelierele de predicare expozitivă.
 
 ## 🌐 Link activ
+
 [![Live](https://img.shields.io/badge/Vezi_live-cst.unu--unu.ro-brightgreen?style=for-the-badge)](https://cst.unu-unu.ro)
 
 ---
@@ -13,7 +14,7 @@ Acest proiect găzduiește pagina web a CST Unu Unu. Pagina include informații 
 📁 root
 │
 ├── index.html         # Conferința principală
-├── assets/            
+├── assets/
 │   ├── css/           # Stiluri (inclusiv event-style.css)
 │   ├── js/            # Scripturi (inclusiv event-app.js)
 │   └── ...
@@ -35,9 +36,9 @@ Platforma este construită pentru a fi ușor extensibilă. Pentru a adăuga un n
 
 2.  **Actualizează Datele**:
     În noul folder `events/CJ-2027/data/`, editează fișierele JSON:
-    -   `data.json`: Titlul evenimentului, subtitlu, link-uri.
-    -   `participants.json`: Lista de participanți și grupe.
-    -   `orar.json`: Programul evenimentului.
+    - `data.json`: Titlul evenimentului, subtitlu, link-uri.
+    - `participants.json`: Lista de participanți și grupe.
+    - `orar.json`: Programul evenimentului.
 
 3.  **Gata!**:
     Nu este necesară nicio modificare de cod HTML/JS/CSS. Logica globală din `assets/js/event-app.js` se va ocupa automat de noul eveniment.
@@ -48,6 +49,7 @@ Platforma este construită pentru a fi ușor extensibilă. Pentru a adăuga un n
 ---
 
 ## 🎯 Funcționalități
+
 - Pagina principală cu informații generale despre conferință și ateliere
 - Secțiune pentru resurse, încărcate dintr-un fișier JSON
 - Secțiune pentru evenimente viitoare, încărcate dintr-un fișier JSON
@@ -58,6 +60,7 @@ Platforma este construită pentru a fi ușor extensibilă. Pentru a adăuga un n
 ---
 
 ## 🛠️ Tehnologii utilizate
+
 - HTML5 pentru structura paginii
 - CSS3 pentru design și layout
 - JavaScript pentru manipulare DOM și încărcare din JSON
@@ -67,33 +70,36 @@ Platforma este construită pentru a fi ușor extensibilă. Pentru a adăuga un n
 ---
 
 ## 📚 Instrucțiuni de instalare
+
 1. Clonează repository-ul:
 
 ```bash
 git clone https://github.com/unu-unu-ro/cst.git
+cd cst
+npm install
 ```
 
-2. Instalează Prettier pentru a asigura o structură uniformă a codului:
-
-```bash
-npm install --save-dev prettier
-```
-
-3. Rulează Prettier pentru a formata codul:
+2. Run Prettier to format the code:
 
 ```bash
 npx prettier --write .
 ```
 
-4. Deschide `index.html` în browser pentru a vizualiza pagina local.
+3. Start
+
+```bash
+npm start
+```
 
 ---
 
 ## ✅ Contribuții
+
 - Feedback-ul și propunerile de îmbunătățire sunt binevenite.
 - Pentru contribuții, deschide un Pull Request sau contactează echipa organizatoare.
 
 ---
 
 ## 📧 Contact
+
 Pentru întrebări sau sugestii, poți contacta echipa Unu-Unu la: [contact@unu-unu.ro](mailto:contact@unu-unu.ro)

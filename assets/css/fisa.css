@@ -107,11 +107,20 @@
 }
 
 .form-actions {
-  text-align: center;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: 5px;
   margin: 1.2rem 0;
   padding: 1rem;
   background: var(--background-off-white);
   border-radius: 8px;
+}
+
+button.btn-primary {
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
 .btn-primary {

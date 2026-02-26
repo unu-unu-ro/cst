@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ro">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Previzualizare Fișă de lucru</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <link rel="stylesheet" href="assets/css/print-preview.css" />
+  </head>
+  <body>
+    <div class="toolbar">
+      <button class="btn-back" onclick="window.close()">&#x2715; Închide</button>
+      <button class="btn-print" onclick="window.print()">🖨 Printează / PDF</button>
+    </div>
+    <div class="header">
+      <h1>Fișă de lucru pentru Pregătirea Predicii</h1>
+      <p>Parcurge cei 7 pași de bază pentru o predicare expozitivă fidelă</p>
+    </div>
+
+    <div id="preview-content"></div>
+
+    <script src="assets/external/dompurify.min.js"></script>
+    <script src="assets/external/marked.min.js"></script>
+    <script src="assets/js/utilities.js"></script>
+    <script src="assets/js/fisa-utilities.js"></script>
+    <script src="assets/js/print-preview.js"></script>
+  </body>
+</html>

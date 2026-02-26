@@ -33,6 +33,27 @@ body {
   font-style: italic;
   font-size: 0.9rem;
 }
+
+a {
+  color: #005a5b;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+p {
+  margin: 0;
+}
+ul {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+li {
+  margin: 0;
+  padding: 0;
+}
+
 .extra-row {
   display: flex;
   justify-content: space-between;
@@ -59,7 +80,6 @@ body {
 }
 .step {
   margin-bottom: 1.2rem;
-  page-break-inside: avoid;
 }
 .step h3 {
   color: #2a3f54;
@@ -84,24 +104,66 @@ body {
   padding: 0.5rem;
   border-left: 2px solid #005a5b;
   margin-bottom: 0.6rem;
-  white-space: pre-wrap;
-  word-wrap: break-word;
+
   font-size: 0.9rem;
+}
+.answer p {
+  /* white-space: pre-wrap; */
+  /* word-wrap: break-word; */
 }
 .empty-answer {
   color: #999;
   font-style: italic;
 }
+
+body {
+  padding: 1.5rem;
+}
+.toolbar {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  gap: 0.5rem;
+  z-index: 100;
+}
+.toolbar button {
+  padding: 0.5rem 1.2rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-family: Arial, sans-serif;
+}
+.btn-print {
+  background: #005a5b;
+  color: #fff;
+}
+.btn-print:hover {
+  background: #00474a;
+}
+.btn-back {
+  background: #e9ecef;
+  color: #2a3f54;
+}
+.btn-back:hover {
+  background: #d3d8de;
+}
+
 @media print {
   body {
     font-size: 10pt;
     line-height: 1.3;
   }
+  .toolbar {
+    display: none;
+  }
   .step {
-    page-break-inside: avoid;
+    /* page-break-inside: avoid; */
     margin-bottom: 1rem;
   }
   .question {
+    page-break-inside: avoid;
     margin-bottom: 0.6rem;
   }
   .answer {

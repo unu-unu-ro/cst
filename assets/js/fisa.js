@@ -4,9 +4,6 @@
 //     - (auto set title attribute with full reference)
 //  - store values in firebase based on user account
 
-const USER_NAME_KEY = "fisa-nume";
-const STORAGE_KEY = "fisa-form-data";
-
 function persistFormData() {
   const formData = getFormValues();
   localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
@@ -20,36 +17,13 @@ function persistFormData() {
   return formData;
 }
 
-function getPageTitle(nume, text) {
-  nume = nume || "";
-  text = text || "";
-
-  let title = "Formular Fișă de lucru – 7 Pași";
-
-  if (nume && text) {
-    title = `${nume} - ${text}`;
-  } else if (nume) {
-    title = `${nume} - Fișă de lucru`;
-  } else if (text) {
-    title = `Fișă de lucru - ${text}`;
-  }
-  return title;
-}
-
 function updatePageTitle(nume, text) {
   document.title = getPageTitle(nume, text);
 }
 
 function loadFormData() {
-  const savedData = localStorage.getItem(STORAGE_KEY);
-  if (savedData) {
-    try {
-      const data = JSON.parse(savedData);
-      setFormValues(data);
-    } catch (e) {
-      console.error("Error loading form data:", e);
-    }
-  }
+  const data = getPersistedData();
+  setFormValues(data);
 
   // Load Nume separately
   const numeInput = $("#nume");
@@ -221,34 +195,6 @@ function closeCustomAlert() {
   }
 }
 
-// Simple Markdown Parser
-function parseMarkdown(text) {
-  if (!text) return "";
-
-  // Escape HTML to prevent XSS (basic)
-  let html = text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-
-  // Bold: **text**
-  html = html.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
-
-  // Italic: *text*
-  html = html.replace(/\*(.*?)\*/g, "<em>$1</em>");
-
-  // Headers: # Header (Limit to h3/h4 equivalent for PDF readability)
-  html = html.replace(/^#\s+(.*$)/gm, '<h4 style="margin: 0.5rem 0 0.2rem 0; color: #2a3f54;">$1</h4>');
-  html = html.replace(/^##\s+(.*$)/gm, '<h5 style="margin: 0.5rem 0 0.2rem 0; color: #2a3f54;">$1</h5>');
-
-  // Lists: - Item
-  // A bit tricky with regex only, so we handle single lines.
-  // For a true list, we'd need block parsing, but simple line replacement works for "visual" lists in PDF.
-  html = html.replace(/^\-\s+(.*$)/gm, "• $1<br>");
-
-  // Newlines to <br>
-  html = html.replace(/\n/g, "<br>");
-
-  return html;
-}
-
 // Load JSON file and populate form
 function loadJson() {
   const fileInput = document.createElement("input");
@@ -299,166 +245,16 @@ function downloadJson() {
 }
 
 // PDF Generation using browser print functionality
-function generatePDF(values) {
+function generatePDF() {
   if (!validateForm()) {
     return;
   }
 
-  // Create a new window with the form content formatted for printing
-  const printWindow = window.open("", "_blank");
+  // Persist latest form data to localStorage so print-preview.html can read it
+  persistFormData();
 
-  // Build the HTML content for the PDF with more compact styling
-  let htmlContent = `<!DOCTYPE html>
-<html lang="ro">
-<head>
-  <meta charset="UTF-8">
-  <title>${document.title}</title>
-  <link rel="stylesheet" href="assets/css/fisa-preview.css" />
-</head>
-<body>
-  <div class="header">
-    <h1>Fișă de lucru pentru Pregătirea Predicii</h1>
-    <p>Parcurge cei 7 pași de bază pentru o predicare expozitivă fidelă</p>
-  </div>
-  <div class="extra-row">
-    <span class="extra-label">Nume:</span>
-    <span class="extra-value" style="flex:1;text-align:left;">${values["nume"] || '<span class="empty-answer">-</span>'}</span>
-        <span class="extra-label">Text:</span>
-        <span class="extra-value" style="flex:1;text-align:left;">${values["text"] || '<span class="empty-answer">-</span>'}</span>
-  </div>
-  <div class="date">Completat cu <a href="http://cst.unu-unu.ro/fisa">http://cst.unu-unu.ro/fisa</a></div>
-`;
-
-  const steps = [
-    {
-      number: 1,
-      title: "Structura textului",
-      questions: [
-        {
-          label: "a) Arată structura sub formă de secțiuni, alături de versetele aferente",
-          field: "structura-sectiuni"
-        },
-        {
-          label: "b) Explică strategiile folosite pentru a identifica structura",
-          field: "structura-strategii"
-        },
-        {
-          label: "c) Pe ce pune accent această structură?",
-          field: "structura-accent"
-        }
-      ]
-    },
-    {
-      number: 2,
-      title: "Contextul pasajului",
-      questions: [
-        {
-          label: "a) Contextul literar",
-          field: "context-literar"
-        },
-        {
-          label: "b) Contextul istoric",
-          field: "context-istoric"
-        },
-        {
-          label: "c) Contextul cultural",
-          field: "context-cultural"
-        },
-        {
-          label: "d) Contextul biblic",
-          field: "context-biblic"
-        }
-      ]
-    },
-    {
-      number: 3,
-      title: "Ideea autorului",
-      questions: [
-        {
-          label: "Care este ideea centrală pe care o argumentează autorul în fața ascultătorilor săi?",
-          field: "ideea-autorului"
-        }
-      ]
-    },
-    {
-      number: 4,
-      title: "Legătura cu Evanghelia",
-      questions: [
-        {
-          label: "Care este legătura dintre acest pasaj și Evanghelia Domnului Isus Cristos?",
-          field: "legatura-evanghelia"
-        }
-      ]
-    },
-    {
-      number: 5,
-      title: "Ideea ta centrală",
-      questions: [
-        {
-          label: "Care este ideea centrală pe care tu o vei argumenta în fața ascultătorilor tăi?",
-          field: "ideea-mea"
-        }
-      ]
-    },
-    {
-      number: 6,
-      title: "Aplicații",
-      questions: [
-        {
-          label: "Aplicații pentru cei mântuiți",
-          field: "aplicatii-mantuiti"
-        },
-        {
-          label: "Aplicații pentru cei nemântuiți",
-          field: "aplicatii-nemantuiti"
-        }
-      ]
-    },
-    {
-      number: 7,
-      title: "Titlu și schiță",
-      questions: [
-        {
-          label: "Care este titlul predicii tale?",
-          field: "titlu-predica"
-        },
-        {
-          label: "Cum arată schița mesajului?",
-          field: "schita-mesaj"
-        }
-      ]
-    }
-  ];
-
-  htmlContent += steps
-    .map(
-      step => `<div class="step">
-      <h3>${step.number}. ${step.title}</h3>
-      ${step.questions
-        .map(
-          question => `
-          <div class="question">
-            <div class="question-label">${question.label}</div>
-            <div class="answer">${parseMarkdown(values[question.field]) || '<span class="empty-answer">Nu a fost completat</span>'}</div>
-          </div>`
-        )
-        .join("")}
-    </div>`
-    )
-    .join("");
-  htmlContent += `</body></html>`;
-
-  // Write content to the new window and print
-  printWindow.document.write(htmlContent);
-  printWindow.document.close();
-
-  // Wait for content to load, then print
-  printWindow.onload = function () {
-    setTimeout(() => {
-      printWindow.print();
-      // printWindow.close();
-    }, 500);
-  };
+  // Open the external preview page with ?print=1 to trigger auto-print
+  window.open("print-preview.html?print=1", "_blank");
 }
 
 // Event listeners
@@ -502,10 +298,7 @@ document.addEventListener("DOMContentLoaded", function () {
   $("#downloadJson").addEventListener("click", downloadJson);
 
   // Generate PDF button
-  $("#generatePDF").addEventListener("click", function () {
-    const values = getFormValues();
-    generatePDF(values);
-  });
+  $("#generatePDF").addEventListener("click", generatePDF);
 
   // Formatting Help Modal logic
   const modal = $("#formattingHelpModal");
