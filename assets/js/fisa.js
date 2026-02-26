@@ -3,6 +3,10 @@
 //  - auto indentify bible references and format them differently
 //     - (auto set title attribute with full reference)
 //  - store values in firebase based on user account
+//  - updatePreviewWindow: optimize by only sending updated field instead of reloading entire preview
+
+// PDF Generation using browser print functionality
+let previewWindow = null;
 
 function autoResizeTextareas(input) {
   let textareas;
@@ -253,8 +257,8 @@ function downloadJson() {
 }
 
 function renderSteps(steps) {
-  const form = $("#fisaForm");
-  if (!form) return;
+  const el = $("#cst-steps");
+  if (!el) return;
 
   const stepsHtml = steps
     .map(
@@ -286,10 +290,9 @@ function renderSteps(steps) {
     )
     .join("");
 
-  form.insertAdjacentHTML("afterbegin", stepsHtml);
+  el.innerHTML = stepsHtml;
 }
 
-// PDF Generation using browser print functionality
 function generatePDF() {
   if (!validateForm()) {
     return;
@@ -298,8 +301,20 @@ function generatePDF() {
   // Persist latest form data to localStorage so print-preview.html can read it
   persistFormData();
 
-  // Open the external preview page with ?print=1 to trigger auto-print
-  window.open("print-preview", "_blank");
+  if (previewWindow && !previewWindow.closed) {
+    previewWindow.location.reload();
+    previewWindow.focus();
+  } else {
+    previewWindow = window.open("print-preview", "_blank");
+  }
+}
+
+function updatePreviewWindow(input) {
+  // TODO - optimize by only sending updated field instead of reloading entire preview
+  if (previewWindow && !previewWindow.closed) {
+    console.info("Updating preview window due to input[%o] change:", input.name);
+    previewWindow.location.reload();
+  }
 }
 
 // Event listeners
@@ -322,6 +337,7 @@ document.addEventListener("DOMContentLoaded", function () {
       debounce(function () {
         updateProgress();
         persistFormData(input);
+        updatePreviewWindow(input);
       }, 300)
     );
 
