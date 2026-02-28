@@ -42,13 +42,6 @@
     "text2": "Amos 9:1-10"
   },
   {
-    "name": "Doru Marusca",
-    "role": "Participant",
-    "group": "Iosua Faur",
-    "text1": "Amos 4:6-13",
-    "text2": "Amos 9:1-10"
-  },
-  {
     "name": "Daniel Suciu ",
     "role": "Lider",
     "group": "Daniel Suciu",
@@ -72,7 +65,7 @@
   {
     "name": "Bîrcă Daniel",
     "role": "Participant",
-    "group": "Florin Mureşan",
+    "group": "John Folmar",
     "text1": "Amos 4:1-5",
     "text2": "Amos 7:1 – 8:3"
   },
@@ -266,13 +259,6 @@
     "text2": ""
   },
   {
-    "name": "Marius Mezin",
-    "role": "Ucenic",
-    "group": "Mitraș Dudaș",
-    "text1": "Amos 1:1 – 2:3",
-    "text2": "Amos 5:1-17"
-  },
-  {
     "name": "Iosua Faur",
     "role": "Lider",
     "group": "Iosua Faur",
@@ -280,16 +266,9 @@
     "text2": ""
   },
   {
-    "name": "Adrian Bârzu",
-    "role": "Ucenic",
-    "group": "Daniel Lacatoș",
-    "text1": "Amos 1:1 – 2:3",
-    "text2": "Amos 5:1-17"
-  },
-  {
     "name": "Marusca Titus",
     "role": "Participant",
-    "group": "Mitraș Dudaș",
+    "group": "Iosua Faur",
     "text1": "Amos 4:6-13",
     "text2": "Amos 9:1-10"
   },
@@ -331,7 +310,7 @@
   {
     "name": "Țap Cristian Marius",
     "role": "Participant",
-    "group": "Mitraș Dudaș",
+    "group": "Florin Mureşan",
     "text1": "Amos 2:4-16",
     "text2": "Amos 5:18-27"
   },
@@ -350,9 +329,16 @@
     "text2": "Amos 5:1-17"
   },
   {
+    "name": "Apascaritei Dennis",
+    "role": "",
+    "group": "Mitraș Dudaș",
+    "text1": "Amos 1:1 – 2:3",
+    "text2": "Amos 5:1-17"
+  },
+  {
     "name": "Kemeri Zsolt",
     "role": "Participant",
-    "group": "John Folmar",
+    "group": "Florin Mureşan",
     "text1": "Amos 4:1-5",
     "text2": "Amos 7:1 – 8:3"
   },
