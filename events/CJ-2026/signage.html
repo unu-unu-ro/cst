@@ -263,6 +263,131 @@
         color: #888;
         margin-top: 4px;
       }
+
+      /* ── Poster Page ── */
+
+      .poster-page {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 40px 20px;
+        text-align: center;
+      }
+
+      .poster-logo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 300px;
+        margin-bottom: 30px;
+      }
+
+      .poster-logo img {
+        height: 60px;
+        object-fit: contain;
+      }
+
+      .poster-title {
+        font-family: var(--font-heading);
+        font-size: 36pt;
+        font-weight: 700;
+        color: var(--white);
+        background: var(--primary-color);
+        padding: 16px 40px;
+        border-radius: 12px;
+        display: inline-block;
+        letter-spacing: 2px;
+        margin-bottom: 16px;
+        line-height: 1.2;
+      }
+
+      .poster-subtitle {
+        font-family: var(--font-heading);
+        font-size: 22pt;
+        font-weight: 600;
+        color: var(--heading-color);
+        margin-bottom: 12px;
+        letter-spacing: 1px;
+      }
+
+      .poster-details {
+        font-family: var(--font-body);
+        font-size: 16pt;
+        color: #555;
+        margin-bottom: 40px;
+        letter-spacing: 0.5px;
+      }
+
+      .poster-qr {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 30px;
+      }
+
+      .poster-qr svg,
+      .poster-qr img {
+        width: 200px;
+        height: 200px;
+      }
+
+      .poster-qr-label {
+        font-family: var(--font-body);
+        font-size: 11pt;
+        color: #888;
+        margin-top: 4px;
+      }
+
+      .poster-qr-url {
+        font-family: var(--font-body);
+        font-size: 12pt;
+        color: var(--primary-color);
+        font-weight: 600;
+        word-break: break-all;
+      }
+
+      .poster-description {
+        font-family: var(--font-body);
+        font-size: 12pt;
+        color: #555;
+        max-width: 400px;
+        line-height: 1.6;
+        margin-top: 20px;
+        border-top: 2px solid var(--primary-color);
+        padding-top: 20px;
+      }
+
+      @media print {
+        .poster-page {
+          height: 257mm;
+          padding: 0;
+          justify-content: center;
+          page-break-after: always;
+        }
+
+        .poster-title {
+          font-size: 32pt;
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+          color: white !important;
+          background: #005a5b !important;
+        }
+
+        .poster-qr svg,
+        .poster-qr img {
+          width: 180px;
+          height: 180px;
+        }
+
+        .poster-logo img {
+          height: 50px;
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+      }
     </style>
   </head>
 
@@ -296,10 +421,52 @@
 
         const EVENT_URL = "https://cst.unu-unu.ro/events/CJ-2026/";
 
-        fetch("data/participants.json")
-          .then(res => res.json())
-          .then(data => {
+        // Fetch event data and participants in parallel
+        Promise.all([
+          fetch("data/data.json").then(res => res.json()),
+          fetch("data/participants.json").then(res => res.json())
+        ])
+          .then(([eventData, data]) => {
             if (!Array.isArray(data) || data.length === 0) throw new Error("No data");
+
+            container.innerHTML = "";
+
+            // ── Poster Page ──
+            const event = eventData.event || {};
+            const posterQrDiv = document.createElement("div");
+            try {
+              const qr = qrcode(0, "M");
+              qr.addData(EVENT_URL);
+              qr.make();
+              posterQrDiv.innerHTML = qr.createSvgTag({ scalable: true });
+              const svg = posterQrDiv.querySelector("svg");
+              if (svg) {
+                svg.setAttribute("width", "200");
+                svg.setAttribute("height", "200");
+              }
+            } catch (e) {
+              posterQrDiv.innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(EVENT_URL)}" alt="QR Code" width="200" height="200">`;
+            }
+
+            const posterPage = document.createElement("div");
+            posterPage.className = "signage-page poster-page";
+            posterPage.innerHTML = `
+              <div class="poster-logo">
+                <img src="../../assets/11logo.png" alt="Biserica Unu Unu" style="filter: grayscale(100%);" />
+                <img src="https://cst-media.s3.amazonaws.com/graphic/cst-logo-black-web.jpg" alt="Charles Simeon Trust" />
+              </div>
+              <div class="poster-title">${event.title || "Atelier CST"}</div>
+              <div class="poster-subtitle">${event.subtitle || ""}</div>
+              <div class="poster-details">${event.details || ""}</div>
+              <div class="poster-qr">
+                ${posterQrDiv.innerHTML}
+                <div class="poster-qr-label">Scanează pentru orar, grupe și resurse</div>
+                <div class="poster-qr-url">${EVENT_URL}</div>
+              </div>
+            `;
+            container.appendChild(posterPage);
+
+            // ── Group Pages ──
 
             // Group participants by group field
             const groups = {};
@@ -308,8 +475,6 @@
               if (!groups[groupKey]) groups[groupKey] = [];
               groups[groupKey].push(p);
             });
-
-            container.innerHTML = "";
 
             // Sort group names and generate one page per group
             Object.keys(groups)
