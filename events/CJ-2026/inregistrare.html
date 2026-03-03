@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ro">
   <head>
     <meta charset="UTF-8" />
@@ -13,14 +13,8 @@
     />
 
     <!-- FontAwesome -->
-    <script
-      src="https://kit.fontawesome.com/a076d05399.js"
-      crossorigin="anonymous"
-    ></script>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
     <link rel="icon" type="image/x-icon" href="../../assets/favicon.ico" />
     <link rel="stylesheet" href="../../assets/css/event-style.css" />
@@ -32,19 +26,22 @@
 
       <div id="registration-container">
         <!-- Language Switcher -->
-        <div style="text-align: center; margin-bottom: 2rem;">
-          <p style="font-size: 1.2rem;">
-            <a href="#" id="lang-ro" class="btn active-lang" style="font-weight: bold; text-decoration: underline;">Română</a> <span style="margin: 0 10px;">|</span> 
-            <a href="#" id="lang-en" class="btn" style="opacity: 0.7;">English</a>
+        <div style="text-align: center; margin-bottom: 2rem">
+          <p style="font-size: 1.2rem">
+            <a href="#" id="lang-ro" class="btn active-lang" style="font-weight: bold; text-decoration: underline"
+              >Română</a
+            >
+            <span style="margin: 0 10px">|</span>
+            <a href="#" id="lang-en" class="btn" style="opacity: 0.7">English</a>
           </p>
-          <p id="lang-msg" style="font-size: 1rem; color: #555; margin-top: 1rem;">
+          <p id="lang-msg" style="font-size: 1rem; color: #555; margin-top: 1rem">
             If you want to register in English, please select the English option above.
           </p>
         </div>
 
         <!-- Romanian Form (Default) -->
         <div id="form-ro">
-            <iframe
+          <iframe
             data-tally-src="https://tally.so/embed/7Rqva2?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
             loading="lazy"
             width="100%"
@@ -53,12 +50,21 @@
             marginheight="0"
             marginwidth="0"
             title="Înregistrare Atelier CST 2026, Cluj"
-            ></iframe>
+          ></iframe>
         </div>
 
         <!-- English Form (Hidden by default) -->
-        <div id="form-en" style="display: none;">
-           <iframe data-tally-src="https://tally.so/embed/81z7jl?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="1008" frameborder="0" marginheight="0" marginwidth="0" title="Înregistrare Atelier CST 2026, Cluj EN"></iframe>
+        <div id="form-en" style="display: none">
+          <iframe
+            data-tally-src="https://tally.so/embed/81z7jl?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
+            loading="lazy"
+            width="100%"
+            height="1008"
+            frameborder="0"
+            marginheight="0"
+            marginwidth="0"
+            title="Înregistrare Atelier CST 2026, Cluj EN"
+          ></iframe>
         </div>
 
         <script>
@@ -68,47 +74,45 @@
             v = function () {
               "undefined" != typeof Tally
                 ? Tally.loadEmbeds()
-                : d
-                    .querySelectorAll("iframe[data-tally-src]:not([src])")
-                    .forEach(function (e) {
-                      e.src = e.dataset.tallySrc;
-                    });
+                : d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach(function (e) {
+                    e.src = e.dataset.tallySrc;
+                  });
             };
           if ("undefined" != typeof Tally) v();
           else if (d.querySelector('script[src="' + w + '"]') == null) {
             var s = d.createElement("script");
-            (s.src = w), (s.onload = v), (s.onerror = v), d.body.appendChild(s);
+            ((s.src = w), (s.onload = v), (s.onerror = v), d.body.appendChild(s));
           }
 
           // Language Switcher Logic
-          document.addEventListener("DOMContentLoaded", function() {
+          document.addEventListener("DOMContentLoaded", function () {
             const btnRo = document.getElementById("lang-ro");
             const btnEn = document.getElementById("lang-en");
             const formRo = document.getElementById("form-ro");
             const formEn = document.getElementById("form-en");
             const msg = document.getElementById("lang-msg");
 
-            btnRo.addEventListener("click", function(e) {
+            btnRo.addEventListener("click", function (e) {
               e.preventDefault();
               formRo.style.display = "block";
               formEn.style.display = "none";
-              
+
               btnRo.style.fontWeight = "bold";
               btnRo.style.textDecoration = "underline";
               btnRo.style.opacity = "1";
-              
+
               btnEn.style.fontWeight = "normal";
               btnEn.style.textDecoration = "none";
               btnEn.style.opacity = "0.7";
-              
+
               msg.textContent = "If you want to register in English, please select the English option above.";
             });
 
-            btnEn.addEventListener("click", function(e) {
+            btnEn.addEventListener("click", function (e) {
               e.preventDefault();
               formRo.style.display = "none";
               formEn.style.display = "block";
-              
+
               btnEn.style.fontWeight = "bold";
               btnEn.style.textDecoration = "underline";
               btnEn.style.opacity = "1";
@@ -123,15 +127,11 @@
               if ("undefined" != typeof Tally) Tally.loadEmbeds();
             });
           });
-          </script>
+        </script>
 
         <p class="help-text">
           Nu se încarcă formularul?
-          <a
-            href="https://tally.so/r/YOUR_FORM_ID"
-            target="_blank"
-            class="link-highlight"
-            >Deschide în fereastră nouă</a
+          <a href="https://tally.so/r/YOUR_FORM_ID" target="_blank" class="link-highlight">Deschide în fereastră nouă</a
           >.
         </p>
       </div>
