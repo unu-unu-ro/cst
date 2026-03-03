@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="ro">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Signage Grupe - CST Cluj 2026</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;700&family=Work+Sans:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- FontAwesome -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <link rel="icon" type="image/x-icon" href="../../assets/favicon.ico" />
+    <link rel="stylesheet" href="../../assets/css/event-style.css" />
+
+    <!-- QR Code Generator -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+
+    <style>
+      /* ── Signage Print Styles ── */
+
+      @media print {
+        @page {
+          size: A4 portrait;
+          margin: 15mm;
+        }
+
+        body {
+          background: white;
+          padding: 0;
+          margin: 0;
+          display: block;
+        }
+
+        .container {
+          display: block !important;
+          max-width: none;
+          padding: 0;
+          margin: 0;
+          box-shadow: none;
+          border-radius: 0;
+          background: white;
+        }
+
+        #print-ui {
+          display: none !important;
+        }
+
+        .signage-page {
+          page-break-after: always;
+          height: 257mm; /* A4 height minus margins */
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          padding: 0;
+        }
+
+        .signage-page:last-child {
+          page-break-after: auto;
+        }
+
+        .signage-title {
+          font-size: 32pt;
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+          color: white !important;
+          background: #005a5b !important;
+        }
+
+        .signage-leader {
+          font-size: 14pt;
+        }
+
+        .signage-table {
+          font-size: 11pt;
+        }
+
+        .signage-table th {
+          font-size: 10pt;
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+
+        .signage-footer {
+          font-size: 11pt;
+        }
+
+        .signage-qr img,
+        .signage-qr canvas {
+          width: 100px;
+          height: 100px;
+        }
+      }
+
+      @media screen {
+        /* Hide content on screen, show print UI */
+        .container {
+          display: none;
+        }
+
+        #print-ui {
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          text-align: center;
+          background: white;
+          padding: 40px;
+          border-radius: 16px;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+          width: 90%;
+          max-width: 400px;
+        }
+
+        #print-ui p {
+          margin-bottom: 20px;
+          color: #333;
+          font-size: 1.1rem;
+        }
+
+        #print-ui button {
+          background: var(--primary-color);
+          color: white;
+          border: none;
+          padding: 12px 30px;
+          border-radius: 50px;
+          font-size: 1rem;
+          font-weight: 700;
+          cursor: pointer;
+          display: inline-flex;
+          align-items: center;
+          gap: 10px;
+          transition: background 0.2s;
+        }
+
+        #print-ui button:hover {
+          background: var(--primary-hover);
+        }
+      }
+
+      /* ── Signage Page Layout ── */
+
+      .signage-page {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 100vh;
+        padding: 20px 0;
+      }
+
+      .signage-header {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      .signage-title {
+        font-family: var(--font-heading);
+        font-size: 42pt;
+        font-weight: 700;
+        color: var(--white);
+        background: var(--primary-color);
+        padding: 12px 30px;
+        border-radius: 12px;
+        display: inline-block;
+        letter-spacing: 2px;
+        margin-bottom: 8px;
+      }
+
+      .signage-leader {
+        font-family: var(--font-heading);
+        font-size: 18pt;
+        color: var(--heading-color);
+        font-weight: 600;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        margin-top: 4px;
+      }
+
+      .signage-body {
+        flex: 1;
+        display: flex;
+        align-items: flex-start;
+        padding-top: 10px;
+      }
+
+      .signage-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 11pt;
+      }
+
+      .signage-table th {
+        background-color: var(--primary-color);
+        color: white;
+        font-family: var(--font-heading);
+        font-weight: 600;
+        text-align: left;
+        padding: 8px 12px;
+        font-size: 10pt;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .signage-table td {
+        padding: 7px 12px;
+        border-bottom: 1px solid #e0e0e0;
+        vertical-align: top;
+      }
+
+      .signage-table tbody tr:nth-child(even) {
+        background-color: #f9f9f9;
+      }
+
+      .signage-table .role-badge {
+        display: inline-block;
+        font-size: 8pt;
+        font-weight: 700;
+        padding: 1px 6px;
+        border-radius: 4px;
+        margin-left: 6px;
+        vertical-align: middle;
+      }
+
+      .signage-table .role-ucenic {
+        background: #e3f2fd;
+        color: #1565c0;
+      }
+
+      .signage-table .role-observator {
+        background: #fff3e0;
+        color: #e65100;
+      }
+
+      .signage-footer {
+        text-align: center;
+        padding-top: 20px;
+        border-top: 2px solid var(--primary-color);
+        margin-top: 20px;
+      }
+
+      .signage-footer-text {
+        font-size: 11pt;
+        color: #555;
+        margin-bottom: 8px;
+      }
+
+      .signage-qr {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+        margin-top: 6px;
+      }
+
+      .signage-qr-url {
+        font-size: 9pt;
+        color: #888;
+        margin-top: 4px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container content-container">
+      <div class="header-nav"></div>
+
+      <div id="signage-container">
+        <p class="loading-text">Se încarcă...</p>
+      </div>
+    </div>
+
+    <!-- Screen Only UI -->
+    <div id="print-ui">
+      <p>
+        Această pagină generează afișe A4 pentru fiecare grupă.<br />Folosiți butonul de mai jos pentru a genera PDF-ul.
+      </p>
+      <button onclick="window.print()"><i class="fa-solid fa-print"></i> Tipărește PDF</button>
+      <div style="margin-top: 20px">
+        <a href="index" style="color: var(--primary-color); text-decoration: none; font-weight: 600">
+          <i class="fa-solid fa-arrow-left"></i> Înapoi
+        </a>
+      </div>
+    </div>
+
+    <script src="../../assets/js/event-app.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const container = document.getElementById("signage-container");
+        if (!container) return;
+
+        const EVENT_URL = "https://cst.unu-unu.ro/events/CJ-2026/";
+
+        fetch("data/participants.json")
+          .then(res => res.json())
+          .then(data => {
+            if (!Array.isArray(data) || data.length === 0) throw new Error("No data");
+
+            // Group participants by group field
+            const groups = {};
+            data.forEach(p => {
+              const groupKey = p.group || "Nedefinit";
+              if (!groups[groupKey]) groups[groupKey] = [];
+              groups[groupKey].push(p);
+            });
+
+            container.innerHTML = "";
+
+            // Sort group names and generate one page per group
+            Object.keys(groups)
+              .sort()
+              .forEach((groupName, idx, arr) => {
+                const members = groups[groupName];
+
+                // Find the leader
+                const leader = members.find(m => m.role === "Lider");
+                const leaderName = leader ? leader.name.trim() : groupName;
+
+                // Extract initials from the leader's name
+                const initials = leaderName
+                  .split(/\s+/)
+                  .map(w => w.charAt(0).toUpperCase())
+                  .join("");
+
+                // Sort members: Ucenic first, then all others alphabetically (skip Lider)
+                const sortedMembers = members
+                  .filter(m => m.role !== "Lider")
+                  .sort((a, b) => {
+                    const aIsUcenic = a.role === "Ucenic" ? 0 : 1;
+                    const bIsUcenic = b.role === "Ucenic" ? 0 : 1;
+                    if (aIsUcenic !== bIsUcenic) return aIsUcenic - bIsUcenic;
+                    return a.name.localeCompare(b.name);
+                  });
+
+                // Build table rows
+                let rowsHtml = "";
+                sortedMembers.forEach((m, i) => {
+                  let roleBadge = "";
+                  if (m.role === "Ucenic") roleBadge = `<span class="role-badge role-ucenic">U</span>`;
+                  if (m.role === "Observator") roleBadge = `<span class="role-badge role-observator">O</span>`;
+
+                  rowsHtml += `
+                                <tr>
+                                    <td style="width: 5%; text-align: center; color: #999;">${i + 1}</td>
+                                    <td style="width: 40%;">${m.name.trim()}${roleBadge}</td>
+                                    <td style="width: 27%;">${m.text1 || "—"}</td>
+                                    <td style="width: 28%;">${m.text2 || "—"}</td>
+                                </tr>
+                            `;
+                });
+
+                // Generate QR code
+                const qrDiv = document.createElement("div");
+                try {
+                  const qr = qrcode(0, "M");
+                  qr.addData(EVENT_URL);
+                  qr.make();
+                  qrDiv.innerHTML = qr.createSvgTag({ scalable: true });
+                  const svg = qrDiv.querySelector("svg");
+                  if (svg) {
+                    svg.setAttribute("width", "100");
+                    svg.setAttribute("height", "100");
+                  }
+                } catch (e) {
+                  // Fallback to API
+                  qrDiv.innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=${encodeURIComponent(EVENT_URL)}" alt="QR Code" width="100" height="100">`;
+                }
+
+                const page = document.createElement("div");
+                page.className = "signage-page";
+                page.innerHTML = `
+                            <div class="signage-header">
+                                <div class="signage-title">Grupa ${initials}</div>
+                                <div class="signage-leader">${leaderName}</div>
+                            </div>
+                            <div class="signage-body">
+                                <table class="signage-table">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Nume</th>
+                                            <th>Text 1</th>
+                                            <th>Text 2</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${rowsHtml}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="signage-footer">
+                                <div class="signage-footer-text">Orar și grupe actualizate:</div>
+                                <div class="signage-qr">
+                                    ${qrDiv.innerHTML}
+                                </div>
+                                <div class="signage-qr-url">${EVENT_URL}</div>
+                            </div>
+                        `;
+
+                container.appendChild(page);
+              });
+          })
+          .catch(err => {
+            console.error("Error loading participants for signage:", err);
+            container.innerHTML = '<p style="text-align:center; padding: 20px;">Eroare la încărcarea datelor.</p>';
+          });
+      });
+    </script>
+  </body>
+</html>
