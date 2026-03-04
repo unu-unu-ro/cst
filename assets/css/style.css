@@ -64,6 +64,10 @@ header p {
   }
 }
 
+.bible-ref {
+  color: var(--primary-accent);
+}
+
 @keyframes fadeInUp {
   from {
     opacity: 0;
