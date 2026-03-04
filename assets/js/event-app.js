@@ -270,6 +270,8 @@ function initGroupsPage() {
           const groupDiv = document.createElement("div");
           groupDiv.className = "group-section";
 
+          const presentSet = getPresent();
+
           let membersHtml = "";
           groupMembers.forEach(member => {
             // Skip Leader if they are the leader of this group
@@ -280,9 +282,10 @@ function initGroupsPage() {
             if (member.role === "Observator") badge = `<span class="role-tag role-OBS" title="Observator">O</span>`;
 
             const texts = [member.text1, member.text2].filter(t => t).join(", ");
+            const absentClass = presentSet.size > 0 && !presentSet.has(member.name) ? " member-absent" : "";
 
             membersHtml += `
-                        <div class="participant-row">
+                        <div class="participant-row${absentClass}">
                             <div class="participant-info">
                                 ${badge} <span>${member.name}</span>
                             </div>
@@ -309,6 +312,22 @@ function initGroupsPage() {
     });
 }
 
+// ── Presence helpers (shared by participants & groups pages) ──────────────
+const PRESENCE_KEY = "cst-presence-cj2026";
+
+function getPresent() {
+  try {
+    return new Set(JSON.parse(localStorage.getItem(PRESENCE_KEY) || "[]"));
+  } catch (e) {
+    return new Set();
+  }
+}
+
+function savePresent(set) {
+  localStorage.setItem(PRESENCE_KEY, JSON.stringify([...set]));
+}
+// ────────────────────────────────────────────────────────────────────────────
+
 /**
  * Participants Page Logic
  * Fetches data/participants.json
@@ -330,8 +349,11 @@ function initParticipantsPage() {
         counterElement.textContent = data.length;
       }
 
+      const present = getPresent();
+
       data.forEach(p => {
         const row = document.createElement("tr");
+        const isPresent = present.has(p.name);
 
         // Build role badge if role is not "Participant"
         let roleBadge = "";
@@ -344,10 +366,33 @@ function initParticipantsPage() {
         }
 
         row.innerHTML = `
+                    <td class="presence-cell" data-label="Prezent">
+                      <button class="presence-btn${isPresent ? " is-present" : ""}" aria-label="Toggle prezență" title="${isPresent ? "Prezent" : "Absent"}">
+                        <i class="${isPresent ? "fa-solid fa-circle-check" : "fa-regular fa-circle"}"></i>
+                      </button>
+                    </td>
                     <td data-label="Nume"><strong>${p.name}</strong>${roleBadge}</td>
                     <td data-label="Text 1">${p.text1 || "-"}</td>
                     <td data-label="Text 2">${p.text2 || "-"}</td>
                 `;
+
+        const btn = row.querySelector(".presence-btn");
+        btn.addEventListener("click", () => {
+          const currentPresent = getPresent();
+          if (currentPresent.has(p.name)) {
+            currentPresent.delete(p.name);
+            btn.classList.remove("is-present");
+            btn.querySelector("i").className = "fa-regular fa-circle";
+            btn.title = "Absent";
+          } else {
+            currentPresent.add(p.name);
+            btn.classList.add("is-present");
+            btn.querySelector("i").className = "fa-solid fa-circle-check";
+            btn.title = "Prezent";
+          }
+          savePresent(currentPresent);
+        });
+
         tbody.appendChild(row);
       });
     })
