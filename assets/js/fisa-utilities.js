@@ -147,6 +147,7 @@ const STEPS = [
 function getPageTitle(nume, text) {
   nume = nume || "";
   text = text || "";
+  text = text.replaceAll(":", ".").trim();
 
   let title = "Formular Fișă de lucru – 7 Pași";
 
