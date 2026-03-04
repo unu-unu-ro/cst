@@ -492,6 +492,61 @@ h2 {
   font-style: normal;
 }
 
+/* Session status: past */
+.group-section.day p.session-past {
+  border-left-color: #b0bec5 !important;
+}
+
+.group-section.day p.session-past strong {
+  color: #b0bec5;
+}
+
+/* Session status: in progress */
+.group-section.day p.session-in-progress {
+  border-left-color: #e65100 !important;
+  border-left-width: 5px !important;
+  background: linear-gradient(90deg, #fff3e0 0%, #fffde7 100%) !important;
+  box-shadow: 0 4px 14px rgba(230, 81, 0, 0.18) !important;
+  padding-left: 11px;
+  animation: pulse-in-progress 1.6s ease-in-out infinite;
+}
+
+.group-section.day p.session-in-progress strong {
+  color: #e65100;
+}
+
+.group-section.day p.session-in-progress::after {
+  content: " ● ACUM";
+  font-size: 0.72em;
+  font-weight: 700;
+  color: #e65100;
+  letter-spacing: 0.5px;
+  vertical-align: middle;
+  animation: blink-dot 1.6s ease-in-out infinite;
+}
+
+@keyframes pulse-in-progress {
+  0%,
+  100% {
+    box-shadow: 0 4px 14px rgba(230, 81, 0, 0.15);
+    background: linear-gradient(90deg, #fff3e0 0%, #fffde7 100%) !important;
+  }
+  50% {
+    box-shadow: 0 6px 28px rgba(230, 81, 0, 0.55);
+    background: linear-gradient(90deg, #ffe0b2 0%, #fff8e1 100%) !important;
+  }
+}
+
+@keyframes blink-dot {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.2;
+  }
+}
+
 /* Visual separator between days - only on mobile (non-grid) */
 @media (max-width: 767px) {
   .group-section.day::after {

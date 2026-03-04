@@ -25,28 +25,28 @@ document.addEventListener("DOMContentLoaded", () => {
   if (document.getElementById("schedule-container")) {
     initSchedulePage();
   }
-  
+
   // Specific Handout Logic
   if (window.location.pathname.includes("handout")) {
-      initHandout();
+    initHandout();
   }
 });
 
 function initHandout() {
-    // 1. Fetch Event Info for Title and Cover
-    fetch("data/data.json")
-        .then(res => res.json())
-        .then(data => {
-            const event = data.event || {};
-            
-            // Set Document Title (affects printed file name)
-            const cleanSubtitle = (event.subtitle || "").replace("Predicare din profeți - ", "");
-            document.title = `Mapa Participant - ${cleanSubtitle || "Atelier"} - CST 2026`;
+  // 1. Fetch Event Info for Title and Cover
+  fetch("data/data.json")
+    .then(res => res.json())
+    .then(data => {
+      const event = data.event || {};
 
-            // Populate Cover Page
-            const coverContainer = document.getElementById("cover-page");
-            if (coverContainer) {
-                coverContainer.innerHTML = `
+      // Set Document Title (affects printed file name)
+      const cleanSubtitle = (event.subtitle || "").replace("Predicare din profeți - ", "");
+      document.title = `Mapa Participant - ${cleanSubtitle || "Atelier"} - CST 2026`;
+
+      // Populate Cover Page
+      const coverContainer = document.getElementById("cover-page");
+      if (coverContainer) {
+        coverContainer.innerHTML = `
                     <div class="cover-logos">
                         <img src="../../assets/11logo.png" alt="Biserica 11 Logo" style="filter: grayscale(100%);">
                         <img src="https://cst-media.s3.amazonaws.com/graphic/cst-logo-black-web.jpg" alt="CST Logo">
@@ -68,48 +68,48 @@ function initHandout() {
                         </div>
                     </div>
                 `;
-            }
-        })
-        .catch(err => console.error("Error loading event data for handout:", err));
+      }
+    })
+    .catch(err => console.error("Error loading event data for handout:", err));
 
-    // 2. Inject Print Footer (previously in global logic)
-    const footer = document.createElement("div");
-    footer.className = "print-footer";
-    footer.style.display = "none"; // Hidden on screen, shown in print via CSS
-    footer.innerHTML = `
+  // 2. Inject Print Footer (previously in global logic)
+  const footer = document.createElement("div");
+  footer.className = "print-footer";
+  footer.style.display = "none"; // Hidden on screen, shown in print via CSS
+  footer.innerHTML = `
         <img src="../../assets/11logo.png" alt="Biserica 11 Logo" style="height: 25px;">
         <div class="print-footer-text">
             
         </div>
         <img src="https://cst-media.s3.amazonaws.com/graphic/cst-logo-black-web.jpg" alt="CST Logo" style="height: 25px;">
     `;
-    document.body.appendChild(footer);
+  document.body.appendChild(footer);
 
-    // 3. Generate Note Pages based on Schedule
-    const notesContainer = document.getElementById("notes-container");
-    if (notesContainer) {
-        fetch("data/orar.json")
-            .then(res => res.json())
-            .then(data => {
-                notesContainer.innerHTML = "";
-                let pageCount = 0;
-                
-                data.schedule.forEach(day => {
-                   day.sessions.forEach(session => {
-                       if (session.pageInPrint === true) {
-                           pageCount++;
-                           const notePage = document.createElement("div");
-                           notePage.className = "note-page";
-                           
-                           // Generate empty space or just header as requested
-                           /* Lines removed per user request
+  // 3. Generate Note Pages based on Schedule
+  const notesContainer = document.getElementById("notes-container");
+  if (notesContainer) {
+    fetch("data/orar.json")
+      .then(res => res.json())
+      .then(data => {
+        notesContainer.innerHTML = "";
+        let pageCount = 0;
+
+        data.schedule.forEach(day => {
+          day.sessions.forEach(session => {
+            if (session.pageInPrint === true) {
+              pageCount++;
+              const notePage = document.createElement("div");
+              notePage.className = "note-page";
+
+              // Generate empty space or just header as requested
+              /* Lines removed per user request
                            let linesHtml = "";
                            for(let i=0; i<34; i++) {
                                linesHtml += `<div class="note-line"></div>`;
                            }
                            */
-                           
-                           notePage.innerHTML = `
+
+              notePage.innerHTML = `
                                 <div class="note-header">
                                     <div class="note-title">${session.title}</div>
                                     <div class="note-meta">
@@ -119,18 +119,18 @@ function initHandout() {
                                 <!-- No lines, just white space -->
                                 <div class="note-lines"></div>
                            `;
-                           notesContainer.appendChild(notePage);
-                       } 
-                   }); 
-                });
-            })
-            .catch(err => console.error("Error loading schedule for notes:", err));
-    }
+              notesContainer.appendChild(notePage);
+            }
+          });
+        });
+      })
+      .catch(err => console.error("Error loading schedule for notes:", err));
+  }
 
-    // 4. Populate Feedback Page
-    const feedbackContainer = document.getElementById("feedback-page");
-    if (feedbackContainer) {
-        feedbackContainer.innerHTML = `
+  // 4. Populate Feedback Page
+  const feedbackContainer = document.getElementById("feedback-page");
+  if (feedbackContainer) {
+    feedbackContainer.innerHTML = `
             <div class="page-break"></div>
             <div class="feedback-content" style="height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
                 <h1 style="font-size: 32pt; margin-bottom: 50px;">Formular feedback</h1>
@@ -138,7 +138,7 @@ function initHandout() {
                 <p style="font-size: 14pt; color: #666;">Scanează codul de mai sus pentru a ne oferi feedback-ul tău.</p>
             </div>
         `;
-    }
+  }
 }
 
 /**
@@ -357,6 +357,73 @@ function initParticipantsPage() {
     });
 }
 
+// Keywords that identify a break/pause session
+const BREAK_KEYWORDS = ["pauză", "prânz", "sosire"];
+
+// Romanian month name → 0-based index
+const RO_MONTHS = {
+  Ianuarie: 0,
+  Februarie: 1,
+  Martie: 2,
+  Aprilie: 3,
+  Mai: 4,
+  Iunie: 5,
+  Iulie: 6,
+  August: 7,
+  Septembrie: 8,
+  Octombrie: 9,
+  Noiembrie: 10,
+  Decembrie: 11
+};
+
+/**
+ * Parse a Romanian day string (e.g. "Miercuri, 4 Martie") into a Date (year = current year).
+ * @param {string} dayStr
+ * @returns {Date|null}
+ */
+function parseDayDate(dayStr) {
+  const match = dayStr.match(/(\d+)\s+(\w+)/);
+  if (!match) return null;
+  const month = RO_MONTHS[match[2]];
+  if (month === undefined) return null;
+  return new Date(new Date().getFullYear(), month, parseInt(match[1]));
+}
+
+/**
+ * Build a full Date from a Romanian day string and a "HH:MM" time string.
+ * @param {string} dayStr
+ * @param {string} timeStr
+ * @returns {Date|null}
+ */
+function getSessionDateTime(dayStr, timeStr) {
+  const date = parseDayDate(dayStr);
+  if (!date) return null;
+  const [h, m] = timeStr.split(":").map(Number);
+  date.setHours(h, m, 0, 0);
+  return date;
+}
+
+/**
+ * Return the CSS status class for a session relative to `now`.
+ * @param {Date}        now
+ * @param {string}      dayStr
+ * @param {string}      timeStr
+ * @param {string|null} nextDayStr
+ * @param {string|null} nextTimeStr
+ * @returns {"session-in-progress"|"session-past"|""}
+ */
+function getSessionStatus(now, dayStr, timeStr, nextDayStr, nextTimeStr) {
+  const start = getSessionDateTime(dayStr, timeStr);
+  if (!start) return "";
+  const end =
+    nextTimeStr && nextDayStr
+      ? getSessionDateTime(nextDayStr, nextTimeStr)
+      : new Date(start.getTime() + 30 * 60 * 1000); // last session: 30-min fallback
+  if (now >= start && now < end) return "session-in-progress";
+  if (now >= end) return "session-past";
+  return "";
+}
+
 /**
  * Schedule Page Logic
  * Fetches data/orar.json
@@ -368,32 +435,46 @@ function initSchedulePage() {
     .then(res => res.json())
     .then(data => {
       if (!data.schedule || data.schedule.length === 0) {
-          container.innerHTML = "<p>Programul nu este disponibil (fișierul de date este gol).</p>";
-          return;
+        container.innerHTML = "<p>Programul nu este disponibil (fișierul de date este gol).</p>";
+        return;
       }
 
       container.innerHTML = "";
 
-      data.schedule.forEach(day => {
+      const now = new Date();
+
+      data.schedule.forEach((day, dayIndex) => {
         const dayDiv = document.createElement("div");
         dayDiv.className = "group-section day";
 
         let sessionsHtml = "";
-        
-        day.sessions.forEach(session => {
-          const isBreak =
-            session.title.toLowerCase().includes("pauză") ||
-            session.title.toLowerCase().includes("prânz") ||
-            session.title.toLowerCase().includes("sosire");
-          const sessionClass = isBreak ? "session-break" : "session-normal";
+
+        day.sessions.forEach((session, sessionIndex) => {
+          // Determine next session (across days)
+          let nextDayStr = null;
+          let nextTimeStr = null;
+          if (sessionIndex + 1 < day.sessions.length) {
+            nextDayStr = day.day;
+            nextTimeStr = day.sessions[sessionIndex + 1].time;
+          } else if (dayIndex + 1 < data.schedule.length) {
+            nextDayStr = data.schedule[dayIndex + 1].day;
+            nextTimeStr = data.schedule[dayIndex + 1].sessions[0].time;
+          }
+
+          const statusClass = getSessionStatus(now, day.day, session.time, nextDayStr, nextTimeStr);
+
+          const title = session.title.toLowerCase();
+          const isBreak = BREAK_KEYWORDS.some(kw => title.includes(kw));
+          const baseClass = isBreak ? "session-break" : "session-normal";
+          const sessionClass = statusClass ? `${baseClass} ${statusClass}` : baseClass;
 
           if (session.type === "break" || isBreak) {
-            sessionsHtml += `<p class="${sessionClass}"><strong>${session.time}</strong> - ${session.title}</p>`;
+            sessionsHtml += `<p class="${sessionClass}"><strong>${session.time}</strong> ${session.title}</p>`;
           } else {
             const description = session.speaker
               ? `${session.title} <span class="speaker">• ${session.speaker}</span>`
               : session.title;
-            sessionsHtml += `<p class="${sessionClass}"><strong>${session.time}</strong> - ${description}</p>`;
+            sessionsHtml += `<p class="${sessionClass}"><strong>${session.time}</strong> ${description}</p>`;
           }
         });
 
