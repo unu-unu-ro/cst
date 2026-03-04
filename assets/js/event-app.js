@@ -467,14 +467,17 @@ function initSchedulePage() {
           const isBreak = BREAK_KEYWORDS.some(kw => title.includes(kw));
           const baseClass = isBreak ? "session-break" : "session-normal";
           const sessionClass = statusClass ? `${baseClass} ${statusClass}` : baseClass;
+          const isInProgress = statusClass === "session-in-progress";
+          const badgeAfterHour = isInProgress ? ` <span class="now-badge now-badge--mobile">● ACUM</span>` : "";
+          const badgeAfterText = isInProgress ? ` <span class="now-badge now-badge--desktop">● ACUM</span>` : "";
 
           if (session.type === "break" || isBreak) {
-            sessionsHtml += `<p class="${sessionClass}"><strong>${session.time}</strong> ${session.title}</p>`;
+            sessionsHtml += `<p class="${sessionClass}"><strong>${session.time}${badgeAfterHour}</strong> ${session.title}${badgeAfterText}</p>`;
           } else {
             const description = session.speaker
               ? `${session.title} <span class="speaker">• ${session.speaker}</span>`
               : session.title;
-            sessionsHtml += `<p class="${sessionClass}"><strong>${session.time}</strong> ${description}</p>`;
+            sessionsHtml += `<p class="${sessionClass}"><strong>${session.time}${badgeAfterHour}</strong> ${description}${badgeAfterText}</p>`;
           }
         });
 

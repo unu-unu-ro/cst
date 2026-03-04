@@ -515,14 +515,31 @@ h2 {
   color: #e65100;
 }
 
-.group-section.day p.session-in-progress::after {
-  content: " ● ACUM";
+.now-badge {
   font-size: 0.72em;
   font-weight: 700;
   color: #e65100;
   letter-spacing: 0.5px;
   vertical-align: middle;
   animation: blink-dot 1.6s ease-in-out infinite;
+}
+
+/* Mobile (≤600px): show badge inside strong (after hour), hide badge after text */
+.now-badge--mobile {
+  display: inline;
+}
+.now-badge--desktop {
+  display: none;
+}
+
+/* Above 600px: strong is inline-block — hide badge after hour, show badge after text */
+@media (min-width: 601px) {
+  .now-badge--mobile {
+    display: none;
+  }
+  .now-badge--desktop {
+    display: inline;
+  }
 }
 
 @keyframes pulse-in-progress {
@@ -862,6 +879,26 @@ h2 {
   .group-section.day p strong {
     font-size: 9pt;
     min-width: 45px; /* Condense time column */
+  }
+
+  /* Reset session status styles for print */
+  .group-section.day p.session-past {
+    border-left-color: #666 !important;
+  }
+
+  .group-section.day p.session-past strong {
+    color: black !important;
+  }
+
+  .group-section.day p.session-in-progress {
+    border-left-color: #666 !important;
+    background: white !important;
+    box-shadow: none !important;
+    animation: none !important;
+  }
+
+  .now-badge {
+    display: none !important;
   }
 
   /* Footer for Print - Compact */
