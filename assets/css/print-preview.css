@@ -154,6 +154,7 @@ body {
   body {
     font-size: 10pt;
     line-height: 1.3;
+    padding: 0;
   }
   .toolbar {
     display: none;
