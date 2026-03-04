@@ -426,7 +426,7 @@ function getSessionStatus(now, dayStr, timeStr, nextDayStr, nextTimeStr) {
 
 /**
  * Schedule Page Logic
- * Fetches data/orar.json
+ * Fetches data/orar.json once, then re-renders automatically at each session boundary.
  */
 function initSchedulePage() {
   const container = document.getElementById("schedule-container");
@@ -438,60 +438,92 @@ function initSchedulePage() {
         container.innerHTML = "<p>Programul nu este disponibil (fișierul de date este gol).</p>";
         return;
       }
-
-      container.innerHTML = "";
-
-      const now = new Date();
-
-      data.schedule.forEach((day, dayIndex) => {
-        const dayDiv = document.createElement("div");
-        dayDiv.className = "group-section day";
-
-        let sessionsHtml = "";
-
-        day.sessions.forEach((session, sessionIndex) => {
-          // Determine next session (across days)
-          let nextDayStr = null;
-          let nextTimeStr = null;
-          if (sessionIndex + 1 < day.sessions.length) {
-            nextDayStr = day.day;
-            nextTimeStr = day.sessions[sessionIndex + 1].time;
-          } else if (dayIndex + 1 < data.schedule.length) {
-            nextDayStr = data.schedule[dayIndex + 1].day;
-            nextTimeStr = data.schedule[dayIndex + 1].sessions[0].time;
-          }
-
-          const statusClass = getSessionStatus(now, day.day, session.time, nextDayStr, nextTimeStr);
-
-          const title = session.title.toLowerCase();
-          const isBreak = BREAK_KEYWORDS.some(kw => title.includes(kw));
-          const baseClass = isBreak ? "session-break" : "session-normal";
-          const sessionClass = statusClass ? `${baseClass} ${statusClass}` : baseClass;
-          const isInProgress = statusClass === "session-in-progress";
-          const badgeAfterHour = isInProgress ? ` <span class="now-badge now-badge--mobile">● ACUM</span>` : "";
-          const badgeAfterText = isInProgress ? ` <span class="now-badge now-badge--desktop">● ACUM</span>` : "";
-
-          if (session.type === "break" || isBreak) {
-            sessionsHtml += `<p class="${sessionClass}"><strong>${session.time}${badgeAfterHour}</strong> ${session.title}${badgeAfterText}</p>`;
-          } else {
-            const description = session.speaker
-              ? `${session.title} <span class="speaker">• ${session.speaker}</span>`
-              : session.title;
-            sessionsHtml += `<p class="${sessionClass}"><strong>${session.time}${badgeAfterHour}</strong> ${description}${badgeAfterText}</p>`;
-          }
-        });
-
-        dayDiv.innerHTML = `
-                    <div class="group-header">${day.day}</div>
-                    <div class="sessions-list">
-                        ${sessionsHtml}
-                    </div>
-                `;
-        container.appendChild(dayDiv);
-      });
+      renderSchedule(container, data);
     })
     .catch(err => {
       console.error(err);
       container.innerHTML = "<p>Eroare la încărcarea programului.</p>";
     });
+}
+
+let _scheduleTimer = null;
+
+/**
+ * Render the schedule and set a timer to re-render at the next session boundary.
+ */
+function renderSchedule(container, data) {
+  if (_scheduleTimer !== null) {
+    clearTimeout(_scheduleTimer);
+    _scheduleTimer = null;
+  }
+
+  container.innerHTML = "";
+  const now = new Date();
+
+  // Collect all session start DateTimes across all days
+  const allBoundaries = [];
+  data.schedule.forEach((day, dayIndex) => {
+    day.sessions.forEach((session, sessionIndex) => {
+      const dt = getSessionDateTime(day.day, session.time);
+      if (dt) allBoundaries.push(dt);
+    });
+  });
+
+  // Find the next boundary strictly in the future
+  const nextBoundary = allBoundaries.filter(dt => dt > now).sort((a, b) => a - b)[0];
+
+  if (nextBoundary) {
+    const msUntilNext = nextBoundary.getTime() - now.getTime() + 500; // +0.5s buffer
+    console.log(
+      `[schedule] next refresh in ${Math.round(msUntilNext / 1000)}s at ${nextBoundary.toLocaleTimeString()}`
+    );
+    _scheduleTimer = setTimeout(() => renderSchedule(container, data), msUntilNext);
+  }
+
+  data.schedule.forEach((day, dayIndex) => {
+    const dayDiv = document.createElement("div");
+    dayDiv.className = "group-section day";
+
+    let sessionsHtml = "";
+
+    day.sessions.forEach((session, sessionIndex) => {
+      // Determine next session (across days)
+      let nextDayStr = null;
+      let nextTimeStr = null;
+      if (sessionIndex + 1 < day.sessions.length) {
+        nextDayStr = day.day;
+        nextTimeStr = day.sessions[sessionIndex + 1].time;
+      } else if (dayIndex + 1 < data.schedule.length) {
+        nextDayStr = data.schedule[dayIndex + 1].day;
+        nextTimeStr = data.schedule[dayIndex + 1].sessions[0].time;
+      }
+
+      const statusClass = getSessionStatus(now, day.day, session.time, nextDayStr, nextTimeStr);
+
+      const title = session.title.toLowerCase();
+      const isBreak = BREAK_KEYWORDS.some(kw => title.includes(kw));
+      const baseClass = isBreak ? "session-break" : "session-normal";
+      const sessionClass = statusClass ? `${baseClass} ${statusClass}` : baseClass;
+      const isInProgress = statusClass === "session-in-progress";
+      const badgeAfterHour = isInProgress ? ` <span class="now-badge now-badge--mobile">● ACUM</span>` : "";
+      const badgeAfterText = isInProgress ? ` <span class="now-badge now-badge--desktop">● ACUM</span>` : "";
+
+      if (session.type === "break" || isBreak) {
+        sessionsHtml += `<p class="${sessionClass}"><strong>${session.time}${badgeAfterHour}</strong> ${session.title}${badgeAfterText}</p>`;
+      } else {
+        const description = session.speaker
+          ? `${session.title} <span class="speaker">• ${session.speaker}</span>`
+          : session.title;
+        sessionsHtml += `<p class="${sessionClass}"><strong>${session.time}${badgeAfterHour}</strong> ${description}${badgeAfterText}</p>`;
+      }
+    });
+
+    dayDiv.innerHTML = `
+                    <div class="group-header">${day.day}</div>
+                    <div class="sessions-list">
+                        ${sessionsHtml}
+                    </div>
+                `;
+    container.appendChild(dayDiv);
+  });
 }
