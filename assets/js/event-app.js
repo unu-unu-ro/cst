@@ -439,6 +439,18 @@ function initSchedulePage() {
         return;
       }
       renderSchedule(container, data);
+
+      // Re-render when the tab becomes visible again (timer may have been throttled/paused)
+      document.addEventListener("visibilitychange", () => {
+        if (document.visibilityState === "visible") {
+          renderSchedule(container, data);
+        }
+      });
+
+      // Also re-render when the window regains focus (e.g. switching back from another app)
+      window.addEventListener("focus", () => {
+        renderSchedule(container, data);
+      });
     })
     .catch(err => {
       console.error(err);
