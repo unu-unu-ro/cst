@@ -5,6 +5,7 @@
   margin: 1.5cm;
   size: A4 portrait;
 }
+
 body {
   max-width: var(--max-width);
   font-family: Arial, sans-serif;
@@ -14,6 +15,7 @@ body {
   padding: 0;
   font-size: 11pt;
 }
+
 .header {
   text-align: center;
   margin-bottom: 1.5rem;
@@ -24,7 +26,7 @@ body {
   color: #2a3f54;
   font-size: 1.4rem;
   margin: 0 0 0.3rem 0;
-  text-transform: uppercase;
+  font-variant-caps: small-caps;
   letter-spacing: 0.5px;
 }
 .header p {
@@ -120,13 +122,14 @@ body {
   padding: 1.5rem;
 }
 .toolbar {
-  position: fixed;
-  top: 1rem;
-  right: 1rem;
   display: flex;
   gap: 0.5rem;
-  z-index: 100;
+  margin-bottom: 1.5rem;
 }
+.tfill {
+  flex: 1;
+}
+
 .toolbar button {
   padding: 0.5rem 1.2rem;
   border: none;
@@ -149,6 +152,39 @@ body {
 .btn-back:hover {
   background: #d3d8de;
 }
+
+/* === === === === === === */
+/* === ===  THEMES === === */
+/* === === === === === === */
+.theme-black .question-label {
+  color: #555;
+}
+#toggle-themes.theme-black {
+  color: #2a3f54;
+}
+#toggle-themes.theme-black:hover {
+  color: #1e2e3d;
+}
+.theme-red .question-label {
+  color: #c00000;
+}
+.theme-red .step h3 {
+  color: #c00000;
+  border-bottom-color: #c00000;
+}
+.theme-red .header h1 {
+  color: #c00000;
+}
+.theme-red .answer {
+  background: transparent;
+}
+#toggle-themes.theme-red {
+  color: #c00000;
+}
+#toggle-themes.theme-red:hover {
+  color: #a00000;
+}
+/* === === === === === === */
 
 @media print {
   body {
