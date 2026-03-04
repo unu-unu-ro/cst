@@ -1,6 +1,6 @@
 [
   {
-    "name": "Andrei Canta ",
+    "name": "Andrei Canta",
     "role": "Participant",
     "group": "Iosua Faur",
     "text1": "Amos 2:4-16",
@@ -10,7 +10,7 @@
     "name": "Cristian Craciun",
     "role": "Participant",
     "group": "Daniel Suciu",
-    "text1": "Amos 1:1 – 2:3",
+    "text1": "Amos 1:1-2:3",
     "text2": "Amos 5:1-17"
   },
   {
@@ -18,17 +18,17 @@
     "role": "Participant",
     "group": "Daniel Suciu",
     "text1": "Amos 4:1-5",
-    "text2": "Amos 7:1 – 8:3"
+    "text2": "Amos 7:1-8:3"
   },
   {
     "name": "Beniamin Obrete",
     "role": "Participant",
-    "group": "Florin Mureşan",
-    "text1": "Amos 1:1 – 2:3",
+    "group": "Florin Mureșan",
+    "text1": "Amos 1:1-2:3",
     "text2": "Amos 5:1-17"
   },
   {
-    "name": "Mihai Kollar ",
+    "name": "Mihai Kollar",
     "role": "Participant",
     "group": "Daniel Suciu",
     "text1": "Amos 4:6-13",
@@ -37,12 +37,12 @@
   {
     "name": "Ovidiu Chis",
     "role": "Ucenic",
-    "group": "Florin Mureşan",
+    "group": "Florin Mureșan",
     "text1": "Amos 4:6-13",
     "text2": "Amos 9:1-10"
   },
   {
-    "name": "Daniel Suciu ",
+    "name": "Daniel Suciu",
     "role": "Lider",
     "group": "Daniel Suciu",
     "text1": "",
@@ -53,10 +53,10 @@
     "role": "Participant",
     "group": "Ben O'Toole",
     "text1": "Amos 4:1-5",
-    "text2": "Amos 7:1 – 8:3"
+    "text2": "Amos 7:1-8:3"
   },
   {
-    "name": "Mitraș Dudaș ",
+    "name": "Mitraș Dudaș",
     "role": "Lider",
     "group": "Mitraș Dudaș",
     "text1": "",
@@ -67,7 +67,7 @@
     "role": "Participant",
     "group": "Ben O'Toole",
     "text1": "Amos 4:1-5",
-    "text2": "Amos 7:1 – 8:3"
+    "text2": "Amos 7:1-8:3"
   },
   {
     "name": "Flavius Coman",
@@ -88,13 +88,13 @@
     "role": "Participant",
     "group": "Daniel Suciu",
     "text1": "Amos 4:1-5",
-    "text2": "Amos 7:1 – 8:3"
+    "text2": "Amos 7:1-8:3"
   },
   {
     "name": "David Traian",
     "role": "Participant",
     "group": "Daniel Suciu",
-    "text1": "Amos 1:1 – 2:3",
+    "text1": "Amos 1:1-2:3",
     "text2": "Amos 5:1-17"
   },
   {
@@ -108,13 +108,13 @@
     "name": "Nicolae Matei",
     "role": "Participant",
     "group": "Daniel Lacatoș",
-    "text1": "Amos 1:1 – 2:3",
+    "text1": "Amos 1:1-2:3",
     "text2": "Amos 5:1-17"
   },
   {
-    "name": "Florin Muresan",
+    "name": "Florin Mureșan",
     "role": "Lider",
-    "group": "Florin Mureşan",
+    "group": "Florin Mureșan",
     "text1": "",
     "text2": ""
   },
@@ -130,26 +130,26 @@
     "role": "Participant",
     "group": "Mitraș Dudaș",
     "text1": "Amos 4:1-5",
-    "text2": "Amos 7:1 – 8:3"
+    "text2": "Amos 7:1-8:3"
   },
   {
     "name": "Hot Călin",
     "role": "Participant",
     "group": "Daniel Lacatoș",
     "text1": "Amos 4:1-5",
-    "text2": "Amos 7:1 – 8:3"
+    "text2": "Amos 7:1-8:3"
   },
   {
     "name": "Flavius Indreiu",
     "role": "Participant",
     "group": "Daniel Lacatoș",
     "text1": "Amos 4:1-5",
-    "text2": "Amos 7:1 – 8:3"
+    "text2": "Amos 7:1-8:3"
   },
   {
     "name": "Sergiu Matei",
     "role": "Participant",
-    "group": "Florin Mureşan",
+    "group": "Florin Mureșan",
     "text1": "Amos 2:4-16",
     "text2": "Amos 5:18-27"
   },
@@ -157,11 +157,11 @@
     "name": "Alexandru Ovidiu Hotea",
     "role": "Participant",
     "group": "Iosua Faur",
-    "text1": "Amos 1:1 – 2:3",
+    "text1": "Amos 1:1-2:3",
     "text2": "Amos 5:1-17"
   },
   {
-    "name": "Isztojka iancu ",
+    "name": "Isztojka Iancu",
     "role": "Participant",
     "group": "Daniel Lacatoș",
     "text1": "Amos 2:4-16",
@@ -172,20 +172,20 @@
     "role": "Participant",
     "group": "Mitraș Dudaș",
     "text1": "Amos 4:1-5",
-    "text2": "Amos 7:1 – 8:3"
+    "text2": "Amos 7:1-8:3"
   },
   {
     "name": "Juncu Samuel",
     "role": "Participant",
-    "group": "Florin Mureşan",
+    "group": "Florin Mureșan",
     "text1": "Amos 4:1-5",
-    "text2": "Amos 7:1 – 8:3"
+    "text2": "Amos 7:1-8:3"
   },
   {
     "name": "Ovidiu Hanc",
     "role": "Ucenic",
     "group": "Ben O'Toole",
-    "text1": "Amos 1:1 – 2:3",
+    "text1": "Amos 1:1-2:3",
     "text2": "Amos 5:1-17"
   },
   {
@@ -193,7 +193,7 @@
     "role": "Ucenic",
     "group": "Iosua Faur",
     "text1": "Amos 4:1-5",
-    "text2": "Amos 7:1 – 8:3"
+    "text2": "Amos 7:1-8:3"
   },
   {
     "name": "Ionică Martonfi",
@@ -220,7 +220,7 @@
     "name": "Viorel Culea",
     "role": "Ucenic",
     "group": "Mitraș Dudaș",
-    "text1": "Amos 1:1 – 2:3",
+    "text1": "Amos 1:1-2:3",
     "text2": "Amos 5:1-17"
   },
   {
@@ -228,7 +228,7 @@
     "role": "Participant",
     "group": "Iosua Faur",
     "text1": "Amos 4:1-5",
-    "text2": "Amos 7:1 – 8:3"
+    "text2": "Amos 7:1-8:3"
   },
   {
     "name": "Narcis Ranghiuc ",
@@ -247,8 +247,8 @@
   {
     "name": "Ciocan Samuel",
     "role": "Participant",
-    "group": "Florin Mureşan",
-    "text1": "Amos 1:1 – 2:3",
+    "group": "Florin Mureșan",
+    "text1": "Amos 1:1-2:3",
     "text2": "Amos 5:1-17"
   },
   {
@@ -275,12 +275,12 @@
   {
     "name": "Marin Andrei",
     "role": "Participant",
-    "group": "Florin Mureşan",
+    "group": "Florin Mureșan",
     "text1": "Amos 4:6-13",
     "text2": "Amos 9:1-10"
   },
   {
-    "name": "Stana Daniel ",
+    "name": "Stana Daniel",
     "role": "Participant",
     "group": "Daniel Lacatoș",
     "text1": "Amos 4:6-13",
@@ -310,12 +310,12 @@
   {
     "name": "Țap Cristian Marius",
     "role": "Participant",
-    "group": "Florin Mureşan",
+    "group": "Florin Mureșan",
     "text1": "Amos 2:4-16",
     "text2": "Amos 5:18-27"
   },
   {
-    "name": "Magdici Valentin-Paul ",
+    "name": "Magdici Valentin-Paul",
     "role": "Participant",
     "group": "Ben O'Toole",
     "text1": "Amos 4:6-13",
@@ -325,35 +325,35 @@
     "name": "Flaviu Meseșan",
     "role": "Participant",
     "group": "Iosua Faur",
-    "text1": "Amos 1:1 – 2:3",
+    "text1": "Amos 1:1-2:3",
     "text2": "Amos 5:1-17"
   },
   {
     "name": "Apascaritei Dennis",
     "role": "Participant",
     "group": "Mitraș Dudaș",
-    "text1": "Amos 1:1 – 2:3",
+    "text1": "Amos 1:1-2:3",
     "text2": "Amos 5:1-17"
   },
   {
     "name": "Todi Croitoru",
     "role": "Ucenic",
     "group": "Daniel Lacatoș",
-    "text1": "Amos 1:1 – 2:3",
+    "text1": "Amos 1:1-2:3",
     "text2": "Amos 5:1-17"
   },
   {
     "name": "Kemeri Zsolt",
     "role": "Participant",
-    "group": "Florin Mureşan",
+    "group": "Florin Mureșan",
     "text1": "Amos 4:1-5",
-    "text2": "Amos 7:1 – 8:3"
+    "text2": "Amos 7:1-8:3"
   },
   {
     "name": "Gulfam 1",
     "role": "Participant",
     "group": "Ben O'Toole",
-    "text1": "Amos 1:1 – 2:3",
+    "text1": "Amos 1:1-2:3",
     "text2": "Amos 5:1-17"
   },
   {

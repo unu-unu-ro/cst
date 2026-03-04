@@ -359,6 +359,7 @@ h2 {
   padding: 8px 0;
   border-bottom: 1px solid #ddd;
   font-size: 0.95rem;
+  gap: 5px;
 }
 
 .participant-row:last-child {
