@@ -470,84 +470,66 @@ function getSessionStatus(now, dayStr, timeStr, nextDayStr, nextTimeStr) {
 }
 
 /**
- * Schedule Page Logic
- * Fetches data/orar.json once, then re-renders automatically at each session boundary.
+ * Pure function. Walks the schedule and returns the currently in-progress session,
+ * or null if none. The last session of a day is kept "in-progress" for 1 hour after
+ * its start time before being marked past.
+ *
+ * @param {object} data  - parsed orar.json
+ * @param {Date}   now
+ * @returns {{ key: string, day: string, time: string, title: string } | null}
  */
-function initSchedulePage() {
-  const container = document.getElementById("schedule-container");
+function getCurrentEvent(data, now) {
+  for (let dayIndex = 0; dayIndex < data.schedule.length; dayIndex++) {
+    const day = data.schedule[dayIndex];
+    for (let sessionIndex = 0; sessionIndex < day.sessions.length; sessionIndex++) {
+      const session = day.sessions[sessionIndex];
+      const start = getSessionDateTime(day.day, session.time);
+      if (!start) continue;
 
-  fetch("data/orar.json")
-    .then(res => res.json())
-    .then(data => {
-      if (!data.schedule || data.schedule.length === 0) {
-        container.innerHTML = "<p>Programul nu este disponibil (fișierul de date este gol).</p>";
-        return;
+      const isLastOfDay = sessionIndex + 1 === day.sessions.length;
+      let end;
+      if (!isLastOfDay) {
+        end = getSessionDateTime(day.day, day.sessions[sessionIndex + 1].time);
+      } else if (dayIndex + 1 < data.schedule.length) {
+        end = getSessionDateTime(data.schedule[dayIndex + 1].day, data.schedule[dayIndex + 1].sessions[0].time);
+      } else {
+        // Absolute last session of the whole schedule: 1-hour window
+        end = new Date(start.getTime() + 60 * 60 * 1000);
       }
-      renderSchedule(container, data);
 
-      // Re-render when the tab becomes visible again (timer may have been throttled/paused)
-      document.addEventListener("visibilitychange", () => {
-        if (document.visibilityState === "visible") {
-          renderSchedule(container, data);
-        }
-      });
-
-      // Also re-render when the window regains focus (e.g. switching back from another app)
-      window.addEventListener("focus", () => {
-        renderSchedule(container, data);
-      });
-    })
-    .catch(err => {
-      console.error(err);
-      container.innerHTML = "<p>Eroare la încărcarea programului.</p>";
-    });
+      if (now >= start && now < end) {
+        return {
+          key: `${day.day}|${session.time}|${session.title}`,
+          day: day.day,
+          time: session.time,
+          title: session.title
+        };
+      }
+    }
+  }
+  return null;
 }
 
-let _scheduleTimer = null;
-
 /**
- * Render the schedule and set a timer to re-render at the next session boundary.
+ * Pure function. Builds and returns the full schedule HTML string given the data and
+ * the current in-progress event (used to annotate sessions).
+ *
+ * @param {object}      data          - parsed orar.json
+ * @param {object|null} currentEvent  - result of getCurrentEvent()
+ * @param {Date}        now
+ * @returns {string}  HTML to set on the container
  */
-function renderSchedule(container, data) {
-  if (_scheduleTimer !== null) {
-    clearTimeout(_scheduleTimer);
-    _scheduleTimer = null;
-  }
-
-  container.innerHTML = "";
-  const now = new Date();
-
-  // Collect all session start DateTimes across all days
-  const allBoundaries = [];
-  data.schedule.forEach((day, dayIndex) => {
-    day.sessions.forEach((session, sessionIndex) => {
-      const dt = getSessionDateTime(day.day, session.time);
-      if (dt) allBoundaries.push(dt);
-    });
-  });
-
-  // Find the next boundary strictly in the future
-  const nextBoundary = allBoundaries.filter(dt => dt > now).sort((a, b) => a - b)[0];
-
-  if (nextBoundary) {
-    const msUntilNext = nextBoundary.getTime() - now.getTime() + 500; // +0.5s buffer
-    console.log(
-      `[schedule] next refresh in ${Math.round(msUntilNext / 1000)}s at ${nextBoundary.toLocaleTimeString()}`
-    );
-    _scheduleTimer = setTimeout(() => renderSchedule(container, data), msUntilNext);
-  }
+function buildScheduleHtml(data, currentEvent, now) {
+  let html = "";
 
   data.schedule.forEach((day, dayIndex) => {
-    const dayDiv = document.createElement("div");
-    dayDiv.className = "group-section day";
-
     let sessionsHtml = "";
 
     day.sessions.forEach((session, sessionIndex) => {
-      // Determine next session (across days)
+      const isLastOfDay = sessionIndex + 1 === day.sessions.length;
       let nextDayStr = null;
       let nextTimeStr = null;
-      if (sessionIndex + 1 < day.sessions.length) {
+      if (!isLastOfDay) {
         nextDayStr = day.day;
         nextTimeStr = day.sessions[sessionIndex + 1].time;
       } else if (dayIndex + 1 < data.schedule.length) {
@@ -556,7 +538,6 @@ function renderSchedule(container, data) {
       }
 
       const statusClass = getSessionStatus(now, day.day, session.time, nextDayStr, nextTimeStr);
-
       const title = session.title.toLowerCase();
       const isBreak = BREAK_KEYWORDS.some(kw => title.includes(kw));
       const baseClass = isBreak ? "session-break" : "session-normal";
@@ -575,12 +556,117 @@ function renderSchedule(container, data) {
       }
     });
 
-    dayDiv.innerHTML = `
-                    <div class="group-header">${day.day}</div>
-                    <div class="sessions-list">
-                        ${sessionsHtml}
-                    </div>
-                `;
-    container.appendChild(dayDiv);
+    html += `
+      <div class="group-section day">
+        <div class="group-header">${day.day}</div>
+        <div class="sessions-list">${sessionsHtml}</div>
+      </div>`;
   });
+
+  return html;
+}
+
+/**
+ * Renders the schedule into the container. Returns the current in-progress event.
+ *
+ * @param {HTMLElement} container
+ * @param {object}      data
+ * @returns {{ key: string, day: string, time: string, title: string } | null}
+ */
+function renderSchedule(container, data) {
+  const now = new Date();
+  const currentEvent = getCurrentEvent(data, now);
+
+  container.innerHTML = buildScheduleHtml(data, currentEvent, now);
+
+  // On mobile, scroll to the in-progress session after render
+  if (window.innerWidth <= 600 && currentEvent) {
+    const inProgress = container.querySelector(".session-in-progress");
+    if (inProgress) {
+      const top = inProgress.getBoundingClientRect().top + window.scrollY - 15;
+      window.scrollTo({ top, behavior: "smooth" });
+    }
+  }
+
+  return currentEvent;
+}
+
+/**
+ * Schedule Page Logic
+ * Fetches data/orar.json once, then re-renders automatically at each session boundary.
+ */
+function initSchedulePage() {
+  const container = document.getElementById("schedule-container");
+  let scheduleTimer = null;
+  let lastRenderedEvent = undefined; // undefined = never rendered
+  let lastRenderedDate = null; // date string of the last render
+
+  function scheduleNextRefresh(data) {
+    if (scheduleTimer !== null) {
+      clearTimeout(scheduleTimer);
+      scheduleTimer = null;
+    }
+    const now = new Date();
+    const allBoundaries = [];
+    data.schedule.forEach(day => {
+      day.sessions.forEach(session => {
+        const dt = getSessionDateTime(day.day, session.time);
+        if (dt) allBoundaries.push(dt);
+      });
+    });
+    const nextBoundary = allBoundaries.filter(dt => dt > now).sort((a, b) => a - b)[0];
+    if (nextBoundary) {
+      const msUntilNext = nextBoundary.getTime() - now.getTime() + 500;
+      console.log(
+        `[schedule] next refresh in ${Math.round(msUntilNext / 1000)}s at ${nextBoundary.toLocaleTimeString()}`
+      );
+      scheduleTimer = setTimeout(() => repaintIfChanged(data), msUntilNext);
+    }
+  }
+
+  function repaintIfChanged(data) {
+    const now = new Date();
+    const todayStr = now.toDateString();
+    const currentEvent = getCurrentEvent(data, now);
+    const currentKey = currentEvent ? currentEvent.key : null;
+    const lastKey = lastRenderedEvent !== undefined ? (lastRenderedEvent ? lastRenderedEvent.key : null) : undefined;
+
+    // Repaint if: never rendered, day changed, or in-progress event changed
+    const dayChanged = lastRenderedDate !== null && lastRenderedDate !== todayStr;
+    const eventChanged = lastKey === undefined || currentKey !== lastKey;
+
+    if (dayChanged || eventChanged) {
+      lastRenderedEvent = renderSchedule(container, data);
+      lastRenderedDate = todayStr;
+    }
+
+    scheduleNextRefresh(data);
+  }
+
+  fetch("data/orar.json")
+    .then(res => res.json())
+    .then(data => {
+      if (!data.schedule || data.schedule.length === 0) {
+        container.innerHTML = "<p>Programul nu este disponibil (fișierul de date este gol).</p>";
+        return;
+      }
+
+      lastRenderedEvent = renderSchedule(container, data);
+      lastRenderedDate = new Date().toDateString();
+      scheduleNextRefresh(data);
+
+      document.addEventListener("visibilitychange", () => {
+        if (document.visibilityState === "visible") {
+          repaintIfChanged(data);
+        }
+      });
+
+      window.addEventListener("focus", () => {
+        repaintIfChanged(data);
+      });
+    })
+    .catch(err => {
+      console.error(err);
+      container.innerHTML = "<p>Eroare la încărcarea programului.</p>";
+    });
 }

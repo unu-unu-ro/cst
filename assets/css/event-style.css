@@ -546,6 +546,7 @@ h2 {
   font-weight: 600;
   margin-left: 6px;
   font-style: normal;
+  white-space: nowrap;
 }
 
 /* Session status: past */
@@ -577,6 +578,7 @@ h2 {
   color: #e65100;
   letter-spacing: 0.5px;
   vertical-align: middle;
+  white-space: nowrap;
   animation: blink-dot 1.6s ease-in-out infinite;
 }
 
