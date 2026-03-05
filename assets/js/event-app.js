@@ -463,7 +463,7 @@ function getSessionStatus(now, dayStr, timeStr, nextDayStr, nextTimeStr) {
   const end =
     nextTimeStr && nextDayStr
       ? getSessionDateTime(nextDayStr, nextTimeStr)
-      : new Date(start.getTime() + 30 * 60 * 1000); // last session: 30-min fallback
+      : new Date(start.getTime() + 60 * 60 * 1000); // last session: 1-hour fallback (matches getCurrentEvent)
   if (now >= start && now < end) return "session-in-progress";
   if (now >= end) return "session-past";
   return "";
@@ -490,10 +490,9 @@ function getCurrentEvent(data, now) {
       let end;
       if (!isLastOfDay) {
         end = getSessionDateTime(day.day, day.sessions[sessionIndex + 1].time);
-      } else if (dayIndex + 1 < data.schedule.length) {
-        end = getSessionDateTime(data.schedule[dayIndex + 1].day, data.schedule[dayIndex + 1].sessions[0].time);
       } else {
-        // Absolute last session of the whole schedule: 1-hour window
+        // Last session of the day (or whole schedule): cap at 1 hour so it never
+        // bleeds into the next day's morning.
         end = new Date(start.getTime() + 60 * 60 * 1000);
       }
 
@@ -532,10 +531,9 @@ function buildScheduleHtml(data, currentEvent, now) {
       if (!isLastOfDay) {
         nextDayStr = day.day;
         nextTimeStr = day.sessions[sessionIndex + 1].time;
-      } else if (dayIndex + 1 < data.schedule.length) {
-        nextDayStr = data.schedule[dayIndex + 1].day;
-        nextTimeStr = data.schedule[dayIndex + 1].sessions[0].time;
       }
+      // If last of day, leave nextDayStr/nextTimeStr null so getSessionStatus
+      // uses its 1-hour fallback — avoids bleeding into the next day.
 
       const statusClass = getSessionStatus(now, day.day, session.time, nextDayStr, nextTimeStr);
       const title = session.title.toLowerCase();
@@ -613,6 +611,18 @@ function initSchedulePage() {
         if (dt) allBoundaries.push(dt);
       });
     });
+    // Also add start+1h for the last session of every day so the "in-progress"
+    // badge is cleared even when there are no more session-start boundaries that day.
+    data.schedule.forEach(day => {
+      if (day.sessions.length > 0) {
+        const lastSession = day.sessions[day.sessions.length - 1];
+        const lastStart = getSessionDateTime(day.day, lastSession.time);
+        if (lastStart) {
+          allBoundaries.push(new Date(lastStart.getTime() + 60 * 60 * 1000));
+        }
+      }
+    });
+
     const nextBoundary = allBoundaries.filter(dt => dt > now).sort((a, b) => a - b)[0];
     if (nextBoundary) {
       const msUntilNext = nextBoundary.getTime() - now.getTime() + 500;
