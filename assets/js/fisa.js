@@ -129,7 +129,6 @@ function validateForm() {
   });
 
   if (!isValid) {
-    showCustomAlert("Te rugăm să completezi toate câmpurile obligatorii (marcate cu *) înainte de a salva fișa PDF.");
     // Scroll to first error
     const firstError = $(".error");
     if (firstError) {
@@ -205,6 +204,41 @@ function closeCustomAlert() {
     alertBox.style.display = "none";
     alertBox.style.visibility = "hidden";
   }
+}
+
+function showCountdownToast(message, seconds, onComplete) {
+  let toast = $("#countdown-toast");
+  if (!toast) {
+    toast = document.createElement("div");
+    toast.id = "countdown-toast";
+    toast.style.cssText = `
+      position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%);
+      background: #333; color: #fff; padding: 0.85rem 1.5rem;
+      border-radius: 8px; font-size: 1rem; z-index: 9999;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.25); text-align: center;
+      transition: opacity 0.3s;
+    `;
+    document.body.appendChild(toast);
+  }
+
+  let remaining = seconds;
+  toast.style.opacity = "1";
+  toast.style.display = "block";
+  toast.textContent = `${message} ${remaining}s...`;
+
+  const interval = setInterval(() => {
+    remaining--;
+    if (remaining > 0) {
+      toast.textContent = `${message} ${remaining}s...`;
+    } else {
+      clearInterval(interval);
+      toast.style.opacity = "0";
+      setTimeout(() => {
+        toast.style.display = "none";
+      }, 300);
+      if (onComplete) onComplete();
+    }
+  }, 1000);
 }
 
 // Load JSON file and populate form
@@ -293,20 +327,40 @@ function renderSteps(steps) {
   el.innerHTML = stepsHtml;
 }
 
-function generatePDF() {
-  if (!validateForm()) {
-    return;
-  }
-
-  // Persist latest form data to localStorage so print-preview.html can read it
+function openPreview() {
   persistFormData();
-
   if (previewWindow && !previewWindow.closed) {
     previewWindow.location.reload();
     previewWindow.focus();
   } else {
     previewWindow = window.open("print-preview", "_blank");
   }
+}
+
+function generatePDF() {
+  const isValid = validateForm();
+
+  if (isValid) {
+    openPreview();
+    return;
+  }
+
+  // Form is invalid: show countdown in existing alert then open preview
+  let remaining = 6;
+  const baseMsg =
+    "Te rugăm să completezi toate câmpurile obligatorii (marcate cu *) înainte de a salva fișa PDF.<br><br><em>Preview-ul se va deschide în</em>";
+  showCustomAlert(`${baseMsg} <strong>${remaining}s</strong>...`);
+  const countInterval = setInterval(() => {
+    remaining--;
+    const msgEl = $("#custom-alert-message");
+    if (remaining > 0 && msgEl) {
+      msgEl.innerHTML = `${baseMsg} <strong>${remaining}s</strong>...`;
+    } else {
+      clearInterval(countInterval);
+      closeCustomAlert();
+      openPreview();
+    }
+  }, 1000);
 }
 
 function updatePreviewWindow(input) {
