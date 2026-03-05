@@ -579,8 +579,7 @@ function renderSchedule(container, data) {
 
   container.innerHTML = buildScheduleHtml(data, currentEvent, now);
 
-  // On mobile, scroll to the in-progress session after render
-  if (window.innerWidth <= 600 && currentEvent) {
+  if (currentEvent) {
     const inProgress = container.querySelector(".session-in-progress");
     if (inProgress) {
       const top = inProgress.getBoundingClientRect().top + window.scrollY - 15;
