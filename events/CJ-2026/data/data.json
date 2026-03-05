@@ -31,7 +31,7 @@
     },
     {
       "name": "Ghid de pregătire",
-      "url": "https://cst.unu-unu.ro/ghid",
+      "url": "../../ghid",
       "icon": "fa-solid fa-book",
       "active": true
     },
