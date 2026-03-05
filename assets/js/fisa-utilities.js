@@ -12,7 +12,7 @@ const STEPS = [
       {
         label: "a) Arată structura sub formă de secțiuni, alături de versetele aferente",
         field: "structura-sectiuni",
-        placeholder: "Ex: I. Introducere (v. 1-3), II. Dezvoltarea principală (v. 4-10), etc.",
+        placeholder: "Ex: I. Introducere (v. 1-3)\nII. Dezvoltarea principală (v. 4-10)\netc.",
         required: true,
         cls: "large"
       },
