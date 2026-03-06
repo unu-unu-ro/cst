@@ -236,6 +236,30 @@ h2 {
   margin-bottom: 2rem;
   display: flex;
   justify-content: flex-start;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.action-link {
+  display: inline-flex;
+  align-items: center;
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color 0.2s;
+  padding: 0 4px 4px;
+  border-bottom: 2px solid transparent;
+}
+
+.action-link:hover {
+  color: var(--primary-hover);
+}
+
+.action-link.selected {
+  border-bottom: 2px solid var(--primary-color);
+}
+
+.tfill {
+  flex: 1;
 }
 
 .back-link {

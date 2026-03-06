@@ -147,11 +147,45 @@ function initHandout() {
 function initLayout() {
   // Auto-inject Back Button if header-nav exists but is empty
   const headerNav = document.querySelector(".header-nav");
+  const rightActions = [
+    {
+      icon: "fa-solid fa-file-alt",
+      title: "Listă participanți",
+      url: "participanti"
+    },
+    {
+      icon: "fa-solid fa-people-group",
+      title: "Grupe de lucru",
+      url: "grupe"
+    },
+    {
+      icon: "fa-solid fa-calendar-days",
+      title: "Orar zilnic",
+      url: "orar"
+    },
+    {
+      icon: "fa-solid fa-book",
+      title: "Ghid de pregătire",
+      url: "../../ghid"
+    }
+  ];
   if (headerNav && headerNav.children.length === 0) {
     headerNav.innerHTML = `
             <a href="index" class="back-link">
                 <i class="fa-solid fa-arrow-left"></i> Înapoi
             </a>
+            <div class="tfill"></div>
+            ${rightActions
+              .map(action => {
+                const currentPath = window.location.pathname;
+                const isSelected =
+                  currentPath.endsWith("/" + action.url) || currentPath.endsWith("/" + action.url + ".html");
+                return `
+                <a href="${action.url}" class="action-link${isSelected ? " selected" : ""}" title="${action.title}">
+                    <i class="${action.icon}"></i>
+                </a>`;
+              })
+              .join("")}
         `;
   }
 
