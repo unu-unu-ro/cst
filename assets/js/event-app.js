@@ -141,13 +141,8 @@ function initHandout() {
   }
 }
 
-/**
- * Initializes common layout elements.
- */
-function initLayout() {
-  // Auto-inject Back Button if header-nav exists but is empty
-  const headerNav = document.querySelector(".header-nav");
-  const rightActions = [
+function getHeaderToolbarContent(path) {
+  const actions = [
     {
       icon: "fa-solid fa-file-alt",
       title: "Listă participanți",
@@ -169,27 +164,32 @@ function initLayout() {
       url: "../../ghid"
     }
   ];
-  if (headerNav && headerNav.children.length === 0) {
-    headerNav.innerHTML = `
-            <a href="index" class="back-link">
-                <i class="fa-solid fa-arrow-left"></i> Înapoi
-            </a>
-            <div class="tfill"></div>
-            ${rightActions
-              .map(action => {
-                const currentPath = window.location.pathname;
-                const isSelected =
-                  currentPath.endsWith("/" + action.url) || currentPath.endsWith("/" + action.url + ".html");
-                return `
-                <a href="${action.url}" class="action-link${isSelected ? " selected" : ""}" title="${action.title}">
-                    <i class="${action.icon}"></i>
-                </a>`;
-              })
-              .join("")}
-        `;
-  }
 
-  /* Print logic moved to initHandout exclusively */
+  return `
+    <a href="index" class="back-link">
+      <i class="fa-solid fa-arrow-left"></i> Înapoi
+    </a>
+    <div class="tfill"></div>
+    ${actions
+      .map(action => {
+        const isSelected = path.endsWith("/" + action.url) || path.endsWith("/" + action.url + ".html");
+        return `<a href="${action.url}" class="action-link${isSelected ? " selected" : ""}" title="${action.title}">
+          <i class="${action.icon}"></i>
+        </a>`;
+      })
+      .join("")}
+    `;
+}
+
+/**
+ * Initializes common layout elements.
+ */
+function initLayout() {
+  const headerNav = document.querySelector(".header-nav");
+
+  if (headerNav && headerNav.children.length === 0) {
+    headerNav.innerHTML = getHeaderToolbarContent(window.location.pathname);
+  }
 }
 
 /**
@@ -255,11 +255,11 @@ function initHomePage() {
     footer.className = "hub-footer";
     const year = new Date().getFullYear();
     footer.innerHTML = `
-            <a href="../../index">← Înapoi la Hub</a>
-            <div style="font-size: 0.8rem; margin-top: 0.5rem; opacity: 0.7;">
-                &copy; ${year} CST Biserica Unu-Unu, Cluj Napoca 🤍
-            </div>
-        `;
+      <a href="../../">← Înapoi la Hub</a>
+      <div style="font-size: 0.8rem; margin-top: 0.5rem; opacity: 0.7;">
+          &copy; ${year} CST Biserica Unu-Unu, Cluj Napoca 🤍
+      </div>
+    `;
     container.appendChild(footer);
   }
 }
