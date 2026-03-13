@@ -257,7 +257,7 @@ function initHomePage() {
     footer.innerHTML = `
       <a href="../../">← Înapoi la Hub</a>
       <div style="font-size: 0.8rem; margin-top: 0.5rem; opacity: 0.7;">
-          &copy; ${year} CST Biserica Unu-Unu, Cluj Napoca 🤍
+          &copy; ${year} Ateliere de predicare expozitivă
       </div>
     `;
     container.appendChild(footer);

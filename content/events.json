@@ -5,13 +5,20 @@
     "buttonText": "Vezi detalii și înscriere",
     "buttonLink": "events/CJ-2026",
     "startDate": "2026-03-04T14:00:00",
+    "endDate": "2026-03-06T18:00:00",
     "alertFromDate": "2026-01-01T00:00:00",
-    "alertToDate": "2026-03-06T23:59:59"
+    "alertToDate": "2026-03-06T23:59:59",
+    "location": "Cluj-Napoca",
+    "type": "atelier"
   },
   {
     "title": "CST Brăila 2026",
     "description": "Alăturați-vă nouă în perioada 11-13 martie 2026 pentru atelierul de predicare expozitivă. Contact fauriosua@gmail.com",
     "buttonText": "Înregistrează-te",
-    "buttonLink": "mailto:fauriosua@gmail.com?subject=Inscriere%20seminar%20CST%20Braila%202026"
+    "buttonLink": "mailto:fauriosua@gmail.com?subject=Inscriere%20seminar%20CST%20Braila%202026",
+    "startDate": "2026-03-10T14:00:00",
+    "endDate": "2026-03-12T18:00:00",
+    "location": "Brăila",
+    "type": "atelier"
   }
 ]

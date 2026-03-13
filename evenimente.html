@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Resurse Suplimentare — Ateliere de predicare expozitivă</title>
+    <title>Evenimente — Ateliere de predicare expozitivă</title>
     <link
       href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@500;700&family=Work+Sans:wght@300;400;600&display=swap"
       rel="stylesheet"
@@ -23,16 +23,35 @@
       <button class="nav-toggle" aria-label="Meniu" aria-expanded="false">☰</button>
       <ul>
         <li><a href="index" class="nav-link">Acasă</a></li>
-        <li><a href="despre" class="nav-link">Despre</a></li>
-        <li><a href="evenimente" class="nav-link">Evenimente</a></li>
-        <li><a href="resurse" class="nav-link active">Resurse</a></li>
+        <li><a href="despre" class="nav-link">Despre </a></li>
+        <li><a href="evenimente" class="nav-link active">Evenimente</a></li>
+        <li><a href="resurse" class="nav-link">Resurse</a></li>
         <li><a href="contact" class="nav-link">Contact</a></li>
       </ul>
     </nav>
 
-    <main></main>
+    <main>
+      <section class="events-page">
+        <h2 class="section-title">Evenimente</h2>
+        <p class="events-intro">
+          Atelierele de predicare expozitivă se organizează de două ori pe an, în diferite orașe din România. Mai jos
+          găsești evenimentele viitoare la care te poți înscrie, precum și un istoric al atelierelor trecute.
+        </p>
+        <div id="eventsContainer">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+    </main>
 
     <footer>&copy; <span class="current-year"></span> Ateliere de predicare expozitivă</footer>
     <script src="assets/js/script.js"></script>
+    <script src="assets/js/evenimente.js"></script>
+    <!-- Cloudflare Web Analytics -->
+    <script
+      defer
+      src="https://static.cloudflareinsights.com/beacon.min.js"
+      data-cf-beacon='{"token": "b3a395f944cc4e03883c6c1ee74ef470"}'
+    ></script>
+    <!-- End Cloudflare Web Analytics -->
   </body>
 </html>

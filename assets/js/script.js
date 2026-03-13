@@ -1,8 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const tabs = document.querySelectorAll(".tab-link");
-  const tabContents = document.querySelectorAll(".tab-content");
-  const eventsGrid = document.querySelector("#events .card-grid");
-  const resourcesGrid = document.querySelector("#resources .card-grid");
+  // Resource cards grid (homepage or any page with #resourcesGrid)
+  const resourcesGrid = document.getElementById("resourcesGrid");
 
   // Function to create a card element
   function createCard(item) {
@@ -14,13 +12,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const description = document.createElement("p");
     description.textContent = item.description;
-    description.setAttribute("title", item.description); // Add full description as a tooltip
+    description.setAttribute("title", item.description);
 
-    // Check if text is truncated and add class if so
-    // This check is a bit basic and might need refinement for perfect accuracy across all browsers/scenarios
-    // It relies on the height of the content vs the scrollable height
     requestAnimationFrame(() => {
-      // Use requestAnimationFrame to ensure styles are applied
       if (description.scrollHeight > description.clientHeight) {
         description.classList.add("truncated");
       }
@@ -46,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const items = await response.json();
-      gridElement.innerHTML = ""; // Clear existing content
+      gridElement.innerHTML = "";
       items.forEach(item => {
         const cardElement = createCard(item);
         gridElement.appendChild(cardElement);
@@ -72,59 +66,30 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Load initial content if grids exist
-  if (eventsGrid) loadContent("events.json", eventsGrid);
   if (resourcesGrid) loadContent("resources.json", resourcesGrid);
 
-  // Function to activate tab by ID
-  function activateTab(tabId) {
-    // Remove active class from all tabs and content
-    tabs.forEach(t => t.classList.remove("active"));
-    tabContents.forEach(tc => tc.classList.remove("active"));
-
-    // Find the tab that targets this ID
-    const activeTab = document.querySelector(`.tab-link[data-target="${tabId}"]`);
-    if (activeTab) {
-      activeTab.classList.add("active");
-    }
-
-    // Add active class to the corresponding content
-    const targetContent = document.getElementById(tabId);
-    if (targetContent) {
-      targetContent.classList.add("active");
-    }
-  }
-
-  // Handle URL Hash on Load
-  const hash = window.location.hash.substring(1); // Remove '#'
-  if (hash) {
-    activateTab(hash);
-  }
-
-  tabs.forEach(tab => {
-    tab.addEventListener("click", event => {
-      event.preventDefault(); // Prevent default anchor behavior
-
-      const targetId = tab.dataset.target;
-      activateTab(targetId);
-
-      // Update URL Hash without scrolling
-      history.pushState(null, null, `#${targetId}`);
-    });
-  });
-
-  // Back to Content Start button functionality
-  const backToContentStartBtn = document.getElementById("backToContentStartBtn");
-  const mainContentStartElement = document.getElementById("cuprins"); // For ghid.html
-
-  // Sticky Navigation Logic
+  // Sticky Navigation Logic (works for site-nav)
   const header = document.querySelector("header");
-  const nav = document.querySelector(".tab-nav");
+  const nav = document.querySelector(".site-nav") || document.querySelector(".tab-nav");
   const mainContent = document.querySelector("main");
 
   // Set Current Year
   document.querySelectorAll(".current-year").forEach(el => {
     el.textContent = new Date().getFullYear();
   });
+
+  // Handle hash scrolling (e.g., index#contact)
+  const hash = window.location.hash.substring(1);
+  if (hash) {
+    const target = document.getElementById(hash);
+    if (target) {
+      setTimeout(() => target.scrollIntoView({ behavior: "smooth" }), 300);
+    }
+  }
+
+  // Back to Content Start button functionality
+  const backToContentStartBtn = document.getElementById("backToContentStartBtn");
+  const mainContentStartElement = document.getElementById("cuprins"); // For ghid.html
 
   if (nav && mainContent) {
     const navHeight = nav.offsetHeight;
@@ -158,6 +123,26 @@ document.addEventListener("DOMContentLoaded", () => {
           mainContent.classList.remove("main-content-padded");
         }
       }
+    });
+  }
+
+  // Mobile nav toggle
+  const navToggle = document.querySelector(".nav-toggle");
+  const navList = document.querySelector(".site-nav ul");
+  if (navToggle && navList) {
+    navToggle.addEventListener("click", () => {
+      const isOpen = navList.classList.toggle("nav-open");
+      navToggle.setAttribute("aria-expanded", isOpen);
+      navToggle.textContent = isOpen ? "\u2715" : "\u2630";
+    });
+
+    // Close menu when a link is tapped
+    navList.querySelectorAll(".nav-link").forEach(link => {
+      link.addEventListener("click", () => {
+        navList.classList.remove("nav-open");
+        navToggle.setAttribute("aria-expanded", "false");
+        navToggle.textContent = "\u2630";
+      });
     });
   }
 
@@ -280,6 +265,37 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Evaluate on load
   checkEventAlerts();
+
+  // Scripture verse rotation
+  const scriptureVerses = document.querySelectorAll(".scripture-verse");
+  const scriptureDots = document.querySelector(".scripture-dots");
+  if (scriptureVerses.length > 1 && scriptureDots) {
+    let currentVerse = 0;
+
+    // Create dot indicators
+    scriptureVerses.forEach((_, i) => {
+      const dot = document.createElement("button");
+      dot.classList.add("scripture-dot");
+      dot.setAttribute("aria-label", `Verset ${i + 1}`);
+      if (i === 0) dot.classList.add("active");
+      dot.addEventListener("click", () => showVerse(i));
+      scriptureDots.appendChild(dot);
+    });
+
+    const dots = scriptureDots.querySelectorAll(".scripture-dot");
+
+    function showVerse(index) {
+      scriptureVerses[currentVerse].classList.remove("active");
+      dots[currentVerse].classList.remove("active");
+      currentVerse = index;
+      scriptureVerses[currentVerse].classList.add("active");
+      dots[currentVerse].classList.add("active");
+    }
+
+    setInterval(() => {
+      showVerse((currentVerse + 1) % scriptureVerses.length);
+    }, 8000);
+  }
 });
 
 // Resource Page Logic
@@ -290,7 +306,7 @@ if (window.location.pathname.includes("resurse")) {
 
     async function loadSupplementaryResources() {
       try {
-        const response = await fetch("content/supplementary_resources.json");
+        const response = await fetch("content/resources.json");
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }

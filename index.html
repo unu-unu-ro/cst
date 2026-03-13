@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ro">
   <head>
     <meta charset="UTF-8" />
@@ -12,7 +12,6 @@
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
   </head>
   <body>
-    <a href="index.html" class="header-link">
     <a href="index" class="header-link">
       <header>
         <h1>Ateliere de predicare expozitivă</h1>
@@ -20,55 +19,75 @@
       </header>
     </a>
 
-    <nav class="tab-nav">
+    <nav class="site-nav">
+      <button class="nav-toggle" aria-label="Meniu" aria-expanded="false">☰</button>
       <ul>
-        <li><a href="#resources" class="tab-link active" data-target="resources">Resurse</a></li>
-        <li><a href="#events" class="tab-link" data-target="events">Evenimente</a></li>
-        <li><a href="#contact" class="tab-link" data-target="contact">Contact</a></li>
+        <li><a href="index" class="nav-link active">Acasă</a></li>
+        <li><a href="despre" class="nav-link">Despre</a></li>
+        <li><a href="evenimente" class="nav-link">Evenimente</a></li>
+        <li><a href="resurse" class="nav-link">Resurse</a></li>
+        <li><a href="contact" class="nav-link">Contact</a></li>
       </ul>
     </nav>
 
     <main>
       <!-- Conference banner shown during alert window -->
-      <div class="conference-banner" id="conferenceBanner" style="display: none;" role="status" aria-live="polite">
+      <div class="conference-banner" id="conferenceBanner" style="display: none" role="status" aria-live="polite">
         <span id="conferenceText"></span>
         <a href="#" id="conferenceLink">vezi detalii</a>
       </div>
-      <section id="resources" class="tab-content active">
-        <h2 class="section-title visually-hidden">Resurse</h2>
-        <div class="card-grid">
-          <!-- Conținutul cardului va fi încărcat din resources.json -->
-        </div>
-      </section>
-      <section id="events" class="tab-content">
-        <h2 class="section-title visually-hidden">Evenimente Viitoare</h2>
-        <div class="card-grid">
-          <!-- Conținutul cardului va fi încărcat din events.json -->
-        </div>
-      </section>
-      <section id="contact" class="tab-content">
-        <h2 class="section-title visually-hidden">Contact</h2>
-        <div class="card-grid">
-          <section class="form-container">
-            <h2 class="section-title">Trimite-ne un mesaj</h2>
-            <iframe
-              src="https://tally.so/embed/3Xya8g?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
-              width="100%"
-              height="500"
-              frameborder="0"
-              marginheight="0"
-              marginwidth="0"
-              title="Formular de contact"
-            >
-            </iframe>
-          </section>
+
+      <!-- Hero intro section -->
+      <section class="home-intro">
+        <h2 class="section-title">Predicare mai bună pretutindeni</h2>
+        <p>
+          <a href="https://simeontrust.org" target="_blank" rel="noopener noreferrer">Charles Simeon Trust</a>
+          a fost fondat pentru a promova creșterea Evangheliei lui Isus Cristos în întreaga lume prin formarea
+          următoarei generații de predicatori expozitivi. Scopul atelierelor este de a crește încrederea și abilitatea
+          fiecărui participant de a mânui corect Cuvântul lui Dumnezeu.
+        </p>
+        <p>
+          Organizăm aceste ateliere în România în parteneriat cu Charles Simeon Trust, folosind integral metoda și
+          materialele lor. Dorim ca fiecare participant să plece convins că Cuvântul lui Dumnezeu este puternic și
+          dornic să-l predea oamenilor săi.
+        </p>
+        <div class="home-cta-buttons">
+          <a href="despre" class="btn">Află mai multe</a>
+          <a href="evenimente" class="btn btn-secondary">Vezi evenimentele</a>
         </div>
       </section>
     </main>
 
-    <!-- Floating casting button removed per request -->
+    <!-- Parallax Scripture Banner -->
+    <section class="scripture-parallax">
+      <div class="scripture-overlay"></div>
+      <div class="scripture-content">
+        <div class="scripture-verse active">
+          <blockquote>
+            „Pune-ți pe inimă aceste lucruri, dedă-te în totul la ele, pentru ca înaintarea ta să fie văzută de
+            toți."
+          </blockquote>
+          <cite>1 Timotei 4:15</cite>
+        </div>
+        <div class="scripture-verse">
+          <blockquote>
+            „Pe El Îl propovăduim noi, și sfătuim pe orice om, și învățăm pe orice om în toată înțelepciunea, ca să
+            înfățișăm pe orice om desăvârșit în Cristos Isus."
+          </blockquote>
+          <cite>Coloseni 1:28</cite>
+        </div>
+        <div class="scripture-verse">
+          <blockquote>
+            „Toată Scriptura este insuflată de Dumnezeu și de folos ca să învețe, să mustre, să îndrepte, să dea
+            înțelepciune în neprihănire."
+          </blockquote>
+          <cite>2 Timotei 3:16</cite>
+        </div>
+        <div class="scripture-dots"></div>
+      </div>
+    </section>
 
-    <footer>&copy; <span class="current-year"></span> CST Biserica Unu-Unu, Cluj Napoca 🤍</footer>
+    <footer>&copy; <span class="current-year"></span> Ateliere de predicare expozitivă</footer>
     <script src="assets/js/script.js"></script>
     <!-- Cloudflare Web Analytics -->
     <script
