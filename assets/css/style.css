@@ -1147,7 +1147,9 @@ footer {
   border: none;
   padding: 0;
   cursor: pointer;
-  transition: background 0.3s ease, transform 0.3s ease;
+  transition:
+    background 0.3s ease,
+    transform 0.3s ease;
 }
 
 .scripture-dot.active {
