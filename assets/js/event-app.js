@@ -12,7 +12,9 @@ const eventBasePath = (() => {
   const match = window.location.pathname.match(/\/events\/[^/]+/);
   return match ? match[0] + "/" : "";
 })();
-function dataPath(file) { return eventBasePath + "data/" + file; }
+function dataPath(file) {
+  return eventBasePath + "data/" + file;
+}
 
 document.addEventListener("DOMContentLoaded", () => {
   // 1. Common Layout & Utilities
@@ -141,7 +143,7 @@ function initHandout() {
             <div class="page-break"></div>
             <div class="feedback-content" style="height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
                 <h1 style="font-size: 32pt; margin-bottom: 50px;">Formular feedback</h1>
-                <img src="data/qrevaluare.png" alt="QR Code Feedback" style="width: 300px; height: 300px; margin-bottom: 20px;">
+                <img src="${dataPath("qrevaluare.png")}" alt="QR Code Feedback" style="width: 300px; height: 300px; margin-bottom: 20px;">
                 <p style="font-size: 14pt; color: #666;">Scanează codul de mai sus pentru a ne oferi feedback-ul tău.</p>
             </div>
         `;
@@ -153,34 +155,36 @@ function getHeaderToolbarContent(path) {
     {
       icon: "fa-solid fa-file-alt",
       title: "Listă participanți",
-      url: "participanti"
+      page: "participanti"
     },
     {
       icon: "fa-solid fa-people-group",
       title: "Grupe de lucru",
-      url: "grupe"
+      page: "grupe"
     },
     {
       icon: "fa-solid fa-calendar-days",
       title: "Orar zilnic",
-      url: "orar"
+      page: "orar"
     },
     {
       icon: "fa-solid fa-book",
       title: "Ghid de pregătire",
-      url: "../../ghid"
+      page: null,
+      url: "/ghid"
     }
   ];
 
   return `
-    <a href="index" class="back-link">
+    <a href="${eventBasePath}" class="back-link">
       <i class="fa-solid fa-arrow-left"></i> Înapoi
     </a>
     <div class="tfill"></div>
     ${actions
       .map(action => {
-        const isSelected = path.endsWith("/" + action.url) || path.endsWith("/" + action.url + ".html");
-        return `<a href="${action.url}" class="action-link${isSelected ? " selected" : ""}" title="${action.title}">
+        const href = action.page ? eventBasePath + action.page : action.url;
+        const isSelected = action.page && (path.endsWith("/" + action.page) || path.endsWith("/" + action.page + ".html"));
+        return `<a href="${href}" class="action-link${isSelected ? " selected" : ""}" title="${action.title}">
           <i class="${action.icon}"></i>
         </a>`;
       })
@@ -226,7 +230,9 @@ function initHomePage() {
       linksArray.forEach(link => {
         if (link.active) {
           const linkElement = document.createElement("a");
-          linkElement.href = link.url;
+          // Resolve event-relative URLs using eventBasePath
+          const href = link.url.startsWith("http") || link.url.startsWith("/") ? link.url : eventBasePath + link.url;
+          linkElement.href = href;
           linkElement.className = "link-card";
 
           if (link.url.startsWith("http")) {
@@ -262,7 +268,7 @@ function initHomePage() {
     footer.className = "hub-footer";
     const year = new Date().getFullYear();
     footer.innerHTML = `
-      <a href="../../">← Înapoi la Hub</a>
+      <a href="/">← Înapoi la Hub</a>
       <div style="font-size: 0.8rem; margin-top: 0.5rem; opacity: 0.7;">
           &copy; ${year} Ateliere de predicare expozitivă
       </div>
