@@ -7,6 +7,13 @@
  * Usage: Include this script in all event HTML pages.
  */
 
+// Compute absolute path to event data files, works regardless of trailing slashes
+const eventBasePath = (() => {
+  const match = window.location.pathname.match(/\/events\/[^/]+/);
+  return match ? match[0] + "/" : "";
+})();
+function dataPath(file) { return eventBasePath + "data/" + file; }
+
 document.addEventListener("DOMContentLoaded", () => {
   // 1. Common Layout & Utilities
   initLayout();
@@ -34,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function initHandout() {
   // 1. Fetch Event Info for Title and Cover
-  fetch("data/data.json")
+  fetch(dataPath("data.json"))
     .then(res => res.json())
     .then(data => {
       const event = data.event || {};
@@ -88,7 +95,7 @@ function initHandout() {
   // 3. Generate Note Pages based on Schedule
   const notesContainer = document.getElementById("notes-container");
   if (notesContainer) {
-    fetch("data/orar.json")
+    fetch(dataPath("orar.json"))
       .then(res => res.json())
       .then(data => {
         notesContainer.innerHTML = "";
@@ -202,7 +209,7 @@ function initHomePage() {
   const subtitleElement = document.getElementById("event-subtitle");
   const detailsElement = document.getElementById("event-details");
 
-  fetch("data/data.json")
+  fetch(dataPath("data.json"))
     .then(response => response.json())
     .then(data => {
       // Populate Event Info
@@ -271,7 +278,7 @@ function initHomePage() {
 function initGroupsPage() {
   const container = document.getElementById("groups-container");
 
-  fetch("data/participants.json")
+  fetch(dataPath("participants.json"))
     .then(res => res.json())
     .then(data => {
       if (!Array.isArray(data) || data.length === 0) throw new Error("No data");
@@ -371,7 +378,7 @@ function initParticipantsPage() {
   const loading = document.getElementById("loading");
   const counterElement = document.getElementById("participant-count");
 
-  fetch("data/participants.json")
+  fetch(dataPath("participants.json"))
     .then(res => res.json())
     .then(data => {
       if (loading) loading.style.display = "none";
@@ -686,7 +693,7 @@ function initSchedulePage() {
     scheduleNextRefresh(data);
   }
 
-  fetch("data/orar.json")
+  fetch(dataPath("orar.json"))
     .then(res => res.json())
     .then(data => {
       if (!data.schedule || data.schedule.length === 0) {
